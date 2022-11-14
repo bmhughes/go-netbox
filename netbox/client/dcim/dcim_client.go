@@ -45,6 +45,24 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	DcimCableTerminationsBulkDelete(params *DcimCableTerminationsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsBulkDeleteNoContent, error)
+
+	DcimCableTerminationsBulkPartialUpdate(params *DcimCableTerminationsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsBulkPartialUpdateOK, error)
+
+	DcimCableTerminationsBulkUpdate(params *DcimCableTerminationsBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsBulkUpdateOK, error)
+
+	DcimCableTerminationsCreate(params *DcimCableTerminationsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsCreateCreated, error)
+
+	DcimCableTerminationsDelete(params *DcimCableTerminationsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsDeleteNoContent, error)
+
+	DcimCableTerminationsList(params *DcimCableTerminationsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsListOK, error)
+
+	DcimCableTerminationsPartialUpdate(params *DcimCableTerminationsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsPartialUpdateOK, error)
+
+	DcimCableTerminationsRead(params *DcimCableTerminationsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsReadOK, error)
+
+	DcimCableTerminationsUpdate(params *DcimCableTerminationsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsUpdateOK, error)
+
 	DcimCablesBulkDelete(params *DcimCablesBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCablesBulkDeleteNoContent, error)
 
 	DcimCablesBulkPartialUpdate(params *DcimCablesBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCablesBulkPartialUpdateOK, error)
@@ -770,6 +788,357 @@ type ClientService interface {
 	DcimVirtualChassisUpdate(params *DcimVirtualChassisUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimVirtualChassisUpdateOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+DcimCableTerminationsBulkDelete dcim cable terminations bulk delete API
+*/
+func (a *Client) DcimCableTerminationsBulkDelete(params *DcimCableTerminationsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsBulkDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableTerminationsBulkDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-terminations_bulk_delete",
+		Method:             "DELETE",
+		PathPattern:        "/dcim/cable-terminations/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableTerminationsBulkDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableTerminationsBulkDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_cable-terminations_bulk_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DcimCableTerminationsBulkPartialUpdate dcim cable terminations bulk partial update API
+*/
+func (a *Client) DcimCableTerminationsBulkPartialUpdate(params *DcimCableTerminationsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsBulkPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableTerminationsBulkPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-terminations_bulk_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/dcim/cable-terminations/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableTerminationsBulkPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableTerminationsBulkPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_cable-terminations_bulk_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DcimCableTerminationsBulkUpdate dcim cable terminations bulk update API
+*/
+func (a *Client) DcimCableTerminationsBulkUpdate(params *DcimCableTerminationsBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsBulkUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableTerminationsBulkUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-terminations_bulk_update",
+		Method:             "PUT",
+		PathPattern:        "/dcim/cable-terminations/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableTerminationsBulkUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableTerminationsBulkUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_cable-terminations_bulk_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DcimCableTerminationsCreate dcim cable terminations create API
+*/
+func (a *Client) DcimCableTerminationsCreate(params *DcimCableTerminationsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableTerminationsCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-terminations_create",
+		Method:             "POST",
+		PathPattern:        "/dcim/cable-terminations/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableTerminationsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableTerminationsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_cable-terminations_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DcimCableTerminationsDelete dcim cable terminations delete API
+*/
+func (a *Client) DcimCableTerminationsDelete(params *DcimCableTerminationsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableTerminationsDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-terminations_delete",
+		Method:             "DELETE",
+		PathPattern:        "/dcim/cable-terminations/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableTerminationsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableTerminationsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_cable-terminations_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DcimCableTerminationsList Overrides ListModelMixin to allow processing ExportTemplates.
+*/
+func (a *Client) DcimCableTerminationsList(params *DcimCableTerminationsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableTerminationsListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-terminations_list",
+		Method:             "GET",
+		PathPattern:        "/dcim/cable-terminations/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableTerminationsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableTerminationsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_cable-terminations_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DcimCableTerminationsPartialUpdate dcim cable terminations partial update API
+*/
+func (a *Client) DcimCableTerminationsPartialUpdate(params *DcimCableTerminationsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableTerminationsPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-terminations_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/dcim/cable-terminations/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableTerminationsPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableTerminationsPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_cable-terminations_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DcimCableTerminationsRead dcim cable terminations read API
+*/
+func (a *Client) DcimCableTerminationsRead(params *DcimCableTerminationsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableTerminationsReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-terminations_read",
+		Method:             "GET",
+		PathPattern:        "/dcim/cable-terminations/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableTerminationsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableTerminationsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_cable-terminations_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DcimCableTerminationsUpdate dcim cable terminations update API
+*/
+func (a *Client) DcimCableTerminationsUpdate(params *DcimCableTerminationsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimCableTerminationsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimCableTerminationsUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_cable-terminations_update",
+		Method:             "PUT",
+		PathPattern:        "/dcim/cable-terminations/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimCableTerminationsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimCableTerminationsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_cable-terminations_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
