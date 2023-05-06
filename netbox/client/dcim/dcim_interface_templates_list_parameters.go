@@ -77,6 +77,12 @@ DcimInterfaceTemplatesListParams contains all the parameters to send to the API 
 */
 type DcimInterfaceTemplatesListParams struct {
 
+	// BridgeID.
+	BridgeID *string
+
+	// BridgeIDn.
+	BridgeIDn *string
+
 	// Created.
 	Created *string
 
@@ -95,11 +101,17 @@ type DcimInterfaceTemplatesListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// DevicetypeID.
 	DevicetypeID *string
 
 	// DevicetypeIDn.
 	DevicetypeIDn *string
+
+	// Enabled.
+	Enabled *string
 
 	// ID.
 	ID *string
@@ -218,6 +230,9 @@ type DcimInterfaceTemplatesListParams struct {
 	// Typen.
 	Typen *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -269,6 +284,28 @@ func (o *DcimInterfaceTemplatesListParams) WithHTTPClient(client *http.Client) *
 // SetHTTPClient adds the HTTPClient to the dcim interface templates list params
 func (o *DcimInterfaceTemplatesListParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithBridgeID adds the bridgeID to the dcim interface templates list params
+func (o *DcimInterfaceTemplatesListParams) WithBridgeID(bridgeID *string) *DcimInterfaceTemplatesListParams {
+	o.SetBridgeID(bridgeID)
+	return o
+}
+
+// SetBridgeID adds the bridgeId to the dcim interface templates list params
+func (o *DcimInterfaceTemplatesListParams) SetBridgeID(bridgeID *string) {
+	o.BridgeID = bridgeID
+}
+
+// WithBridgeIDn adds the bridgeIDn to the dcim interface templates list params
+func (o *DcimInterfaceTemplatesListParams) WithBridgeIDn(bridgeIDn *string) *DcimInterfaceTemplatesListParams {
+	o.SetBridgeIDn(bridgeIDn)
+	return o
+}
+
+// SetBridgeIDn adds the bridgeIdN to the dcim interface templates list params
+func (o *DcimInterfaceTemplatesListParams) SetBridgeIDn(bridgeIDn *string) {
+	o.BridgeIDn = bridgeIDn
 }
 
 // WithCreated adds the created to the dcim interface templates list params
@@ -337,6 +374,17 @@ func (o *DcimInterfaceTemplatesListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
 }
 
+// WithCreatedByRequest adds the createdByRequest to the dcim interface templates list params
+func (o *DcimInterfaceTemplatesListParams) WithCreatedByRequest(createdByRequest *string) *DcimInterfaceTemplatesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim interface templates list params
+func (o *DcimInterfaceTemplatesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
+}
+
 // WithDevicetypeID adds the devicetypeID to the dcim interface templates list params
 func (o *DcimInterfaceTemplatesListParams) WithDevicetypeID(devicetypeID *string) *DcimInterfaceTemplatesListParams {
 	o.SetDevicetypeID(devicetypeID)
@@ -357,6 +405,17 @@ func (o *DcimInterfaceTemplatesListParams) WithDevicetypeIDn(devicetypeIDn *stri
 // SetDevicetypeIDn adds the devicetypeIdN to the dcim interface templates list params
 func (o *DcimInterfaceTemplatesListParams) SetDevicetypeIDn(devicetypeIDn *string) {
 	o.DevicetypeIDn = devicetypeIDn
+}
+
+// WithEnabled adds the enabled to the dcim interface templates list params
+func (o *DcimInterfaceTemplatesListParams) WithEnabled(enabled *string) *DcimInterfaceTemplatesListParams {
+	o.SetEnabled(enabled)
+	return o
+}
+
+// SetEnabled adds the enabled to the dcim interface templates list params
+func (o *DcimInterfaceTemplatesListParams) SetEnabled(enabled *string) {
+	o.Enabled = enabled
 }
 
 // WithID adds the id to the dcim interface templates list params
@@ -755,6 +814,17 @@ func (o *DcimInterfaceTemplatesListParams) SetTypen(typen *string) {
 	o.Typen = typen
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim interface templates list params
+func (o *DcimInterfaceTemplatesListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimInterfaceTemplatesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim interface templates list params
+func (o *DcimInterfaceTemplatesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DcimInterfaceTemplatesListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -762,6 +832,40 @@ func (o *DcimInterfaceTemplatesListParams) WriteToRequest(r runtime.ClientReques
 		return err
 	}
 	var res []error
+
+	if o.BridgeID != nil {
+
+		// query param bridge_id
+		var qrBridgeID string
+
+		if o.BridgeID != nil {
+			qrBridgeID = *o.BridgeID
+		}
+		qBridgeID := qrBridgeID
+		if qBridgeID != "" {
+
+			if err := r.SetQueryParam("bridge_id", qBridgeID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.BridgeIDn != nil {
+
+		// query param bridge_id__n
+		var qrBridgeIDn string
+
+		if o.BridgeIDn != nil {
+			qrBridgeIDn = *o.BridgeIDn
+		}
+		qBridgeIDn := qrBridgeIDn
+		if qBridgeIDn != "" {
+
+			if err := r.SetQueryParam("bridge_id__n", qBridgeIDn); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.Created != nil {
 
@@ -865,6 +969,23 @@ func (o *DcimInterfaceTemplatesListParams) WriteToRequest(r runtime.ClientReques
 		}
 	}
 
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
+				return err
+			}
+		}
+	}
+
 	if o.DevicetypeID != nil {
 
 		// query param devicetype_id
@@ -894,6 +1015,23 @@ func (o *DcimInterfaceTemplatesListParams) WriteToRequest(r runtime.ClientReques
 		if qDevicetypeIDn != "" {
 
 			if err := r.SetQueryParam("devicetype_id__n", qDevicetypeIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Enabled != nil {
+
+		// query param enabled
+		var qrEnabled string
+
+		if o.Enabled != nil {
+			qrEnabled = *o.Enabled
+		}
+		qEnabled := qrEnabled
+		if qEnabled != "" {
+
+			if err := r.SetQueryParam("enabled", qEnabled); err != nil {
 				return err
 			}
 		}
@@ -1506,6 +1644,23 @@ func (o *DcimInterfaceTemplatesListParams) WriteToRequest(r runtime.ClientReques
 		if qTypen != "" {
 
 			if err := r.SetQueryParam("type__n", qTypen); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

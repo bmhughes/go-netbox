@@ -78,6 +78,11 @@ type WritableIPRange struct {
 	// Format: date-time
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
 
+	// Mark utilized
+	//
+	// Treat as 100% utilized
+	MarkUtilized bool `json:"mark_utilized,omitempty"`
+
 	// Role
 	//
 	// The primary function of this range

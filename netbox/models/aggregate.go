@@ -72,6 +72,8 @@ type Aggregate struct {
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
 
 	// Prefix
+	//
+	// IPv4 or IPv6 network
 	// Required: true
 	Prefix *string `json:"prefix"`
 

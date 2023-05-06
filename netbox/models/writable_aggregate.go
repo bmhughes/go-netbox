@@ -72,10 +72,14 @@ type WritableAggregate struct {
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
 
 	// Prefix
+	//
+	// IPv4 or IPv6 network
 	// Required: true
 	Prefix *string `json:"prefix"`
 
 	// RIR
+	//
+	// Regional Internet Registry responsible for this IP space
 	// Required: true
 	Rir *int64 `json:"rir"`
 

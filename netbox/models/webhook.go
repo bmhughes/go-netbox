@@ -120,17 +120,27 @@ type Webhook struct {
 
 	// Type create
 	//
-	// Call this webhook when a matching object is created.
+	// Triggers when a matching object is created.
 	TypeCreate bool `json:"type_create,omitempty"`
 
 	// Type delete
 	//
-	// Call this webhook when a matching object is deleted.
+	// Triggers when a matching object is deleted.
 	TypeDelete bool `json:"type_delete,omitempty"`
+
+	// Type job end
+	//
+	// Triggers when a job for a matching object terminates.
+	TypeJobEnd bool `json:"type_job_end,omitempty"`
+
+	// Type job start
+	//
+	// Triggers when a job for a matching object is started.
+	TypeJobStart bool `json:"type_job_start,omitempty"`
 
 	// Type update
 	//
-	// Call this webhook when a matching object is updated.
+	// Triggers when a matching object is updated.
 	TypeUpdate bool `json:"type_update,omitempty"`
 
 	// Url

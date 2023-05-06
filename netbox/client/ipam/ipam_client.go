@@ -63,6 +63,28 @@ type ClientService interface {
 
 	IpamAggregatesUpdate(params *IpamAggregatesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAggregatesUpdateOK, error)
 
+	IpamAsnRangesAvailableAsnsCreate(params *IpamAsnRangesAvailableAsnsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesAvailableAsnsCreateCreated, error)
+
+	IpamAsnRangesAvailableAsnsList(params *IpamAsnRangesAvailableAsnsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesAvailableAsnsListOK, error)
+
+	IpamAsnRangesBulkDelete(params *IpamAsnRangesBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesBulkDeleteNoContent, error)
+
+	IpamAsnRangesBulkPartialUpdate(params *IpamAsnRangesBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesBulkPartialUpdateOK, error)
+
+	IpamAsnRangesBulkUpdate(params *IpamAsnRangesBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesBulkUpdateOK, error)
+
+	IpamAsnRangesCreate(params *IpamAsnRangesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesCreateCreated, error)
+
+	IpamAsnRangesDelete(params *IpamAsnRangesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesDeleteNoContent, error)
+
+	IpamAsnRangesList(params *IpamAsnRangesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesListOK, error)
+
+	IpamAsnRangesPartialUpdate(params *IpamAsnRangesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesPartialUpdateOK, error)
+
+	IpamAsnRangesRead(params *IpamAsnRangesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesReadOK, error)
+
+	IpamAsnRangesUpdate(params *IpamAsnRangesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesUpdateOK, error)
+
 	IpamAsnsBulkDelete(params *IpamAsnsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnsBulkDeleteNoContent, error)
 
 	IpamAsnsBulkPartialUpdate(params *IpamAsnsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnsBulkPartialUpdateOK, error)
@@ -718,6 +740,435 @@ func (a *Client) IpamAggregatesUpdate(params *IpamAggregatesUpdateParams, authIn
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for ipam_aggregates_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+IpamAsnRangesAvailableAsnsCreate ipam asn ranges available asns create API
+*/
+func (a *Client) IpamAsnRangesAvailableAsnsCreate(params *IpamAsnRangesAvailableAsnsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesAvailableAsnsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesAvailableAsnsCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_available-asns_create",
+		Method:             "POST",
+		PathPattern:        "/ipam/asn-ranges/{id}/available-asns/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesAvailableAsnsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesAvailableAsnsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ipam_asn-ranges_available-asns_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+IpamAsnRangesAvailableAsnsList ipam asn ranges available asns list API
+*/
+func (a *Client) IpamAsnRangesAvailableAsnsList(params *IpamAsnRangesAvailableAsnsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesAvailableAsnsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesAvailableAsnsListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_available-asns_list",
+		Method:             "GET",
+		PathPattern:        "/ipam/asn-ranges/{id}/available-asns/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesAvailableAsnsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesAvailableAsnsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ipam_asn-ranges_available-asns_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+IpamAsnRangesBulkDelete ipam asn ranges bulk delete API
+*/
+func (a *Client) IpamAsnRangesBulkDelete(params *IpamAsnRangesBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesBulkDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesBulkDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_bulk_delete",
+		Method:             "DELETE",
+		PathPattern:        "/ipam/asn-ranges/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesBulkDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesBulkDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ipam_asn-ranges_bulk_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+IpamAsnRangesBulkPartialUpdate ipam asn ranges bulk partial update API
+*/
+func (a *Client) IpamAsnRangesBulkPartialUpdate(params *IpamAsnRangesBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesBulkPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesBulkPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_bulk_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/ipam/asn-ranges/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesBulkPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesBulkPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ipam_asn-ranges_bulk_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+IpamAsnRangesBulkUpdate ipam asn ranges bulk update API
+*/
+func (a *Client) IpamAsnRangesBulkUpdate(params *IpamAsnRangesBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesBulkUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesBulkUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_bulk_update",
+		Method:             "PUT",
+		PathPattern:        "/ipam/asn-ranges/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesBulkUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesBulkUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ipam_asn-ranges_bulk_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+IpamAsnRangesCreate ipam asn ranges create API
+*/
+func (a *Client) IpamAsnRangesCreate(params *IpamAsnRangesCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_create",
+		Method:             "POST",
+		PathPattern:        "/ipam/asn-ranges/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ipam_asn-ranges_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+IpamAsnRangesDelete ipam asn ranges delete API
+*/
+func (a *Client) IpamAsnRangesDelete(params *IpamAsnRangesDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_delete",
+		Method:             "DELETE",
+		PathPattern:        "/ipam/asn-ranges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ipam_asn-ranges_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+IpamAsnRangesList ipam asn ranges list API
+*/
+func (a *Client) IpamAsnRangesList(params *IpamAsnRangesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_list",
+		Method:             "GET",
+		PathPattern:        "/ipam/asn-ranges/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ipam_asn-ranges_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+IpamAsnRangesPartialUpdate ipam asn ranges partial update API
+*/
+func (a *Client) IpamAsnRangesPartialUpdate(params *IpamAsnRangesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/ipam/asn-ranges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ipam_asn-ranges_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+IpamAsnRangesRead ipam asn ranges read API
+*/
+func (a *Client) IpamAsnRangesRead(params *IpamAsnRangesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_read",
+		Method:             "GET",
+		PathPattern:        "/ipam/asn-ranges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ipam_asn-ranges_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+IpamAsnRangesUpdate ipam asn ranges update API
+*/
+func (a *Client) IpamAsnRangesUpdate(params *IpamAsnRangesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*IpamAsnRangesUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewIpamAsnRangesUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "ipam_asn-ranges_update",
+		Method:             "PUT",
+		PathPattern:        "/ipam/asn-ranges/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &IpamAsnRangesUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*IpamAsnRangesUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for ipam_asn-ranges_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

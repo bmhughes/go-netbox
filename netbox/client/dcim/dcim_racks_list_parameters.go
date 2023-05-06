@@ -146,6 +146,9 @@ type DcimRacksListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// DescUnits.
 	DescUnits *string
 
@@ -503,6 +506,9 @@ type DcimRacksListParams struct {
 	// UHeightn.
 	UHeightn *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	// Weight.
 	Weight *string
 
@@ -837,6 +843,17 @@ func (o *DcimRacksListParams) WithCreatedn(createdn *string) *DcimRacksListParam
 // SetCreatedn adds the createdN to the dcim racks list params
 func (o *DcimRacksListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim racks list params
+func (o *DcimRacksListParams) WithCreatedByRequest(createdByRequest *string) *DcimRacksListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim racks list params
+func (o *DcimRacksListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescUnits adds the descUnits to the dcim racks list params
@@ -2115,6 +2132,17 @@ func (o *DcimRacksListParams) SetUHeightn(uHeightn *string) {
 	o.UHeightn = uHeightn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim racks list params
+func (o *DcimRacksListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimRacksListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim racks list params
+func (o *DcimRacksListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithWeight adds the weight to the dcim racks list params
 func (o *DcimRacksListParams) WithWeight(weight *string) *DcimRacksListParams {
 	o.SetWeight(weight)
@@ -2619,6 +2647,23 @@ func (o *DcimRacksListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -4591,6 +4636,23 @@ func (o *DcimRacksListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if qUHeightn != "" {
 
 			if err := r.SetQueryParam("u_height__n", qUHeightn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

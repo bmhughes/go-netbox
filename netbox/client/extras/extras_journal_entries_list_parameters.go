@@ -122,6 +122,9 @@ type ExtrasJournalEntriesListParams struct {
 	// CreatedByIDn.
 	CreatedByIDn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// ID.
 	ID *string
 
@@ -190,6 +193,9 @@ type ExtrasJournalEntriesListParams struct {
 
 	// Tagn.
 	Tagn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -407,6 +413,17 @@ func (o *ExtrasJournalEntriesListParams) WithCreatedByIDn(createdByIDn *string) 
 // SetCreatedByIDn adds the createdByIdN to the extras journal entries list params
 func (o *ExtrasJournalEntriesListParams) SetCreatedByIDn(createdByIDn *string) {
 	o.CreatedByIDn = createdByIDn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the extras journal entries list params
+func (o *ExtrasJournalEntriesListParams) WithCreatedByRequest(createdByRequest *string) *ExtrasJournalEntriesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the extras journal entries list params
+func (o *ExtrasJournalEntriesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithID adds the id to the extras journal entries list params
@@ -627,6 +644,17 @@ func (o *ExtrasJournalEntriesListParams) WithTagn(tagn *string) *ExtrasJournalEn
 // SetTagn adds the tagN to the extras journal entries list params
 func (o *ExtrasJournalEntriesListParams) SetTagn(tagn *string) {
 	o.Tagn = tagn
+}
+
+// WithUpdatedByRequest adds the updatedByRequest to the extras journal entries list params
+func (o *ExtrasJournalEntriesListParams) WithUpdatedByRequest(updatedByRequest *string) *ExtrasJournalEntriesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the extras journal entries list params
+func (o *ExtrasJournalEntriesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -887,6 +915,23 @@ func (o *ExtrasJournalEntriesListParams) WriteToRequest(r runtime.ClientRequest,
 		if qCreatedByIDn != "" {
 
 			if err := r.SetQueryParam("created_by_id__n", qCreatedByIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -1227,6 +1272,23 @@ func (o *ExtrasJournalEntriesListParams) WriteToRequest(r runtime.ClientRequest,
 		if qTagn != "" {
 
 			if err := r.SetQueryParam("tag__n", qTagn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

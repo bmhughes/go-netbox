@@ -79,6 +79,11 @@ type CustomField struct {
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
 
+	// Cloneable
+	//
+	// Replicate this value when cloning objects
+	IsCloneable bool `json:"is_cloneable,omitempty"`
+
 	// Label
 	//
 	// Name of the field as displayed to users (if not provided, the field's name will be used)
@@ -814,12 +819,12 @@ type CustomFieldType struct {
 
 	// label
 	// Required: true
-	// Enum: [Text Text (long) Integer Decimal Boolean (true/false) Date URL JSON Selection Multiple selection Object Multiple objects]
+	// Enum: [Text Text (long) Integer Decimal Boolean (true/false) Date Date & time URL JSON Selection Multiple selection Object Multiple objects]
 	Label *string `json:"label"`
 
 	// value
 	// Required: true
-	// Enum: [text longtext integer decimal boolean date url json select multiselect object multiobject]
+	// Enum: [text longtext integer decimal boolean date datetime url json select multiselect object multiobject]
 	Value *string `json:"value"`
 }
 
@@ -845,7 +850,7 @@ var customFieldTypeTypeLabelPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["Text","Text (long)","Integer","Decimal","Boolean (true/false)","Date","URL","JSON","Selection","Multiple selection","Object","Multiple objects"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["Text","Text (long)","Integer","Decimal","Boolean (true/false)","Date","Date \u0026 time","URL","JSON","Selection","Multiple selection","Object","Multiple objects"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -872,6 +877,9 @@ const (
 
 	// CustomFieldTypeLabelDate captures enum value "Date"
 	CustomFieldTypeLabelDate string = "Date"
+
+	// CustomFieldTypeLabelDateAndTime captures enum value "Date & time"
+	CustomFieldTypeLabelDateAndTime string = "Date & time"
 
 	// CustomFieldTypeLabelURL captures enum value "URL"
 	CustomFieldTypeLabelURL string = "URL"
@@ -918,7 +926,7 @@ var customFieldTypeTypeValuePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["text","longtext","integer","decimal","boolean","date","url","json","select","multiselect","object","multiobject"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["text","longtext","integer","decimal","boolean","date","datetime","url","json","select","multiselect","object","multiobject"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -945,6 +953,9 @@ const (
 
 	// CustomFieldTypeValueDate captures enum value "date"
 	CustomFieldTypeValueDate string = "date"
+
+	// CustomFieldTypeValueDatetime captures enum value "datetime"
+	CustomFieldTypeValueDatetime string = "datetime"
 
 	// CustomFieldTypeValueURL captures enum value "url"
 	CustomFieldTypeValueURL string = "url"

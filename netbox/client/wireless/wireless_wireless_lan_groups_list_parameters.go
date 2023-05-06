@@ -95,6 +95,9 @@ type WirelessWirelessLanGroupsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -269,6 +272,9 @@ type WirelessWirelessLanGroupsListParams struct {
 	// Tagn.
 	Tagn *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -386,6 +392,17 @@ func (o *WirelessWirelessLanGroupsListParams) WithCreatedn(createdn *string) *Wi
 // SetCreatedn adds the createdN to the wireless wireless lan groups list params
 func (o *WirelessWirelessLanGroupsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the wireless wireless lan groups list params
+func (o *WirelessWirelessLanGroupsListParams) WithCreatedByRequest(createdByRequest *string) *WirelessWirelessLanGroupsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the wireless wireless lan groups list params
+func (o *WirelessWirelessLanGroupsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the wireless wireless lan groups list params
@@ -993,6 +1010,17 @@ func (o *WirelessWirelessLanGroupsListParams) SetTagn(tagn *string) {
 	o.Tagn = tagn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the wireless wireless lan groups list params
+func (o *WirelessWirelessLanGroupsListParams) WithUpdatedByRequest(updatedByRequest *string) *WirelessWirelessLanGroupsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the wireless wireless lan groups list params
+func (o *WirelessWirelessLanGroupsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *WirelessWirelessLanGroupsListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -1098,6 +1126,23 @@ func (o *WirelessWirelessLanGroupsListParams) WriteToRequest(r runtime.ClientReq
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2033,6 +2078,23 @@ func (o *WirelessWirelessLanGroupsListParams) WriteToRequest(r runtime.ClientReq
 		if qTagn != "" {
 
 			if err := r.SetQueryParam("tag__n", qTagn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

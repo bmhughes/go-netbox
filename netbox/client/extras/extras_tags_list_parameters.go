@@ -134,6 +134,9 @@ type ExtrasTagsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -289,6 +292,9 @@ type ExtrasTagsListParams struct {
 
 	// SlugNisw.
 	SlugNisw *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -550,6 +556,17 @@ func (o *ExtrasTagsListParams) WithCreatedn(createdn *string) *ExtrasTagsListPar
 // SetCreatedn adds the createdN to the extras tags list params
 func (o *ExtrasTagsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the extras tags list params
+func (o *ExtrasTagsListParams) WithCreatedByRequest(createdByRequest *string) *ExtrasTagsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the extras tags list params
+func (o *ExtrasTagsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the extras tags list params
@@ -1091,6 +1108,17 @@ func (o *ExtrasTagsListParams) SetSlugNisw(slugNisw *string) {
 	o.SlugNisw = slugNisw
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the extras tags list params
+func (o *ExtrasTagsListParams) WithUpdatedByRequest(updatedByRequest *string) *ExtrasTagsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the extras tags list params
+func (o *ExtrasTagsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *ExtrasTagsListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -1417,6 +1445,23 @@ func (o *ExtrasTagsListParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2250,6 +2295,23 @@ func (o *ExtrasTagsListParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if qSlugNisw != "" {
 
 			if err := r.SetQueryParam("slug__nisw", qSlugNisw); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

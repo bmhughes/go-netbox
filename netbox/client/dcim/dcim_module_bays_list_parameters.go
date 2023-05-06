@@ -95,6 +95,9 @@ type DcimModuleBaysListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -329,6 +332,9 @@ type DcimModuleBaysListParams struct {
 	// Tagn.
 	Tagn *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	// VirtualChassis.
 	VirtualChassis *string
 
@@ -458,6 +464,17 @@ func (o *DcimModuleBaysListParams) WithCreatedn(createdn *string) *DcimModuleBay
 // SetCreatedn adds the createdN to the dcim module bays list params
 func (o *DcimModuleBaysListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim module bays list params
+func (o *DcimModuleBaysListParams) WithCreatedByRequest(createdByRequest *string) *DcimModuleBaysListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim module bays list params
+func (o *DcimModuleBaysListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the dcim module bays list params
@@ -1285,6 +1302,17 @@ func (o *DcimModuleBaysListParams) SetTagn(tagn *string) {
 	o.Tagn = tagn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim module bays list params
+func (o *DcimModuleBaysListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimModuleBaysListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim module bays list params
+func (o *DcimModuleBaysListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVirtualChassis adds the virtualChassis to the dcim module bays list params
 func (o *DcimModuleBaysListParams) WithVirtualChassis(virtualChassis *string) *DcimModuleBaysListParams {
 	o.SetVirtualChassis(virtualChassis)
@@ -1434,6 +1462,23 @@ func (o *DcimModuleBaysListParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2709,6 +2754,23 @@ func (o *DcimModuleBaysListParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qTagn != "" {
 
 			if err := r.SetQueryParam("tag__n", qTagn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

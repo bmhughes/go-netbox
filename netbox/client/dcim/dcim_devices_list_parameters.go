@@ -122,6 +122,12 @@ type DcimDevicesListParams struct {
 	// ClusterIDn.
 	ClusterIDn *string
 
+	// ConfigTemplateID.
+	ConfigTemplateID *string
+
+	// ConfigTemplateIDn.
+	ConfigTemplateIDn *string
+
 	// ConsolePorts.
 	ConsolePorts *string
 
@@ -163,6 +169,9 @@ type DcimDevicesListParams struct {
 
 	// Createdn.
 	Createdn *string
+
+	// CreatedByRequest.
+	CreatedByRequest *string
 
 	// DeviceBays.
 	DeviceBays *string
@@ -524,6 +533,9 @@ type DcimDevicesListParams struct {
 	// TenantIDn.
 	TenantIDn *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	// VcPosition.
 	VcPosition *string
 
@@ -787,6 +799,28 @@ func (o *DcimDevicesListParams) SetClusterIDn(clusterIDn *string) {
 	o.ClusterIDn = clusterIDn
 }
 
+// WithConfigTemplateID adds the configTemplateID to the dcim devices list params
+func (o *DcimDevicesListParams) WithConfigTemplateID(configTemplateID *string) *DcimDevicesListParams {
+	o.SetConfigTemplateID(configTemplateID)
+	return o
+}
+
+// SetConfigTemplateID adds the configTemplateId to the dcim devices list params
+func (o *DcimDevicesListParams) SetConfigTemplateID(configTemplateID *string) {
+	o.ConfigTemplateID = configTemplateID
+}
+
+// WithConfigTemplateIDn adds the configTemplateIDn to the dcim devices list params
+func (o *DcimDevicesListParams) WithConfigTemplateIDn(configTemplateIDn *string) *DcimDevicesListParams {
+	o.SetConfigTemplateIDn(configTemplateIDn)
+	return o
+}
+
+// SetConfigTemplateIDn adds the configTemplateIdN to the dcim devices list params
+func (o *DcimDevicesListParams) SetConfigTemplateIDn(configTemplateIDn *string) {
+	o.ConfigTemplateIDn = configTemplateIDn
+}
+
 // WithConsolePorts adds the consolePorts to the dcim devices list params
 func (o *DcimDevicesListParams) WithConsolePorts(consolePorts *string) *DcimDevicesListParams {
 	o.SetConsolePorts(consolePorts)
@@ -939,6 +973,17 @@ func (o *DcimDevicesListParams) WithCreatedn(createdn *string) *DcimDevicesListP
 // SetCreatedn adds the createdN to the dcim devices list params
 func (o *DcimDevicesListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim devices list params
+func (o *DcimDevicesListParams) WithCreatedByRequest(createdByRequest *string) *DcimDevicesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim devices list params
+func (o *DcimDevicesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDeviceBays adds the deviceBays to the dcim devices list params
@@ -2228,6 +2273,17 @@ func (o *DcimDevicesListParams) SetTenantIDn(tenantIDn *string) {
 	o.TenantIDn = tenantIDn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim devices list params
+func (o *DcimDevicesListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimDevicesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim devices list params
+func (o *DcimDevicesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVcPosition adds the vcPosition to the dcim devices list params
 func (o *DcimDevicesListParams) WithVcPosition(vcPosition *string) *DcimDevicesListParams {
 	o.SetVcPosition(vcPosition)
@@ -2656,6 +2712,40 @@ func (o *DcimDevicesListParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		}
 	}
 
+	if o.ConfigTemplateID != nil {
+
+		// query param config_template_id
+		var qrConfigTemplateID string
+
+		if o.ConfigTemplateID != nil {
+			qrConfigTemplateID = *o.ConfigTemplateID
+		}
+		qConfigTemplateID := qrConfigTemplateID
+		if qConfigTemplateID != "" {
+
+			if err := r.SetQueryParam("config_template_id", qConfigTemplateID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigTemplateIDn != nil {
+
+		// query param config_template_id__n
+		var qrConfigTemplateIDn string
+
+		if o.ConfigTemplateIDn != nil {
+			qrConfigTemplateIDn = *o.ConfigTemplateIDn
+		}
+		qConfigTemplateIDn := qrConfigTemplateIDn
+		if qConfigTemplateIDn != "" {
+
+			if err := r.SetQueryParam("config_template_id__n", qConfigTemplateIDn); err != nil {
+				return err
+			}
+		}
+	}
+
 	if o.ConsolePorts != nil {
 
 		// query param console_ports
@@ -2889,6 +2979,23 @@ func (o *DcimDevicesListParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -4878,6 +4985,23 @@ func (o *DcimDevicesListParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		if qTenantIDn != "" {
 
 			if err := r.SetQueryParam("tenant_id__n", qTenantIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

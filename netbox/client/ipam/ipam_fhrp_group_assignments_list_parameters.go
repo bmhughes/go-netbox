@@ -95,6 +95,9 @@ type IpamFhrpGroupAssignmentsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Device.
 	Device *string
 
@@ -202,6 +205,9 @@ type IpamFhrpGroupAssignmentsListParams struct {
 
 	// Priorityn.
 	Priorityn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	// VirtualMachine.
 	VirtualMachine *string
@@ -326,6 +332,17 @@ func (o *IpamFhrpGroupAssignmentsListParams) WithCreatedn(createdn *string) *Ipa
 // SetCreatedn adds the createdN to the ipam fhrp group assignments list params
 func (o *IpamFhrpGroupAssignmentsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the ipam fhrp group assignments list params
+func (o *IpamFhrpGroupAssignmentsListParams) WithCreatedByRequest(createdByRequest *string) *IpamFhrpGroupAssignmentsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the ipam fhrp group assignments list params
+func (o *IpamFhrpGroupAssignmentsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDevice adds the device to the ipam fhrp group assignments list params
@@ -691,6 +708,17 @@ func (o *IpamFhrpGroupAssignmentsListParams) SetPriorityn(priorityn *string) {
 	o.Priorityn = priorityn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the ipam fhrp group assignments list params
+func (o *IpamFhrpGroupAssignmentsListParams) WithUpdatedByRequest(updatedByRequest *string) *IpamFhrpGroupAssignmentsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the ipam fhrp group assignments list params
+func (o *IpamFhrpGroupAssignmentsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVirtualMachine adds the virtualMachine to the ipam fhrp group assignments list params
 func (o *IpamFhrpGroupAssignmentsListParams) WithVirtualMachine(virtualMachine *string) *IpamFhrpGroupAssignmentsListParams {
 	o.SetVirtualMachine(virtualMachine)
@@ -818,6 +846,23 @@ func (o *IpamFhrpGroupAssignmentsListParams) WriteToRequest(r runtime.ClientRequ
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -1379,6 +1424,23 @@ func (o *IpamFhrpGroupAssignmentsListParams) WriteToRequest(r runtime.ClientRequ
 		if qPriorityn != "" {
 
 			if err := r.SetQueryParam("priority__n", qPriorityn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

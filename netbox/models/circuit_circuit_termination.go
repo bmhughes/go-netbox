@@ -47,6 +47,8 @@ type CircuitCircuitTermination struct {
 	ID int64 `json:"id,omitempty"`
 
 	// Port speed (Kbps)
+	//
+	// Physical circuit speed
 	// Maximum: 2.147483647e+09
 	// Minimum: 0
 	PortSpeed *int64 `json:"port_speed,omitempty"`
@@ -72,6 +74,8 @@ type CircuitCircuitTermination struct {
 	URL strfmt.URI `json:"url,omitempty"`
 
 	// Cross-connect ID
+	//
+	// ID of the local cross-connect
 	// Max Length: 50
 	XconnectID string `json:"xconnect_id,omitempty"`
 }

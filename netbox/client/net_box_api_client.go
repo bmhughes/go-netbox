@@ -26,6 +26,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/smutel/go-netbox/v3/netbox/client/circuits"
+	"github.com/smutel/go-netbox/v3/netbox/client/core"
 	"github.com/smutel/go-netbox/v3/netbox/client/dcim"
 	"github.com/smutel/go-netbox/v3/netbox/client/extras"
 	"github.com/smutel/go-netbox/v3/netbox/client/ipam"
@@ -42,7 +43,7 @@ var Default = NewHTTPClient(nil)
 const (
 	// DefaultHost is the default Host
 	// found in Meta (info) section of spec file
-	DefaultHost string = "127.0.0.1:8000"
+	DefaultHost string = "localhost"
 	// DefaultBasePath is the default BasePath
 	// found in Meta (info) section of spec file
 	DefaultBasePath string = "/api"
@@ -79,6 +80,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *NetBoxAPI 
 	cli := new(NetBoxAPI)
 	cli.Transport = transport
 	cli.Circuits = circuits.New(transport, formats)
+	cli.Core = core.New(transport, formats)
 	cli.Dcim = dcim.New(transport, formats)
 	cli.Extras = extras.New(transport, formats)
 	cli.Ipam = ipam.New(transport, formats)
@@ -133,6 +135,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 type NetBoxAPI struct {
 	Circuits circuits.ClientService
 
+	Core core.ClientService
+
 	Dcim dcim.ClientService
 
 	Extras extras.ClientService
@@ -156,6 +160,7 @@ type NetBoxAPI struct {
 func (c *NetBoxAPI) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.Circuits.SetTransport(transport)
+	c.Core.SetTransport(transport)
 	c.Dcim.SetTransport(transport)
 	c.Extras.SetTransport(transport)
 	c.Ipam.SetTransport(transport)

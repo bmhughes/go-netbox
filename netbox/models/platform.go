@@ -35,6 +35,9 @@ import (
 // swagger:model Platform
 type Platform struct {
 
+	// config template
+	ConfigTemplate *NestedConfigTemplate `json:"config_template,omitempty"`
+
 	// Created
 	// Read Only: true
 	// Format: date-time
@@ -108,6 +111,10 @@ type Platform struct {
 func (m *Platform) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateConfigTemplate(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateCreated(formats); err != nil {
 		res = append(res, err)
 	}
@@ -147,6 +154,25 @@ func (m *Platform) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Platform) validateConfigTemplate(formats strfmt.Registry) error {
+	if swag.IsZero(m.ConfigTemplate) { // not required
+		return nil
+	}
+
+	if m.ConfigTemplate != nil {
+		if err := m.ConfigTemplate.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("config_template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("config_template")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -297,6 +323,10 @@ func (m *Platform) validateURL(formats strfmt.Registry) error {
 func (m *Platform) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateConfigTemplate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateCreated(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -336,6 +366,22 @@ func (m *Platform) ContextValidate(ctx context.Context, formats strfmt.Registry)
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Platform) contextValidateConfigTemplate(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ConfigTemplate != nil {
+		if err := m.ConfigTemplate.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("config_template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("config_template")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

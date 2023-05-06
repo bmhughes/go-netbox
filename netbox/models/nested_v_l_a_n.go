@@ -54,6 +54,8 @@ type NestedVLAN struct {
 	URL strfmt.URI `json:"url,omitempty"`
 
 	// ID
+	//
+	// Numeric VLAN ID (1-4094)
 	// Required: true
 	// Maximum: 4094
 	// Minimum: 1

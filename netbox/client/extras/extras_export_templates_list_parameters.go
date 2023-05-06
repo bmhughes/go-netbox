@@ -125,6 +125,36 @@ type ExtrasExportTemplatesListParams struct {
 	// ContentTypesNisw.
 	ContentTypesNisw *string
 
+	// DataFileID.
+	DataFileID *string
+
+	// DataFileIDn.
+	DataFileIDn *string
+
+	// DataSourceID.
+	DataSourceID *string
+
+	// DataSourceIDn.
+	DataSourceIDn *string
+
+	// DataSynced.
+	DataSynced *string
+
+	// DataSyncedGt.
+	DataSyncedGt *string
+
+	// DataSyncedGte.
+	DataSyncedGte *string
+
+	// DataSyncedLt.
+	DataSyncedLt *string
+
+	// DataSyncedLte.
+	DataSyncedLte *string
+
+	// DataSyncedn.
+	DataSyncedn *string
+
 	// Description.
 	Description *string
 
@@ -457,6 +487,116 @@ func (o *ExtrasExportTemplatesListParams) WithContentTypesNisw(contentTypesNisw 
 // SetContentTypesNisw adds the contentTypesNisw to the extras export templates list params
 func (o *ExtrasExportTemplatesListParams) SetContentTypesNisw(contentTypesNisw *string) {
 	o.ContentTypesNisw = contentTypesNisw
+}
+
+// WithDataFileID adds the dataFileID to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) WithDataFileID(dataFileID *string) *ExtrasExportTemplatesListParams {
+	o.SetDataFileID(dataFileID)
+	return o
+}
+
+// SetDataFileID adds the dataFileId to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) SetDataFileID(dataFileID *string) {
+	o.DataFileID = dataFileID
+}
+
+// WithDataFileIDn adds the dataFileIDn to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) WithDataFileIDn(dataFileIDn *string) *ExtrasExportTemplatesListParams {
+	o.SetDataFileIDn(dataFileIDn)
+	return o
+}
+
+// SetDataFileIDn adds the dataFileIdN to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) SetDataFileIDn(dataFileIDn *string) {
+	o.DataFileIDn = dataFileIDn
+}
+
+// WithDataSourceID adds the dataSourceID to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) WithDataSourceID(dataSourceID *string) *ExtrasExportTemplatesListParams {
+	o.SetDataSourceID(dataSourceID)
+	return o
+}
+
+// SetDataSourceID adds the dataSourceId to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) SetDataSourceID(dataSourceID *string) {
+	o.DataSourceID = dataSourceID
+}
+
+// WithDataSourceIDn adds the dataSourceIDn to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) WithDataSourceIDn(dataSourceIDn *string) *ExtrasExportTemplatesListParams {
+	o.SetDataSourceIDn(dataSourceIDn)
+	return o
+}
+
+// SetDataSourceIDn adds the dataSourceIdN to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) SetDataSourceIDn(dataSourceIDn *string) {
+	o.DataSourceIDn = dataSourceIDn
+}
+
+// WithDataSynced adds the dataSynced to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) WithDataSynced(dataSynced *string) *ExtrasExportTemplatesListParams {
+	o.SetDataSynced(dataSynced)
+	return o
+}
+
+// SetDataSynced adds the dataSynced to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) SetDataSynced(dataSynced *string) {
+	o.DataSynced = dataSynced
+}
+
+// WithDataSyncedGt adds the dataSyncedGt to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) WithDataSyncedGt(dataSyncedGt *string) *ExtrasExportTemplatesListParams {
+	o.SetDataSyncedGt(dataSyncedGt)
+	return o
+}
+
+// SetDataSyncedGt adds the dataSyncedGt to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) SetDataSyncedGt(dataSyncedGt *string) {
+	o.DataSyncedGt = dataSyncedGt
+}
+
+// WithDataSyncedGte adds the dataSyncedGte to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) WithDataSyncedGte(dataSyncedGte *string) *ExtrasExportTemplatesListParams {
+	o.SetDataSyncedGte(dataSyncedGte)
+	return o
+}
+
+// SetDataSyncedGte adds the dataSyncedGte to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) SetDataSyncedGte(dataSyncedGte *string) {
+	o.DataSyncedGte = dataSyncedGte
+}
+
+// WithDataSyncedLt adds the dataSyncedLt to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) WithDataSyncedLt(dataSyncedLt *string) *ExtrasExportTemplatesListParams {
+	o.SetDataSyncedLt(dataSyncedLt)
+	return o
+}
+
+// SetDataSyncedLt adds the dataSyncedLt to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) SetDataSyncedLt(dataSyncedLt *string) {
+	o.DataSyncedLt = dataSyncedLt
+}
+
+// WithDataSyncedLte adds the dataSyncedLte to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) WithDataSyncedLte(dataSyncedLte *string) *ExtrasExportTemplatesListParams {
+	o.SetDataSyncedLte(dataSyncedLte)
+	return o
+}
+
+// SetDataSyncedLte adds the dataSyncedLte to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) SetDataSyncedLte(dataSyncedLte *string) {
+	o.DataSyncedLte = dataSyncedLte
+}
+
+// WithDataSyncedn adds the dataSyncedn to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) WithDataSyncedn(dataSyncedn *string) *ExtrasExportTemplatesListParams {
+	o.SetDataSyncedn(dataSyncedn)
+	return o
+}
+
+// SetDataSyncedn adds the dataSyncedN to the extras export templates list params
+func (o *ExtrasExportTemplatesListParams) SetDataSyncedn(dataSyncedn *string) {
+	o.DataSyncedn = dataSyncedn
 }
 
 // WithDescription adds the description to the extras export templates list params
@@ -1086,6 +1226,176 @@ func (o *ExtrasExportTemplatesListParams) WriteToRequest(r runtime.ClientRequest
 		if qContentTypesNisw != "" {
 
 			if err := r.SetQueryParam("content_types__nisw", qContentTypesNisw); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.DataFileID != nil {
+
+		// query param data_file_id
+		var qrDataFileID string
+
+		if o.DataFileID != nil {
+			qrDataFileID = *o.DataFileID
+		}
+		qDataFileID := qrDataFileID
+		if qDataFileID != "" {
+
+			if err := r.SetQueryParam("data_file_id", qDataFileID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.DataFileIDn != nil {
+
+		// query param data_file_id__n
+		var qrDataFileIDn string
+
+		if o.DataFileIDn != nil {
+			qrDataFileIDn = *o.DataFileIDn
+		}
+		qDataFileIDn := qrDataFileIDn
+		if qDataFileIDn != "" {
+
+			if err := r.SetQueryParam("data_file_id__n", qDataFileIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.DataSourceID != nil {
+
+		// query param data_source_id
+		var qrDataSourceID string
+
+		if o.DataSourceID != nil {
+			qrDataSourceID = *o.DataSourceID
+		}
+		qDataSourceID := qrDataSourceID
+		if qDataSourceID != "" {
+
+			if err := r.SetQueryParam("data_source_id", qDataSourceID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.DataSourceIDn != nil {
+
+		// query param data_source_id__n
+		var qrDataSourceIDn string
+
+		if o.DataSourceIDn != nil {
+			qrDataSourceIDn = *o.DataSourceIDn
+		}
+		qDataSourceIDn := qrDataSourceIDn
+		if qDataSourceIDn != "" {
+
+			if err := r.SetQueryParam("data_source_id__n", qDataSourceIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.DataSynced != nil {
+
+		// query param data_synced
+		var qrDataSynced string
+
+		if o.DataSynced != nil {
+			qrDataSynced = *o.DataSynced
+		}
+		qDataSynced := qrDataSynced
+		if qDataSynced != "" {
+
+			if err := r.SetQueryParam("data_synced", qDataSynced); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.DataSyncedGt != nil {
+
+		// query param data_synced__gt
+		var qrDataSyncedGt string
+
+		if o.DataSyncedGt != nil {
+			qrDataSyncedGt = *o.DataSyncedGt
+		}
+		qDataSyncedGt := qrDataSyncedGt
+		if qDataSyncedGt != "" {
+
+			if err := r.SetQueryParam("data_synced__gt", qDataSyncedGt); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.DataSyncedGte != nil {
+
+		// query param data_synced__gte
+		var qrDataSyncedGte string
+
+		if o.DataSyncedGte != nil {
+			qrDataSyncedGte = *o.DataSyncedGte
+		}
+		qDataSyncedGte := qrDataSyncedGte
+		if qDataSyncedGte != "" {
+
+			if err := r.SetQueryParam("data_synced__gte", qDataSyncedGte); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.DataSyncedLt != nil {
+
+		// query param data_synced__lt
+		var qrDataSyncedLt string
+
+		if o.DataSyncedLt != nil {
+			qrDataSyncedLt = *o.DataSyncedLt
+		}
+		qDataSyncedLt := qrDataSyncedLt
+		if qDataSyncedLt != "" {
+
+			if err := r.SetQueryParam("data_synced__lt", qDataSyncedLt); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.DataSyncedLte != nil {
+
+		// query param data_synced__lte
+		var qrDataSyncedLte string
+
+		if o.DataSyncedLte != nil {
+			qrDataSyncedLte = *o.DataSyncedLte
+		}
+		qDataSyncedLte := qrDataSyncedLte
+		if qDataSyncedLte != "" {
+
+			if err := r.SetQueryParam("data_synced__lte", qDataSyncedLte); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.DataSyncedn != nil {
+
+		// query param data_synced__n
+		var qrDataSyncedn string
+
+		if o.DataSyncedn != nil {
+			qrDataSyncedn = *o.DataSyncedn
+		}
+		qDataSyncedn := qrDataSyncedn
+		if qDataSyncedn != "" {
+
+			if err := r.SetQueryParam("data_synced__n", qDataSyncedn); err != nil {
 				return err
 			}
 		}

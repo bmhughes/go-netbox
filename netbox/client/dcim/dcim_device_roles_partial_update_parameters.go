@@ -80,7 +80,7 @@ DcimDeviceRolesPartialUpdateParams contains all the parameters to send to the AP
 type DcimDeviceRolesPartialUpdateParams struct {
 
 	// Data.
-	Data *models.DeviceRole
+	Data *models.WritableDeviceRole
 
 	/* ID.
 
@@ -142,13 +142,13 @@ func (o *DcimDeviceRolesPartialUpdateParams) SetHTTPClient(client *http.Client) 
 }
 
 // WithData adds the data to the dcim device roles partial update params
-func (o *DcimDeviceRolesPartialUpdateParams) WithData(data *models.DeviceRole) *DcimDeviceRolesPartialUpdateParams {
+func (o *DcimDeviceRolesPartialUpdateParams) WithData(data *models.WritableDeviceRole) *DcimDeviceRolesPartialUpdateParams {
 	o.SetData(data)
 	return o
 }
 
 // SetData adds the data to the dcim device roles partial update params
-func (o *DcimDeviceRolesPartialUpdateParams) SetData(data *models.DeviceRole) {
+func (o *DcimDeviceRolesPartialUpdateParams) SetData(data *models.WritableDeviceRole) {
 	o.Data = data
 }
 

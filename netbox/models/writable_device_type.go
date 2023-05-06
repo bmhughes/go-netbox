@@ -51,6 +51,9 @@ type WritableDeviceType struct {
 	// Custom fields
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
+	// Default platform
+	DefaultPlatform *int64 `json:"default_platform,omitempty"`
+
 	// Description
 	// Max Length: 200
 	Description string `json:"description,omitempty"`

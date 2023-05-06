@@ -30,8 +30,6 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-
-	"github.com/smutel/go-netbox/v3/netbox/models"
 )
 
 // NewVirtualizationVirtualMachinesPartialUpdateParams creates a new VirtualizationVirtualMachinesPartialUpdateParams object,
@@ -78,9 +76,6 @@ VirtualizationVirtualMachinesPartialUpdateParams contains all the parameters to 
 	Typically these are written to a http.Request.
 */
 type VirtualizationVirtualMachinesPartialUpdateParams struct {
-
-	// Data.
-	Data *models.WritableVirtualMachineWithConfigContext
 
 	/* ID.
 
@@ -141,17 +136,6 @@ func (o *VirtualizationVirtualMachinesPartialUpdateParams) SetHTTPClient(client 
 	o.HTTPClient = client
 }
 
-// WithData adds the data to the virtualization virtual machines partial update params
-func (o *VirtualizationVirtualMachinesPartialUpdateParams) WithData(data *models.WritableVirtualMachineWithConfigContext) *VirtualizationVirtualMachinesPartialUpdateParams {
-	o.SetData(data)
-	return o
-}
-
-// SetData adds the data to the virtualization virtual machines partial update params
-func (o *VirtualizationVirtualMachinesPartialUpdateParams) SetData(data *models.WritableVirtualMachineWithConfigContext) {
-	o.Data = data
-}
-
 // WithID adds the id to the virtualization virtual machines partial update params
 func (o *VirtualizationVirtualMachinesPartialUpdateParams) WithID(id int64) *VirtualizationVirtualMachinesPartialUpdateParams {
 	o.SetID(id)
@@ -170,11 +154,6 @@ func (o *VirtualizationVirtualMachinesPartialUpdateParams) WriteToRequest(r runt
 		return err
 	}
 	var res []error
-	if o.Data != nil {
-		if err := r.SetBodyParam(o.Data); err != nil {
-			return err
-		}
-	}
 
 	// path param id
 	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {

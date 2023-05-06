@@ -30,8 +30,6 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-
-	"github.com/smutel/go-netbox/v3/netbox/models"
 )
 
 // NewDcimDevicesUpdateParams creates a new DcimDevicesUpdateParams object,
@@ -78,9 +76,6 @@ DcimDevicesUpdateParams contains all the parameters to send to the API endpoint
 	Typically these are written to a http.Request.
 */
 type DcimDevicesUpdateParams struct {
-
-	// Data.
-	Data *models.WritableDeviceWithConfigContext
 
 	/* ID.
 
@@ -141,17 +136,6 @@ func (o *DcimDevicesUpdateParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithData adds the data to the dcim devices update params
-func (o *DcimDevicesUpdateParams) WithData(data *models.WritableDeviceWithConfigContext) *DcimDevicesUpdateParams {
-	o.SetData(data)
-	return o
-}
-
-// SetData adds the data to the dcim devices update params
-func (o *DcimDevicesUpdateParams) SetData(data *models.WritableDeviceWithConfigContext) {
-	o.Data = data
-}
-
 // WithID adds the id to the dcim devices update params
 func (o *DcimDevicesUpdateParams) WithID(id int64) *DcimDevicesUpdateParams {
 	o.SetID(id)
@@ -170,11 +154,6 @@ func (o *DcimDevicesUpdateParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
-	if o.Data != nil {
-		if err := r.SetBodyParam(o.Data); err != nil {
-			return err
-		}
-	}
 
 	// path param id
 	if err := r.SetPathParam("id", swag.FormatInt64(o.ID)); err != nil {

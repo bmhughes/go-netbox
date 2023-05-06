@@ -110,6 +110,12 @@ type DcimDeviceRolesListParams struct {
 	// ColorNisw.
 	ColorNisw *string
 
+	// ConfigTemplateID.
+	ConfigTemplateID *string
+
+	// ConfigTemplateIDn.
+	ConfigTemplateIDn *string
+
 	// Created.
 	Created *string
 
@@ -127,6 +133,9 @@ type DcimDeviceRolesListParams struct {
 
 	// Createdn.
 	Createdn *string
+
+	// CreatedByRequest.
+	CreatedByRequest *string
 
 	// Description.
 	Description *string
@@ -289,6 +298,9 @@ type DcimDeviceRolesListParams struct {
 
 	// Tagn.
 	Tagn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	// VMRole.
 	VMRole *string
@@ -467,6 +479,28 @@ func (o *DcimDeviceRolesListParams) SetColorNisw(colorNisw *string) {
 	o.ColorNisw = colorNisw
 }
 
+// WithConfigTemplateID adds the configTemplateID to the dcim device roles list params
+func (o *DcimDeviceRolesListParams) WithConfigTemplateID(configTemplateID *string) *DcimDeviceRolesListParams {
+	o.SetConfigTemplateID(configTemplateID)
+	return o
+}
+
+// SetConfigTemplateID adds the configTemplateId to the dcim device roles list params
+func (o *DcimDeviceRolesListParams) SetConfigTemplateID(configTemplateID *string) {
+	o.ConfigTemplateID = configTemplateID
+}
+
+// WithConfigTemplateIDn adds the configTemplateIDn to the dcim device roles list params
+func (o *DcimDeviceRolesListParams) WithConfigTemplateIDn(configTemplateIDn *string) *DcimDeviceRolesListParams {
+	o.SetConfigTemplateIDn(configTemplateIDn)
+	return o
+}
+
+// SetConfigTemplateIDn adds the configTemplateIdN to the dcim device roles list params
+func (o *DcimDeviceRolesListParams) SetConfigTemplateIDn(configTemplateIDn *string) {
+	o.ConfigTemplateIDn = configTemplateIDn
+}
+
 // WithCreated adds the created to the dcim device roles list params
 func (o *DcimDeviceRolesListParams) WithCreated(created *string) *DcimDeviceRolesListParams {
 	o.SetCreated(created)
@@ -531,6 +565,17 @@ func (o *DcimDeviceRolesListParams) WithCreatedn(createdn *string) *DcimDeviceRo
 // SetCreatedn adds the createdN to the dcim device roles list params
 func (o *DcimDeviceRolesListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim device roles list params
+func (o *DcimDeviceRolesListParams) WithCreatedByRequest(createdByRequest *string) *DcimDeviceRolesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim device roles list params
+func (o *DcimDeviceRolesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the dcim device roles list params
@@ -1094,6 +1139,17 @@ func (o *DcimDeviceRolesListParams) SetTagn(tagn *string) {
 	o.Tagn = tagn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim device roles list params
+func (o *DcimDeviceRolesListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimDeviceRolesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim device roles list params
+func (o *DcimDeviceRolesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVMRole adds the vMRole to the dcim device roles list params
 func (o *DcimDeviceRolesListParams) WithVMRole(vMRole *string) *DcimDeviceRolesListParams {
 	o.SetVMRole(vMRole)
@@ -1300,6 +1356,40 @@ func (o *DcimDeviceRolesListParams) WriteToRequest(r runtime.ClientRequest, reg 
 		}
 	}
 
+	if o.ConfigTemplateID != nil {
+
+		// query param config_template_id
+		var qrConfigTemplateID string
+
+		if o.ConfigTemplateID != nil {
+			qrConfigTemplateID = *o.ConfigTemplateID
+		}
+		qConfigTemplateID := qrConfigTemplateID
+		if qConfigTemplateID != "" {
+
+			if err := r.SetQueryParam("config_template_id", qConfigTemplateID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigTemplateIDn != nil {
+
+		// query param config_template_id__n
+		var qrConfigTemplateIDn string
+
+		if o.ConfigTemplateIDn != nil {
+			qrConfigTemplateIDn = *o.ConfigTemplateIDn
+		}
+		qConfigTemplateIDn := qrConfigTemplateIDn
+		if qConfigTemplateIDn != "" {
+
+			if err := r.SetQueryParam("config_template_id__n", qConfigTemplateIDn); err != nil {
+				return err
+			}
+		}
+	}
+
 	if o.Created != nil {
 
 		// query param created
@@ -1397,6 +1487,23 @@ func (o *DcimDeviceRolesListParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2264,6 +2371,23 @@ func (o *DcimDeviceRolesListParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if qTagn != "" {
 
 			if err := r.SetQueryParam("tag__n", qTagn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

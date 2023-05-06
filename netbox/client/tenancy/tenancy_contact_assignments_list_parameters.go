@@ -113,6 +113,9 @@ type TenancyContactAssignmentsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// ID.
 	ID *string
 
@@ -191,6 +194,9 @@ type TenancyContactAssignmentsListParams struct {
 	// Priorityn.
 	Priorityn *string
 
+	// Q.
+	Q *string
+
 	// Role.
 	Role *string
 
@@ -202,6 +208,9 @@ type TenancyContactAssignmentsListParams struct {
 
 	// RoleIDn.
 	RoleIDn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -386,6 +395,17 @@ func (o *TenancyContactAssignmentsListParams) WithCreatedn(createdn *string) *Te
 // SetCreatedn adds the createdN to the tenancy contact assignments list params
 func (o *TenancyContactAssignmentsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the tenancy contact assignments list params
+func (o *TenancyContactAssignmentsListParams) WithCreatedByRequest(createdByRequest *string) *TenancyContactAssignmentsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the tenancy contact assignments list params
+func (o *TenancyContactAssignmentsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithID adds the id to the tenancy contact assignments list params
@@ -641,6 +661,17 @@ func (o *TenancyContactAssignmentsListParams) SetPriorityn(priorityn *string) {
 	o.Priorityn = priorityn
 }
 
+// WithQ adds the q to the tenancy contact assignments list params
+func (o *TenancyContactAssignmentsListParams) WithQ(q *string) *TenancyContactAssignmentsListParams {
+	o.SetQ(q)
+	return o
+}
+
+// SetQ adds the q to the tenancy contact assignments list params
+func (o *TenancyContactAssignmentsListParams) SetQ(q *string) {
+	o.Q = q
+}
+
 // WithRole adds the role to the tenancy contact assignments list params
 func (o *TenancyContactAssignmentsListParams) WithRole(role *string) *TenancyContactAssignmentsListParams {
 	o.SetRole(role)
@@ -683,6 +714,17 @@ func (o *TenancyContactAssignmentsListParams) WithRoleIDn(roleIDn *string) *Tena
 // SetRoleIDn adds the roleIdN to the tenancy contact assignments list params
 func (o *TenancyContactAssignmentsListParams) SetRoleIDn(roleIDn *string) {
 	o.RoleIDn = roleIDn
+}
+
+// WithUpdatedByRequest adds the updatedByRequest to the tenancy contact assignments list params
+func (o *TenancyContactAssignmentsListParams) WithUpdatedByRequest(updatedByRequest *string) *TenancyContactAssignmentsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the tenancy contact assignments list params
+func (o *TenancyContactAssignmentsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -892,6 +934,23 @@ func (o *TenancyContactAssignmentsListParams) WriteToRequest(r runtime.ClientReq
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -1288,6 +1347,23 @@ func (o *TenancyContactAssignmentsListParams) WriteToRequest(r runtime.ClientReq
 		}
 	}
 
+	if o.Q != nil {
+
+		// query param q
+		var qrQ string
+
+		if o.Q != nil {
+			qrQ = *o.Q
+		}
+		qQ := qrQ
+		if qQ != "" {
+
+			if err := r.SetQueryParam("q", qQ); err != nil {
+				return err
+			}
+		}
+	}
+
 	if o.Role != nil {
 
 		// query param role
@@ -1351,6 +1427,23 @@ func (o *TenancyContactAssignmentsListParams) WriteToRequest(r runtime.ClientReq
 		if qRoleIDn != "" {
 
 			if err := r.SetQueryParam("role_id__n", qRoleIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

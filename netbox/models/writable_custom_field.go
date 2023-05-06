@@ -82,6 +82,11 @@ type WritableCustomField struct {
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
 
+	// Cloneable
+	//
+	// Replicate this value when cloning objects
+	IsCloneable bool `json:"is_cloneable,omitempty"`
+
 	// Label
 	//
 	// Name of the field as displayed to users (if not provided, the field's name will be used)
@@ -120,7 +125,7 @@ type WritableCustomField struct {
 	// Type
 	//
 	// The type of data this custom field holds
-	// Enum: [text longtext integer decimal boolean date url json select multiselect object multiobject]
+	// Enum: [text longtext integer decimal boolean date datetime url json select multiselect object multiobject]
 	Type string `json:"type,omitempty"`
 
 	// UI visibility
@@ -419,7 +424,7 @@ var writableCustomFieldTypeTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["text","longtext","integer","decimal","boolean","date","url","json","select","multiselect","object","multiobject"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["text","longtext","integer","decimal","boolean","date","datetime","url","json","select","multiselect","object","multiobject"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -446,6 +451,9 @@ const (
 
 	// WritableCustomFieldTypeDate captures enum value "date"
 	WritableCustomFieldTypeDate string = "date"
+
+	// WritableCustomFieldTypeDatetime captures enum value "datetime"
+	WritableCustomFieldTypeDatetime string = "datetime"
 
 	// WritableCustomFieldTypeURL captures enum value "url"
 	WritableCustomFieldTypeURL string = "url"

@@ -29,8 +29,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/smutel/go-netbox/v3/netbox/models"
 )
 
 // NewVirtualizationVirtualMachinesCreateParams creates a new VirtualizationVirtualMachinesCreateParams object,
@@ -77,10 +75,6 @@ VirtualizationVirtualMachinesCreateParams contains all the parameters to send to
 	Typically these are written to a http.Request.
 */
 type VirtualizationVirtualMachinesCreateParams struct {
-
-	// Data.
-	Data *models.WritableVirtualMachineWithConfigContext
-
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -134,17 +128,6 @@ func (o *VirtualizationVirtualMachinesCreateParams) SetHTTPClient(client *http.C
 	o.HTTPClient = client
 }
 
-// WithData adds the data to the virtualization virtual machines create params
-func (o *VirtualizationVirtualMachinesCreateParams) WithData(data *models.WritableVirtualMachineWithConfigContext) *VirtualizationVirtualMachinesCreateParams {
-	o.SetData(data)
-	return o
-}
-
-// SetData adds the data to the virtualization virtual machines create params
-func (o *VirtualizationVirtualMachinesCreateParams) SetData(data *models.WritableVirtualMachineWithConfigContext) {
-	o.Data = data
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *VirtualizationVirtualMachinesCreateParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -152,11 +135,6 @@ func (o *VirtualizationVirtualMachinesCreateParams) WriteToRequest(r runtime.Cli
 		return err
 	}
 	var res []error
-	if o.Data != nil {
-		if err := r.SetBodyParam(o.Data); err != nil {
-			return err
-		}
-	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

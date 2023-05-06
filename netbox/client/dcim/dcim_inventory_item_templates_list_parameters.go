@@ -119,6 +119,9 @@ type DcimInventoryItemTemplatesListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// DevicetypeID.
 	DevicetypeID *string
 
@@ -310,6 +313,9 @@ type DcimInventoryItemTemplatesListParams struct {
 
 	// RoleIDn.
 	RoleIDn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -516,6 +522,17 @@ func (o *DcimInventoryItemTemplatesListParams) WithCreatedn(createdn *string) *D
 // SetCreatedn adds the createdN to the dcim inventory item templates list params
 func (o *DcimInventoryItemTemplatesListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim inventory item templates list params
+func (o *DcimInventoryItemTemplatesListParams) WithCreatedByRequest(createdByRequest *string) *DcimInventoryItemTemplatesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim inventory item templates list params
+func (o *DcimInventoryItemTemplatesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDevicetypeID adds the devicetypeID to the dcim inventory item templates list params
@@ -1189,6 +1206,17 @@ func (o *DcimInventoryItemTemplatesListParams) SetRoleIDn(roleIDn *string) {
 	o.RoleIDn = roleIDn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim inventory item templates list params
+func (o *DcimInventoryItemTemplatesListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimInventoryItemTemplatesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim inventory item templates list params
+func (o *DcimInventoryItemTemplatesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DcimInventoryItemTemplatesListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -1430,6 +1458,23 @@ func (o *DcimInventoryItemTemplatesListParams) WriteToRequest(r runtime.ClientRe
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2467,6 +2512,23 @@ func (o *DcimInventoryItemTemplatesListParams) WriteToRequest(r runtime.ClientRe
 		if qRoleIDn != "" {
 
 			if err := r.SetQueryParam("role_id__n", qRoleIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

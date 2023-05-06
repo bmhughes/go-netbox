@@ -95,6 +95,9 @@ type DcimModuleBayTemplatesListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// DevicetypeID.
 	DevicetypeID *string
 
@@ -190,6 +193,9 @@ type DcimModuleBayTemplatesListParams struct {
 
 	// Q.
 	Q *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -308,6 +314,17 @@ func (o *DcimModuleBayTemplatesListParams) WithCreatedn(createdn *string) *DcimM
 // SetCreatedn adds the createdN to the dcim module bay templates list params
 func (o *DcimModuleBayTemplatesListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim module bay templates list params
+func (o *DcimModuleBayTemplatesListParams) WithCreatedByRequest(createdByRequest *string) *DcimModuleBayTemplatesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim module bay templates list params
+func (o *DcimModuleBayTemplatesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDevicetypeID adds the devicetypeID to the dcim module bay templates list params
@@ -629,6 +646,17 @@ func (o *DcimModuleBayTemplatesListParams) SetQ(q *string) {
 	o.Q = q
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim module bay templates list params
+func (o *DcimModuleBayTemplatesListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimModuleBayTemplatesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim module bay templates list params
+func (o *DcimModuleBayTemplatesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DcimModuleBayTemplatesListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -734,6 +762,23 @@ func (o *DcimModuleBayTemplatesListParams) WriteToRequest(r runtime.ClientReques
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -1227,6 +1272,23 @@ func (o *DcimModuleBayTemplatesListParams) WriteToRequest(r runtime.ClientReques
 		if qQ != "" {
 
 			if err := r.SetQueryParam("q", qQ); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

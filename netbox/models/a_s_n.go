@@ -37,7 +37,7 @@ type ASN struct {
 
 	// ASN
 	//
-	// 32-bit autonomous system number
+	// 16- or 32-bit autonomous system number
 	// Required: true
 	// Maximum: 4.294967295e+09
 	// Minimum: 1
@@ -75,9 +75,8 @@ type ASN struct {
 	// Read Only: true
 	ProviderCount int64 `json:"provider_count,omitempty"`
 
-	// RIR
-	// Required: true
-	Rir *int64 `json:"rir"`
+	// rir
+	Rir *NestedRIR `json:"rir,omitempty"`
 
 	// Site count
 	// Read Only: true
@@ -191,9 +190,19 @@ func (m *ASN) validateLastUpdated(formats strfmt.Registry) error {
 }
 
 func (m *ASN) validateRir(formats strfmt.Registry) error {
+	if swag.IsZero(m.Rir) { // not required
+		return nil
+	}
 
-	if err := validate.Required("rir", "body", m.Rir); err != nil {
-		return err
+	if m.Rir != nil {
+		if err := m.Rir.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("rir")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("rir")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -280,6 +289,10 @@ func (m *ASN) ContextValidate(ctx context.Context, formats strfmt.Registry) erro
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateRir(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateSiteCount(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -342,6 +355,22 @@ func (m *ASN) contextValidateProviderCount(ctx context.Context, formats strfmt.R
 
 	if err := validate.ReadOnly(ctx, "provider_count", "body", int64(m.ProviderCount)); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *ASN) contextValidateRir(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Rir != nil {
+		if err := m.Rir.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("rir")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("rir")
+			}
+			return err
+		}
 	}
 
 	return nil

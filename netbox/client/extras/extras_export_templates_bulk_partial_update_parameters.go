@@ -79,7 +79,7 @@ ExtrasExportTemplatesBulkPartialUpdateParams contains all the parameters to send
 type ExtrasExportTemplatesBulkPartialUpdateParams struct {
 
 	// Data.
-	Data *models.ExportTemplate
+	Data *models.WritableExportTemplate
 
 	timeout    time.Duration
 	Context    context.Context
@@ -135,13 +135,13 @@ func (o *ExtrasExportTemplatesBulkPartialUpdateParams) SetHTTPClient(client *htt
 }
 
 // WithData adds the data to the extras export templates bulk partial update params
-func (o *ExtrasExportTemplatesBulkPartialUpdateParams) WithData(data *models.ExportTemplate) *ExtrasExportTemplatesBulkPartialUpdateParams {
+func (o *ExtrasExportTemplatesBulkPartialUpdateParams) WithData(data *models.WritableExportTemplate) *ExtrasExportTemplatesBulkPartialUpdateParams {
 	o.SetData(data)
 	return o
 }
 
 // SetData adds the data to the extras export templates bulk partial update params
-func (o *ExtrasExportTemplatesBulkPartialUpdateParams) SetData(data *models.ExportTemplate) {
+func (o *ExtrasExportTemplatesBulkPartialUpdateParams) SetData(data *models.WritableExportTemplate) {
 	o.Data = data
 }
 

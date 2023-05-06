@@ -113,6 +113,9 @@ type VirtualizationInterfacesListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -310,6 +313,9 @@ type VirtualizationInterfacesListParams struct {
 
 	// Tagn.
 	Tagn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	// VirtualMachine.
 	VirtualMachine *string
@@ -518,6 +524,17 @@ func (o *VirtualizationInterfacesListParams) WithCreatedn(createdn *string) *Vir
 // SetCreatedn adds the createdN to the virtualization interfaces list params
 func (o *VirtualizationInterfacesListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the virtualization interfaces list params
+func (o *VirtualizationInterfacesListParams) WithCreatedByRequest(createdByRequest *string) *VirtualizationInterfacesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the virtualization interfaces list params
+func (o *VirtualizationInterfacesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the virtualization interfaces list params
@@ -1213,6 +1230,17 @@ func (o *VirtualizationInterfacesListParams) SetTagn(tagn *string) {
 	o.Tagn = tagn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the virtualization interfaces list params
+func (o *VirtualizationInterfacesListParams) WithUpdatedByRequest(updatedByRequest *string) *VirtualizationInterfacesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the virtualization interfaces list params
+func (o *VirtualizationInterfacesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVirtualMachine adds the virtualMachine to the virtualization interfaces list params
 func (o *VirtualizationInterfacesListParams) WithVirtualMachine(virtualMachine *string) *VirtualizationInterfacesListParams {
 	o.SetVirtualMachine(virtualMachine)
@@ -1508,6 +1536,23 @@ func (o *VirtualizationInterfacesListParams) WriteToRequest(r runtime.ClientRequ
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2579,6 +2624,23 @@ func (o *VirtualizationInterfacesListParams) WriteToRequest(r runtime.ClientRequ
 		if qTagn != "" {
 
 			if err := r.SetQueryParam("tag__n", qTagn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

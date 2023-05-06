@@ -113,6 +113,9 @@ type VirtualizationClustersListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Group.
 	Group *string
 
@@ -299,6 +302,9 @@ type VirtualizationClustersListParams struct {
 	// TypeIDn.
 	TypeIDn *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -482,6 +488,17 @@ func (o *VirtualizationClustersListParams) WithCreatedn(createdn *string) *Virtu
 // SetCreatedn adds the createdN to the virtualization clusters list params
 func (o *VirtualizationClustersListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the virtualization clusters list params
+func (o *VirtualizationClustersListParams) WithCreatedByRequest(createdByRequest *string) *VirtualizationClustersListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the virtualization clusters list params
+func (o *VirtualizationClustersListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithGroup adds the group to the virtualization clusters list params
@@ -1133,6 +1150,17 @@ func (o *VirtualizationClustersListParams) SetTypeIDn(typeIDn *string) {
 	o.TypeIDn = typeIDn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the virtualization clusters list params
+func (o *VirtualizationClustersListParams) WithUpdatedByRequest(updatedByRequest *string) *VirtualizationClustersListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the virtualization clusters list params
+func (o *VirtualizationClustersListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *VirtualizationClustersListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -1340,6 +1368,23 @@ func (o *VirtualizationClustersListParams) WriteToRequest(r runtime.ClientReques
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2343,6 +2388,23 @@ func (o *VirtualizationClustersListParams) WriteToRequest(r runtime.ClientReques
 		if qTypeIDn != "" {
 
 			if err := r.SetQueryParam("type_id__n", qTypeIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

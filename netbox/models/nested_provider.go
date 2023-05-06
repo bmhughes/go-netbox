@@ -47,6 +47,8 @@ type NestedProvider struct {
 	ID int64 `json:"id,omitempty"`
 
 	// Name
+	//
+	// Full name of the provider
 	// Required: true
 	// Max Length: 100
 	// Min Length: 1

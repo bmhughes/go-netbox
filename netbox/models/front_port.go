@@ -117,6 +117,8 @@ type FrontPort struct {
 	RearPort *FrontPortRearPort `json:"rear_port"`
 
 	// Rear port position
+	//
+	// Mapped position on corresponding rear port
 	// Maximum: 1024
 	// Minimum: 1
 	RearPortPosition int64 `json:"rear_port_position,omitempty"`

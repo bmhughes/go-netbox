@@ -164,6 +164,9 @@ type CircuitsCircuitsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -274,6 +277,12 @@ type CircuitsCircuitsListParams struct {
 
 	// Providern.
 	Providern *string
+
+	// ProviderAccountID.
+	ProviderAccountID *string
+
+	// ProviderAccountIDn.
+	ProviderAccountIDn *string
 
 	// ProviderID.
 	ProviderID *string
@@ -391,6 +400,9 @@ type CircuitsCircuitsListParams struct {
 
 	// TypeIDn.
 	TypeIDn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -762,6 +774,17 @@ func (o *CircuitsCircuitsListParams) WithCreatedn(createdn *string) *CircuitsCir
 // SetCreatedn adds the createdN to the circuits circuits list params
 func (o *CircuitsCircuitsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the circuits circuits list params
+func (o *CircuitsCircuitsListParams) WithCreatedByRequest(createdByRequest *string) *CircuitsCircuitsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the circuits circuits list params
+func (o *CircuitsCircuitsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the circuits circuits list params
@@ -1136,6 +1159,28 @@ func (o *CircuitsCircuitsListParams) WithProvidern(providern *string) *CircuitsC
 // SetProvidern adds the providerN to the circuits circuits list params
 func (o *CircuitsCircuitsListParams) SetProvidern(providern *string) {
 	o.Providern = providern
+}
+
+// WithProviderAccountID adds the providerAccountID to the circuits circuits list params
+func (o *CircuitsCircuitsListParams) WithProviderAccountID(providerAccountID *string) *CircuitsCircuitsListParams {
+	o.SetProviderAccountID(providerAccountID)
+	return o
+}
+
+// SetProviderAccountID adds the providerAccountId to the circuits circuits list params
+func (o *CircuitsCircuitsListParams) SetProviderAccountID(providerAccountID *string) {
+	o.ProviderAccountID = providerAccountID
+}
+
+// WithProviderAccountIDn adds the providerAccountIDn to the circuits circuits list params
+func (o *CircuitsCircuitsListParams) WithProviderAccountIDn(providerAccountIDn *string) *CircuitsCircuitsListParams {
+	o.SetProviderAccountIDn(providerAccountIDn)
+	return o
+}
+
+// SetProviderAccountIDn adds the providerAccountIdN to the circuits circuits list params
+func (o *CircuitsCircuitsListParams) SetProviderAccountIDn(providerAccountIDn *string) {
+	o.ProviderAccountIDn = providerAccountIDn
 }
 
 // WithProviderID adds the providerID to the circuits circuits list params
@@ -1565,6 +1610,17 @@ func (o *CircuitsCircuitsListParams) WithTypeIDn(typeIDn *string) *CircuitsCircu
 // SetTypeIDn adds the typeIdN to the circuits circuits list params
 func (o *CircuitsCircuitsListParams) SetTypeIDn(typeIDn *string) {
 	o.TypeIDn = typeIDn
+}
+
+// WithUpdatedByRequest adds the updatedByRequest to the circuits circuits list params
+func (o *CircuitsCircuitsListParams) WithUpdatedByRequest(updatedByRequest *string) *CircuitsCircuitsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the circuits circuits list params
+func (o *CircuitsCircuitsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
 }
 
 // WriteToRequest writes these params to a swagger request
@@ -2063,6 +2119,23 @@ func (o *CircuitsCircuitsListParams) WriteToRequest(r runtime.ClientRequest, reg
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2641,6 +2714,40 @@ func (o *CircuitsCircuitsListParams) WriteToRequest(r runtime.ClientRequest, reg
 		if qProvidern != "" {
 
 			if err := r.SetQueryParam("provider__n", qProvidern); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ProviderAccountID != nil {
+
+		// query param provider_account_id
+		var qrProviderAccountID string
+
+		if o.ProviderAccountID != nil {
+			qrProviderAccountID = *o.ProviderAccountID
+		}
+		qProviderAccountID := qrProviderAccountID
+		if qProviderAccountID != "" {
+
+			if err := r.SetQueryParam("provider_account_id", qProviderAccountID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ProviderAccountIDn != nil {
+
+		// query param provider_account_id__n
+		var qrProviderAccountIDn string
+
+		if o.ProviderAccountIDn != nil {
+			qrProviderAccountIDn = *o.ProviderAccountIDn
+		}
+		qProviderAccountIDn := qrProviderAccountIDn
+		if qProviderAccountIDn != "" {
+
+			if err := r.SetQueryParam("provider_account_id__n", qProviderAccountIDn); err != nil {
 				return err
 			}
 		}
@@ -3304,6 +3411,23 @@ func (o *CircuitsCircuitsListParams) WriteToRequest(r runtime.ClientRequest, reg
 		if qTypeIDn != "" {
 
 			if err := r.SetQueryParam("type_id__n", qTypeIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

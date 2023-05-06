@@ -95,6 +95,9 @@ type IpamL2vpnsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -329,6 +332,9 @@ type IpamL2vpnsListParams struct {
 	// Typen.
 	Typen *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -446,6 +452,17 @@ func (o *IpamL2vpnsListParams) WithCreatedn(createdn *string) *IpamL2vpnsListPar
 // SetCreatedn adds the createdN to the ipam l2vpns list params
 func (o *IpamL2vpnsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the ipam l2vpns list params
+func (o *IpamL2vpnsListParams) WithCreatedByRequest(createdByRequest *string) *IpamL2vpnsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the ipam l2vpns list params
+func (o *IpamL2vpnsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the ipam l2vpns list params
@@ -1273,6 +1290,17 @@ func (o *IpamL2vpnsListParams) SetTypen(typen *string) {
 	o.Typen = typen
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the ipam l2vpns list params
+func (o *IpamL2vpnsListParams) WithUpdatedByRequest(updatedByRequest *string) *IpamL2vpnsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the ipam l2vpns list params
+func (o *IpamL2vpnsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *IpamL2vpnsListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -1378,6 +1406,23 @@ func (o *IpamL2vpnsListParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2653,6 +2698,23 @@ func (o *IpamL2vpnsListParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		if qTypen != "" {
 
 			if err := r.SetQueryParam("type__n", qTypen); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

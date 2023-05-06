@@ -77,6 +77,11 @@ type IPRange struct {
 	// Format: date-time
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
 
+	// Mark utilized
+	//
+	// Treat as 100% utilized
+	MarkUtilized bool `json:"mark_utilized,omitempty"`
+
 	// role
 	Role *NestedRole `json:"role,omitempty"`
 

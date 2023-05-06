@@ -35,9 +35,9 @@ import (
 // swagger:model Provider
 type Provider struct {
 
-	// Account number
-	// Max Length: 30
-	Account string `json:"account,omitempty"`
+	// accounts
+	// Unique: true
+	Accounts []*NestedProviderAccount `json:"accounts"`
 
 	// asns
 	// Unique: true
@@ -76,6 +76,8 @@ type Provider struct {
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
 
 	// Name
+	//
+	// Full name of the provider
 	// Required: true
 	// Max Length: 100
 	// Min Length: 1
@@ -101,7 +103,7 @@ type Provider struct {
 func (m *Provider) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAccount(formats); err != nil {
+	if err := m.validateAccounts(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -143,13 +145,31 @@ func (m *Provider) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Provider) validateAccount(formats strfmt.Registry) error {
-	if swag.IsZero(m.Account) { // not required
+func (m *Provider) validateAccounts(formats strfmt.Registry) error {
+	if swag.IsZero(m.Accounts) { // not required
 		return nil
 	}
 
-	if err := validate.MaxLength("account", "body", m.Account, 30); err != nil {
+	if err := validate.UniqueItems("accounts", "body", m.Accounts); err != nil {
 		return err
+	}
+
+	for i := 0; i < len(m.Accounts); i++ {
+		if swag.IsZero(m.Accounts[i]) { // not required
+			continue
+		}
+
+		if m.Accounts[i] != nil {
+			if err := m.Accounts[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("accounts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("accounts" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -301,6 +321,10 @@ func (m *Provider) validateURL(formats strfmt.Registry) error {
 func (m *Provider) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateAccounts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateAsns(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -336,6 +360,26 @@ func (m *Provider) ContextValidate(ctx context.Context, formats strfmt.Registry)
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Provider) contextValidateAccounts(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Accounts); i++ {
+
+		if m.Accounts[i] != nil {
+			if err := m.Accounts[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("accounts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("accounts" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

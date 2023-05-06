@@ -79,7 +79,7 @@ DcimDeviceRolesCreateParams contains all the parameters to send to the API endpo
 type DcimDeviceRolesCreateParams struct {
 
 	// Data.
-	Data *models.DeviceRole
+	Data *models.WritableDeviceRole
 
 	timeout    time.Duration
 	Context    context.Context
@@ -135,13 +135,13 @@ func (o *DcimDeviceRolesCreateParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithData adds the data to the dcim device roles create params
-func (o *DcimDeviceRolesCreateParams) WithData(data *models.DeviceRole) *DcimDeviceRolesCreateParams {
+func (o *DcimDeviceRolesCreateParams) WithData(data *models.WritableDeviceRole) *DcimDeviceRolesCreateParams {
 	o.SetData(data)
 	return o
 }
 
 // SetData adds the data to the dcim device roles create params
-func (o *DcimDeviceRolesCreateParams) SetData(data *models.DeviceRole) {
+func (o *DcimDeviceRolesCreateParams) SetData(data *models.WritableDeviceRole) {
 	o.Data = data
 }
 

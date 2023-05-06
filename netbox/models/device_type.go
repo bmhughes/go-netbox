@@ -50,6 +50,9 @@ type DeviceType struct {
 	// Custom fields
 	CustomFields interface{} `json:"custom_fields,omitempty"`
 
+	// default platform
+	DefaultPlatform *NestedPlatform `json:"default_platform,omitempty"`
+
 	// Description
 	// Max Length: 200
 	Description string `json:"description,omitempty"`
@@ -143,6 +146,10 @@ func (m *DeviceType) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateDefaultPlatform(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateDescription(formats); err != nil {
 		res = append(res, err)
 	}
@@ -227,6 +234,25 @@ func (m *DeviceType) validateCreated(formats strfmt.Registry) error {
 
 	if err := validate.FormatOf("created", "body", "date-time", m.Created.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *DeviceType) validateDefaultPlatform(formats strfmt.Registry) error {
+	if swag.IsZero(m.DefaultPlatform) { // not required
+		return nil
+	}
+
+	if m.DefaultPlatform != nil {
+		if err := m.DefaultPlatform.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("default_platform")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("default_platform")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -450,6 +476,10 @@ func (m *DeviceType) ContextValidate(ctx context.Context, formats strfmt.Registr
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateDefaultPlatform(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateDeviceCount(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -520,6 +550,22 @@ func (m *DeviceType) contextValidateCreated(ctx context.Context, formats strfmt.
 
 	if err := validate.ReadOnly(ctx, "created", "body", m.Created); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *DeviceType) contextValidateDefaultPlatform(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DefaultPlatform != nil {
+		if err := m.DefaultPlatform.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("default_platform")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("default_platform")
+			}
+			return err
+		}
 	}
 
 	return nil

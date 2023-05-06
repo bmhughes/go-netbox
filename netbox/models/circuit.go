@@ -37,6 +37,8 @@ import (
 type Circuit struct {
 
 	// Circuit ID
+	//
+	// Unique circuit ID
 	// Required: true
 	// Max Length: 100
 	// Min Length: 1
@@ -46,6 +48,8 @@ type Circuit struct {
 	Comments string `json:"comments,omitempty"`
 
 	// Commit rate (Kbps)
+	//
+	// Committed rate
 	// Maximum: 2.147483647e+09
 	// Minimum: 0
 	CommitRate *int64 `json:"commit_rate,omitempty"`
@@ -82,6 +86,10 @@ type Circuit struct {
 	// provider
 	// Required: true
 	Provider *NestedProvider `json:"provider"`
+
+	// provider account
+	// Required: true
+	ProviderAccount *NestedProviderAccount `json:"provider_account"`
 
 	// status
 	Status *CircuitStatus `json:"status,omitempty"`
@@ -141,6 +149,10 @@ func (m *Circuit) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateProvider(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateProviderAccount(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -275,6 +287,26 @@ func (m *Circuit) validateProvider(formats strfmt.Registry) error {
 				return ve.ValidateName("provider")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("provider")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Circuit) validateProviderAccount(formats strfmt.Registry) error {
+
+	if err := validate.Required("provider_account", "body", m.ProviderAccount); err != nil {
+		return err
+	}
+
+	if m.ProviderAccount != nil {
+		if err := m.ProviderAccount.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("provider_account")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("provider_account")
 			}
 			return err
 		}
@@ -453,6 +485,10 @@ func (m *Circuit) ContextValidate(ctx context.Context, formats strfmt.Registry) 
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateProviderAccount(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateStatus(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -531,6 +567,22 @@ func (m *Circuit) contextValidateProvider(ctx context.Context, formats strfmt.Re
 				return ve.ValidateName("provider")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("provider")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Circuit) contextValidateProviderAccount(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ProviderAccount != nil {
+		if err := m.ProviderAccount.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("provider_account")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("provider_account")
 			}
 			return err
 		}

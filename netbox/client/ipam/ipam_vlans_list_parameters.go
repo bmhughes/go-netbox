@@ -101,6 +101,9 @@ type IpamVlansListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -332,6 +335,9 @@ type IpamVlansListParams struct {
 	// TenantIDn.
 	TenantIDn *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	// Vid.
 	Vid *string
 
@@ -489,6 +495,17 @@ func (o *IpamVlansListParams) WithCreatedn(createdn *string) *IpamVlansListParam
 // SetCreatedn adds the createdN to the ipam vlans list params
 func (o *IpamVlansListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the ipam vlans list params
+func (o *IpamVlansListParams) WithCreatedByRequest(createdByRequest *string) *IpamVlansListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the ipam vlans list params
+func (o *IpamVlansListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the ipam vlans list params
@@ -1305,6 +1322,17 @@ func (o *IpamVlansListParams) SetTenantIDn(tenantIDn *string) {
 	o.TenantIDn = tenantIDn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the ipam vlans list params
+func (o *IpamVlansListParams) WithUpdatedByRequest(updatedByRequest *string) *IpamVlansListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the ipam vlans list params
+func (o *IpamVlansListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVid adds the vid to the ipam vlans list params
 func (o *IpamVlansListParams) WithVid(vid *string) *IpamVlansListParams {
 	o.SetVid(vid)
@@ -1510,6 +1538,23 @@ func (o *IpamVlansListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2768,6 +2813,23 @@ func (o *IpamVlansListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if qTenantIDn != "" {
 
 			if err := r.SetQueryParam("tenant_id__n", qTenantIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

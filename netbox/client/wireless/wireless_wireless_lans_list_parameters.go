@@ -140,6 +140,9 @@ type WirelessWirelessLansListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -310,6 +313,9 @@ type WirelessWirelessLansListParams struct {
 
 	// TenantIDn.
 	TenantIDn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	// VlanID.
 	VlanID *string
@@ -599,6 +605,17 @@ func (o *WirelessWirelessLansListParams) WithCreatedn(createdn *string) *Wireles
 // SetCreatedn adds the createdN to the wireless wireless lans list params
 func (o *WirelessWirelessLansListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the wireless wireless lans list params
+func (o *WirelessWirelessLansListParams) WithCreatedByRequest(createdByRequest *string) *WirelessWirelessLansListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the wireless wireless lans list params
+func (o *WirelessWirelessLansListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the wireless wireless lans list params
@@ -1195,6 +1212,17 @@ func (o *WirelessWirelessLansListParams) SetTenantIDn(tenantIDn *string) {
 	o.TenantIDn = tenantIDn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the wireless wireless lans list params
+func (o *WirelessWirelessLansListParams) WithUpdatedByRequest(updatedByRequest *string) *WirelessWirelessLansListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the wireless wireless lans list params
+func (o *WirelessWirelessLansListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVlanID adds the vlanID to the wireless wireless lans list params
 func (o *WirelessWirelessLansListParams) WithVlanID(vlanID *string) *WirelessWirelessLansListParams {
 	o.SetVlanID(vlanID)
@@ -1577,6 +1605,23 @@ func (o *WirelessWirelessLansListParams) WriteToRequest(r runtime.ClientRequest,
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2495,6 +2540,23 @@ func (o *WirelessWirelessLansListParams) WriteToRequest(r runtime.ClientRequest,
 		if qTenantIDn != "" {
 
 			if err := r.SetQueryParam("tenant_id__n", qTenantIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

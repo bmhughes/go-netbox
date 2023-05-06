@@ -50,12 +50,18 @@ type WritableCreateAvailableVLAN struct {
 	Name *string `json:"name"`
 
 	// Role
+	//
+	// The primary function of this VLAN
 	Role *int64 `json:"role,omitempty"`
 
 	// Site
+	//
+	// The specific site to which this VLAN is assigned (if any)
 	Site *int64 `json:"site,omitempty"`
 
 	// Status
+	//
+	// Operational status of this VLAN
 	// Enum: [active reserved deprecated]
 	Status string `json:"status,omitempty"`
 

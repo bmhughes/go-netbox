@@ -56,6 +56,26 @@ type WritableConfigContext struct {
 	// Required: true
 	Data interface{} `json:"data"`
 
+	// Data file
+	DataFile *int64 `json:"data_file,omitempty"`
+
+	// Data path
+	//
+	// Path to remote file (relative to data source root)
+	// Read Only: true
+	// Min Length: 1
+	DataPath string `json:"data_path,omitempty"`
+
+	// Data source
+	//
+	// Remote data source
+	DataSource *int64 `json:"data_source,omitempty"`
+
+	// Data synced
+	// Read Only: true
+	// Format: date-time
+	DataSynced *strfmt.DateTime `json:"data_synced,omitempty"`
+
 	// Description
 	// Max Length: 200
 	Description string `json:"description,omitempty"`
@@ -154,6 +174,14 @@ func (m *WritableConfigContext) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateData(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDataPath(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDataSynced(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -275,6 +303,30 @@ func (m *WritableConfigContext) validateData(formats strfmt.Registry) error {
 
 	if m.Data == nil {
 		return errors.Required("data", "body", nil)
+	}
+
+	return nil
+}
+
+func (m *WritableConfigContext) validateDataPath(formats strfmt.Registry) error {
+	if swag.IsZero(m.DataPath) { // not required
+		return nil
+	}
+
+	if err := validate.MinLength("data_path", "body", m.DataPath, 1); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *WritableConfigContext) validateDataSynced(formats strfmt.Registry) error {
+	if swag.IsZero(m.DataSynced) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("data_synced", "body", "date-time", m.DataSynced.String(), formats); err != nil {
+		return err
 	}
 
 	return nil
@@ -485,6 +537,14 @@ func (m *WritableConfigContext) ContextValidate(ctx context.Context, formats str
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateDataPath(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDataSynced(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateDisplay(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -510,6 +570,24 @@ func (m *WritableConfigContext) ContextValidate(ctx context.Context, formats str
 func (m *WritableConfigContext) contextValidateCreated(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "created", "body", m.Created); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *WritableConfigContext) contextValidateDataPath(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "data_path", "body", string(m.DataPath)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *WritableConfigContext) contextValidateDataSynced(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "data_synced", "body", m.DataSynced); err != nil {
 		return err
 	}
 

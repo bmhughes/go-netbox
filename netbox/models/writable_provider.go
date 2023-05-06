@@ -35,9 +35,10 @@ import (
 // swagger:model WritableProvider
 type WritableProvider struct {
 
-	// Account number
-	// Max Length: 30
-	Account string `json:"account,omitempty"`
+	// accounts
+	// Required: true
+	// Unique: true
+	Accounts []int64 `json:"accounts"`
 
 	// asns
 	// Unique: true
@@ -76,6 +77,8 @@ type WritableProvider struct {
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
 
 	// Name
+	//
+	// Full name of the provider
 	// Required: true
 	// Max Length: 100
 	// Min Length: 1
@@ -101,7 +104,7 @@ type WritableProvider struct {
 func (m *WritableProvider) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAccount(formats); err != nil {
+	if err := m.validateAccounts(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -143,12 +146,13 @@ func (m *WritableProvider) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *WritableProvider) validateAccount(formats strfmt.Registry) error {
-	if swag.IsZero(m.Account) { // not required
-		return nil
+func (m *WritableProvider) validateAccounts(formats strfmt.Registry) error {
+
+	if err := validate.Required("accounts", "body", m.Accounts); err != nil {
+		return err
 	}
 
-	if err := validate.MaxLength("account", "body", m.Account, 30); err != nil {
+	if err := validate.UniqueItems("accounts", "body", m.Accounts); err != nil {
 		return err
 	}
 

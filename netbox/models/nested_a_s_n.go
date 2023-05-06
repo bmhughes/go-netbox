@@ -36,7 +36,7 @@ type NestedASN struct {
 
 	// ASN
 	//
-	// 32-bit autonomous system number
+	// 16- or 32-bit autonomous system number
 	// Required: true
 	// Maximum: 4.294967295e+09
 	// Minimum: 1

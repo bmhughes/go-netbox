@@ -101,6 +101,9 @@ type DcimModuleTypesListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// ID.
 	ID *string
 
@@ -253,6 +256,9 @@ type DcimModuleTypesListParams struct {
 
 	// Tagn.
 	Tagn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	// Weight.
 	Weight *string
@@ -417,6 +423,17 @@ func (o *DcimModuleTypesListParams) WithCreatedn(createdn *string) *DcimModuleTy
 // SetCreatedn adds the createdN to the dcim module types list params
 func (o *DcimModuleTypesListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim module types list params
+func (o *DcimModuleTypesListParams) WithCreatedByRequest(createdByRequest *string) *DcimModuleTypesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim module types list params
+func (o *DcimModuleTypesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithID adds the id to the dcim module types list params
@@ -947,6 +964,17 @@ func (o *DcimModuleTypesListParams) SetTagn(tagn *string) {
 	o.Tagn = tagn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim module types list params
+func (o *DcimModuleTypesListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimModuleTypesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim module types list params
+func (o *DcimModuleTypesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithWeight adds the weight to the dcim module types list params
 func (o *DcimModuleTypesListParams) WithWeight(weight *string) *DcimModuleTypesListParams {
 	o.SetWeight(weight)
@@ -1174,6 +1202,23 @@ func (o *DcimModuleTypesListParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -1990,6 +2035,23 @@ func (o *DcimModuleTypesListParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if qTagn != "" {
 
 			if err := r.SetQueryParam("tag__n", qTagn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

@@ -80,7 +80,7 @@ ExtrasExportTemplatesUpdateParams contains all the parameters to send to the API
 type ExtrasExportTemplatesUpdateParams struct {
 
 	// Data.
-	Data *models.ExportTemplate
+	Data *models.WritableExportTemplate
 
 	/* ID.
 
@@ -142,13 +142,13 @@ func (o *ExtrasExportTemplatesUpdateParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithData adds the data to the extras export templates update params
-func (o *ExtrasExportTemplatesUpdateParams) WithData(data *models.ExportTemplate) *ExtrasExportTemplatesUpdateParams {
+func (o *ExtrasExportTemplatesUpdateParams) WithData(data *models.WritableExportTemplate) *ExtrasExportTemplatesUpdateParams {
 	o.SetData(data)
 	return o
 }
 
 // SetData adds the data to the extras export templates update params
-func (o *ExtrasExportTemplatesUpdateParams) SetData(data *models.ExportTemplate) {
+func (o *ExtrasExportTemplatesUpdateParams) SetData(data *models.WritableExportTemplate) {
 	o.Data = data
 }
 

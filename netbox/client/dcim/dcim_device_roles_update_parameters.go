@@ -80,7 +80,7 @@ DcimDeviceRolesUpdateParams contains all the parameters to send to the API endpo
 type DcimDeviceRolesUpdateParams struct {
 
 	// Data.
-	Data *models.DeviceRole
+	Data *models.WritableDeviceRole
 
 	/* ID.
 
@@ -142,13 +142,13 @@ func (o *DcimDeviceRolesUpdateParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithData adds the data to the dcim device roles update params
-func (o *DcimDeviceRolesUpdateParams) WithData(data *models.DeviceRole) *DcimDeviceRolesUpdateParams {
+func (o *DcimDeviceRolesUpdateParams) WithData(data *models.WritableDeviceRole) *DcimDeviceRolesUpdateParams {
 	o.SetData(data)
 	return o
 }
 
 // SetData adds the data to the dcim device roles update params
-func (o *DcimDeviceRolesUpdateParams) SetData(data *models.DeviceRole) {
+func (o *DcimDeviceRolesUpdateParams) SetData(data *models.WritableDeviceRole) {
 	o.Data = data
 }
 

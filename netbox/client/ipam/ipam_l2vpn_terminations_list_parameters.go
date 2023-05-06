@@ -107,6 +107,9 @@ type IpamL2vpnTerminationsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Device.
 	Device *string
 
@@ -217,6 +220,9 @@ type IpamL2vpnTerminationsListParams struct {
 
 	// Tagn.
 	Tagn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	// VirtualMachine.
 	VirtualMachine *string
@@ -433,6 +439,17 @@ func (o *IpamL2vpnTerminationsListParams) WithCreatedn(createdn *string) *IpamL2
 // SetCreatedn adds the createdN to the ipam l2vpn terminations list params
 func (o *IpamL2vpnTerminationsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the ipam l2vpn terminations list params
+func (o *IpamL2vpnTerminationsListParams) WithCreatedByRequest(createdByRequest *string) *IpamL2vpnTerminationsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the ipam l2vpn terminations list params
+func (o *IpamL2vpnTerminationsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDevice adds the device to the ipam l2vpn terminations list params
@@ -809,6 +826,17 @@ func (o *IpamL2vpnTerminationsListParams) SetTagn(tagn *string) {
 	o.Tagn = tagn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the ipam l2vpn terminations list params
+func (o *IpamL2vpnTerminationsListParams) WithUpdatedByRequest(updatedByRequest *string) *IpamL2vpnTerminationsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the ipam l2vpn terminations list params
+func (o *IpamL2vpnTerminationsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVirtualMachine adds the virtualMachine to the ipam l2vpn terminations list params
 func (o *IpamL2vpnTerminationsListParams) WithVirtualMachine(virtualMachine *string) *IpamL2vpnTerminationsListParams {
 	o.SetVirtualMachine(virtualMachine)
@@ -1180,6 +1208,23 @@ func (o *IpamL2vpnTerminationsListParams) WriteToRequest(r runtime.ClientRequest
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -1758,6 +1803,23 @@ func (o *IpamL2vpnTerminationsListParams) WriteToRequest(r runtime.ClientRequest
 		if qTagn != "" {
 
 			if err := r.SetQueryParam("tag__n", qTagn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

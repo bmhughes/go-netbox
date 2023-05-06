@@ -95,6 +95,9 @@ type IpamRirsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -260,6 +263,9 @@ type IpamRirsListParams struct {
 	// Tagn.
 	Tagn *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -377,6 +383,17 @@ func (o *IpamRirsListParams) WithCreatedn(createdn *string) *IpamRirsListParams 
 // SetCreatedn adds the createdN to the ipam rirs list params
 func (o *IpamRirsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the ipam rirs list params
+func (o *IpamRirsListParams) WithCreatedByRequest(createdByRequest *string) *IpamRirsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the ipam rirs list params
+func (o *IpamRirsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the ipam rirs list params
@@ -951,6 +968,17 @@ func (o *IpamRirsListParams) SetTagn(tagn *string) {
 	o.Tagn = tagn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the ipam rirs list params
+func (o *IpamRirsListParams) WithUpdatedByRequest(updatedByRequest *string) *IpamRirsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the ipam rirs list params
+func (o *IpamRirsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *IpamRirsListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -1056,6 +1084,23 @@ func (o *IpamRirsListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -1940,6 +1985,23 @@ func (o *IpamRirsListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		if qTagn != "" {
 
 			if err := r.SetQueryParam("tag__n", qTagn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

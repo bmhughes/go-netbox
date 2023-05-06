@@ -101,6 +101,24 @@ type ClientService interface {
 
 	CircuitsCircuitsUpdate(params *CircuitsCircuitsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsCircuitsUpdateOK, error)
 
+	CircuitsProviderAccountsBulkDelete(params *CircuitsProviderAccountsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsBulkDeleteNoContent, error)
+
+	CircuitsProviderAccountsBulkPartialUpdate(params *CircuitsProviderAccountsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsBulkPartialUpdateOK, error)
+
+	CircuitsProviderAccountsBulkUpdate(params *CircuitsProviderAccountsBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsBulkUpdateOK, error)
+
+	CircuitsProviderAccountsCreate(params *CircuitsProviderAccountsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsCreateCreated, error)
+
+	CircuitsProviderAccountsDelete(params *CircuitsProviderAccountsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsDeleteNoContent, error)
+
+	CircuitsProviderAccountsList(params *CircuitsProviderAccountsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsListOK, error)
+
+	CircuitsProviderAccountsPartialUpdate(params *CircuitsProviderAccountsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsPartialUpdateOK, error)
+
+	CircuitsProviderAccountsRead(params *CircuitsProviderAccountsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsReadOK, error)
+
+	CircuitsProviderAccountsUpdate(params *CircuitsProviderAccountsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsUpdateOK, error)
+
 	CircuitsProviderNetworksBulkDelete(params *CircuitsProviderNetworksBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderNetworksBulkDeleteNoContent, error)
 
 	CircuitsProviderNetworksBulkPartialUpdate(params *CircuitsProviderNetworksBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderNetworksBulkPartialUpdateOK, error)
@@ -1229,6 +1247,357 @@ func (a *Client) CircuitsCircuitsUpdate(params *CircuitsCircuitsUpdateParams, au
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for circuits_circuits_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CircuitsProviderAccountsBulkDelete circuits provider accounts bulk delete API
+*/
+func (a *Client) CircuitsProviderAccountsBulkDelete(params *CircuitsProviderAccountsBulkDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsBulkDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsBulkDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_bulk_delete",
+		Method:             "DELETE",
+		PathPattern:        "/circuits/provider-accounts/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsBulkDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsBulkDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for circuits_provider-accounts_bulk_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CircuitsProviderAccountsBulkPartialUpdate circuits provider accounts bulk partial update API
+*/
+func (a *Client) CircuitsProviderAccountsBulkPartialUpdate(params *CircuitsProviderAccountsBulkPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsBulkPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsBulkPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_bulk_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/circuits/provider-accounts/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsBulkPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsBulkPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for circuits_provider-accounts_bulk_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CircuitsProviderAccountsBulkUpdate circuits provider accounts bulk update API
+*/
+func (a *Client) CircuitsProviderAccountsBulkUpdate(params *CircuitsProviderAccountsBulkUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsBulkUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsBulkUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_bulk_update",
+		Method:             "PUT",
+		PathPattern:        "/circuits/provider-accounts/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsBulkUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsBulkUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for circuits_provider-accounts_bulk_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CircuitsProviderAccountsCreate circuits provider accounts create API
+*/
+func (a *Client) CircuitsProviderAccountsCreate(params *CircuitsProviderAccountsCreateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsCreateCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsCreateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_create",
+		Method:             "POST",
+		PathPattern:        "/circuits/provider-accounts/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsCreateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsCreateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for circuits_provider-accounts_create: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CircuitsProviderAccountsDelete circuits provider accounts delete API
+*/
+func (a *Client) CircuitsProviderAccountsDelete(params *CircuitsProviderAccountsDeleteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsDeleteNoContent, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsDeleteParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_delete",
+		Method:             "DELETE",
+		PathPattern:        "/circuits/provider-accounts/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsDeleteReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsDeleteNoContent)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for circuits_provider-accounts_delete: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CircuitsProviderAccountsList circuits provider accounts list API
+*/
+func (a *Client) CircuitsProviderAccountsList(params *CircuitsProviderAccountsListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsListParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_list",
+		Method:             "GET",
+		PathPattern:        "/circuits/provider-accounts/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsListOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for circuits_provider-accounts_list: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CircuitsProviderAccountsPartialUpdate circuits provider accounts partial update API
+*/
+func (a *Client) CircuitsProviderAccountsPartialUpdate(params *CircuitsProviderAccountsPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsPartialUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsPartialUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_partial_update",
+		Method:             "PATCH",
+		PathPattern:        "/circuits/provider-accounts/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsPartialUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsPartialUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for circuits_provider-accounts_partial_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CircuitsProviderAccountsRead circuits provider accounts read API
+*/
+func (a *Client) CircuitsProviderAccountsRead(params *CircuitsProviderAccountsReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsReadOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsReadParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_read",
+		Method:             "GET",
+		PathPattern:        "/circuits/provider-accounts/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsReadReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsReadOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for circuits_provider-accounts_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CircuitsProviderAccountsUpdate circuits provider accounts update API
+*/
+func (a *Client) CircuitsProviderAccountsUpdate(params *CircuitsProviderAccountsUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CircuitsProviderAccountsUpdateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCircuitsProviderAccountsUpdateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "circuits_provider-accounts_update",
+		Method:             "PUT",
+		PathPattern:        "/circuits/provider-accounts/{id}/",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &CircuitsProviderAccountsUpdateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CircuitsProviderAccountsUpdateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for circuits_provider-accounts_update: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

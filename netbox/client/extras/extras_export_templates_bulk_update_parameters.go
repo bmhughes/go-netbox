@@ -79,7 +79,7 @@ ExtrasExportTemplatesBulkUpdateParams contains all the parameters to send to the
 type ExtrasExportTemplatesBulkUpdateParams struct {
 
 	// Data.
-	Data *models.ExportTemplate
+	Data *models.WritableExportTemplate
 
 	timeout    time.Duration
 	Context    context.Context
@@ -135,13 +135,13 @@ func (o *ExtrasExportTemplatesBulkUpdateParams) SetHTTPClient(client *http.Clien
 }
 
 // WithData adds the data to the extras export templates bulk update params
-func (o *ExtrasExportTemplatesBulkUpdateParams) WithData(data *models.ExportTemplate) *ExtrasExportTemplatesBulkUpdateParams {
+func (o *ExtrasExportTemplatesBulkUpdateParams) WithData(data *models.WritableExportTemplate) *ExtrasExportTemplatesBulkUpdateParams {
 	o.SetData(data)
 	return o
 }
 
 // SetData adds the data to the extras export templates bulk update params
-func (o *ExtrasExportTemplatesBulkUpdateParams) SetData(data *models.ExportTemplate) {
+func (o *ExtrasExportTemplatesBulkUpdateParams) SetData(data *models.WritableExportTemplate) {
 	o.Data = data
 }
 

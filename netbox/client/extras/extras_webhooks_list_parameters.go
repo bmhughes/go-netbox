@@ -347,6 +347,12 @@ type ExtrasWebhooksListParams struct {
 	// TypeDelete.
 	TypeDelete *string
 
+	// TypeJobEnd.
+	TypeJobEnd *string
+
+	// TypeJobStart.
+	TypeJobStart *string
+
 	// TypeUpdate.
 	TypeUpdate *string
 
@@ -1358,6 +1364,28 @@ func (o *ExtrasWebhooksListParams) WithTypeDelete(typeDelete *string) *ExtrasWeb
 // SetTypeDelete adds the typeDelete to the extras webhooks list params
 func (o *ExtrasWebhooksListParams) SetTypeDelete(typeDelete *string) {
 	o.TypeDelete = typeDelete
+}
+
+// WithTypeJobEnd adds the typeJobEnd to the extras webhooks list params
+func (o *ExtrasWebhooksListParams) WithTypeJobEnd(typeJobEnd *string) *ExtrasWebhooksListParams {
+	o.SetTypeJobEnd(typeJobEnd)
+	return o
+}
+
+// SetTypeJobEnd adds the typeJobEnd to the extras webhooks list params
+func (o *ExtrasWebhooksListParams) SetTypeJobEnd(typeJobEnd *string) {
+	o.TypeJobEnd = typeJobEnd
+}
+
+// WithTypeJobStart adds the typeJobStart to the extras webhooks list params
+func (o *ExtrasWebhooksListParams) WithTypeJobStart(typeJobStart *string) *ExtrasWebhooksListParams {
+	o.SetTypeJobStart(typeJobStart)
+	return o
+}
+
+// SetTypeJobStart adds the typeJobStart to the extras webhooks list params
+func (o *ExtrasWebhooksListParams) SetTypeJobStart(typeJobStart *string) {
+	o.TypeJobStart = typeJobStart
 }
 
 // WithTypeUpdate adds the typeUpdate to the extras webhooks list params
@@ -2853,6 +2881,40 @@ func (o *ExtrasWebhooksListParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qTypeDelete != "" {
 
 			if err := r.SetQueryParam("type_delete", qTypeDelete); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TypeJobEnd != nil {
+
+		// query param type_job_end
+		var qrTypeJobEnd string
+
+		if o.TypeJobEnd != nil {
+			qrTypeJobEnd = *o.TypeJobEnd
+		}
+		qTypeJobEnd := qrTypeJobEnd
+		if qTypeJobEnd != "" {
+
+			if err := r.SetQueryParam("type_job_end", qTypeJobEnd); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TypeJobStart != nil {
+
+		// query param type_job_start
+		var qrTypeJobStart string
+
+		if o.TypeJobStart != nil {
+			qrTypeJobStart = *o.TypeJobStart
+		}
+		qTypeJobStart := qrTypeJobStart
+		if qTypeJobStart != "" {
+
+			if err := r.SetQueryParam("type_job_start", qTypeJobStart); err != nil {
 				return err
 			}
 		}

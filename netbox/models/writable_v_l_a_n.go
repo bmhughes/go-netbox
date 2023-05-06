@@ -56,6 +56,8 @@ type WritableVLAN struct {
 	Display string `json:"display,omitempty"`
 
 	// Group
+	//
+	// VLAN group (optional)
 	Group *int64 `json:"group,omitempty"`
 
 	// ID
@@ -82,12 +84,18 @@ type WritableVLAN struct {
 	PrefixCount int64 `json:"prefix_count,omitempty"`
 
 	// Role
+	//
+	// The primary function of this VLAN
 	Role *int64 `json:"role,omitempty"`
 
 	// Site
+	//
+	// The specific site to which this VLAN is assigned (if any)
 	Site *int64 `json:"site,omitempty"`
 
 	// Status
+	//
+	// Operational status of this VLAN
 	// Enum: [active reserved deprecated]
 	Status string `json:"status,omitempty"`
 
@@ -103,6 +111,8 @@ type WritableVLAN struct {
 	URL strfmt.URI `json:"url,omitempty"`
 
 	// ID
+	//
+	// Numeric VLAN ID (1-4094)
 	// Required: true
 	// Maximum: 4094
 	// Minimum: 1

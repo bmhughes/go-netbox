@@ -95,6 +95,9 @@ type DcimVirtualDeviceContextsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Device.
 	Device *string
 
@@ -236,6 +239,9 @@ type DcimVirtualDeviceContextsListParams struct {
 	// TenantIDn.
 	TenantIDn *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -353,6 +359,17 @@ func (o *DcimVirtualDeviceContextsListParams) WithCreatedn(createdn *string) *Dc
 // SetCreatedn adds the createdN to the dcim virtual device contexts list params
 func (o *DcimVirtualDeviceContextsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim virtual device contexts list params
+func (o *DcimVirtualDeviceContextsListParams) WithCreatedByRequest(createdByRequest *string) *DcimVirtualDeviceContextsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim virtual device contexts list params
+func (o *DcimVirtualDeviceContextsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDevice adds the device to the dcim virtual device contexts list params
@@ -839,6 +856,17 @@ func (o *DcimVirtualDeviceContextsListParams) SetTenantIDn(tenantIDn *string) {
 	o.TenantIDn = tenantIDn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim virtual device contexts list params
+func (o *DcimVirtualDeviceContextsListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimVirtualDeviceContextsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim virtual device contexts list params
+func (o *DcimVirtualDeviceContextsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DcimVirtualDeviceContextsListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -944,6 +972,23 @@ func (o *DcimVirtualDeviceContextsListParams) WriteToRequest(r runtime.ClientReq
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -1692,6 +1737,23 @@ func (o *DcimVirtualDeviceContextsListParams) WriteToRequest(r runtime.ClientReq
 		if qTenantIDn != "" {
 
 			if err := r.SetQueryParam("tenant_id__n", qTenantIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

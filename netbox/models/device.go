@@ -51,6 +51,9 @@ type Device struct {
 	// Comments
 	Comments string `json:"comments,omitempty"`
 
+	// config template
+	ConfigTemplate *NestedConfigTemplate `json:"config_template,omitempty"`
+
 	// Created
 	// Read Only: true
 	// Format: date-time
@@ -88,6 +91,8 @@ type Device struct {
 	LastUpdated *strfmt.DateTime `json:"last_updated,omitempty"`
 
 	// Local context data
+	//
+	// Local config context data takes precedence over source contexts in the final rendered config context
 	LocalContextData interface{} `json:"local_context_data,omitempty"`
 
 	// location
@@ -120,6 +125,8 @@ type Device struct {
 	Rack *NestedRack `json:"rack,omitempty"`
 
 	// Serial number
+	//
+	// Chassis serial number, assigned by the manufacturer
 	// Max Length: 50
 	Serial string `json:"serial,omitempty"`
 
@@ -147,6 +154,8 @@ type Device struct {
 	VcPosition *int64 `json:"vc_position,omitempty"`
 
 	// Vc priority
+	//
+	// Virtual chassis master election priority
 	// Maximum: 255
 	// Minimum: 0
 	VcPriority *int64 `json:"vc_priority,omitempty"`
@@ -168,6 +177,10 @@ func (m *Device) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCluster(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateConfigTemplate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -315,6 +328,25 @@ func (m *Device) validateCluster(formats strfmt.Registry) error {
 				return ve.ValidateName("cluster")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("cluster")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Device) validateConfigTemplate(formats strfmt.Registry) error {
+	if swag.IsZero(m.ConfigTemplate) { // not required
+		return nil
+	}
+
+	if m.ConfigTemplate != nil {
+		if err := m.ConfigTemplate.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("config_template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("config_template")
 			}
 			return err
 		}
@@ -746,6 +778,10 @@ func (m *Device) ContextValidate(ctx context.Context, formats strfmt.Registry) e
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateConfigTemplate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateCreated(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -856,6 +892,22 @@ func (m *Device) contextValidateCluster(ctx context.Context, formats strfmt.Regi
 				return ve.ValidateName("cluster")
 			} else if ce, ok := err.(*errors.CompositeError); ok {
 				return ce.ValidateName("cluster")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Device) contextValidateConfigTemplate(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ConfigTemplate != nil {
+		if err := m.ConfigTemplate.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("config_template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("config_template")
 			}
 			return err
 		}

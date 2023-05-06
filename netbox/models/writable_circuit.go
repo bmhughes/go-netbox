@@ -37,6 +37,8 @@ import (
 type WritableCircuit struct {
 
 	// Circuit ID
+	//
+	// Unique circuit ID
 	// Required: true
 	// Max Length: 100
 	// Min Length: 1
@@ -46,6 +48,8 @@ type WritableCircuit struct {
 	Comments string `json:"comments,omitempty"`
 
 	// Commit rate (Kbps)
+	//
+	// Committed rate
 	// Maximum: 2.147483647e+09
 	// Minimum: 0
 	CommitRate *int64 `json:"commit_rate,omitempty"`
@@ -82,6 +86,9 @@ type WritableCircuit struct {
 	// Provider
 	// Required: true
 	Provider *int64 `json:"provider"`
+
+	// Provider account
+	ProviderAccount *int64 `json:"provider_account,omitempty"`
 
 	// Status
 	// Enum: [planned provisioning active offline deprovisioning decommissioned]

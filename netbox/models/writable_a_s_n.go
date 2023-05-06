@@ -37,7 +37,7 @@ type WritableASN struct {
 
 	// ASN
 	//
-	// 32-bit autonomous system number
+	// 16- or 32-bit autonomous system number
 	// Required: true
 	// Maximum: 4.294967295e+09
 	// Minimum: 1
@@ -76,6 +76,8 @@ type WritableASN struct {
 	ProviderCount int64 `json:"provider_count,omitempty"`
 
 	// RIR
+	//
+	// Regional Internet Registry responsible for this AS number space
 	// Required: true
 	Rir *int64 `json:"rir"`
 

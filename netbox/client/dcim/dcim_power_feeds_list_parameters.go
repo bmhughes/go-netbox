@@ -125,6 +125,9 @@ type DcimPowerFeedsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// ID.
 	ID *string
 
@@ -313,6 +316,9 @@ type DcimPowerFeedsListParams struct {
 
 	// Typen.
 	Typen *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	// Voltage.
 	Voltage *string
@@ -559,6 +565,17 @@ func (o *DcimPowerFeedsListParams) WithCreatedn(createdn *string) *DcimPowerFeed
 // SetCreatedn adds the createdN to the dcim power feeds list params
 func (o *DcimPowerFeedsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim power feeds list params
+func (o *DcimPowerFeedsListParams) WithCreatedByRequest(createdByRequest *string) *DcimPowerFeedsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim power feeds list params
+func (o *DcimPowerFeedsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithID adds the id to the dcim power feeds list params
@@ -1221,6 +1238,17 @@ func (o *DcimPowerFeedsListParams) SetTypen(typen *string) {
 	o.Typen = typen
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim power feeds list params
+func (o *DcimPowerFeedsListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimPowerFeedsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim power feeds list params
+func (o *DcimPowerFeedsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVoltage adds the voltage to the dcim power feeds list params
 func (o *DcimPowerFeedsListParams) WithVoltage(voltage *string) *DcimPowerFeedsListParams {
 	o.SetVoltage(voltage)
@@ -1562,6 +1590,23 @@ func (o *DcimPowerFeedsListParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2582,6 +2627,23 @@ func (o *DcimPowerFeedsListParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qTypen != "" {
 
 			if err := r.SetQueryParam("type__n", qTypen); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

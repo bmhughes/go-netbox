@@ -149,6 +149,9 @@ type VirtualizationVirtualMachinesListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Device.
 	Device *string
 
@@ -418,6 +421,9 @@ type VirtualizationVirtualMachinesListParams struct {
 
 	// TenantIDn.
 	TenantIDn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	// Vcpus.
 	Vcpus *string
@@ -752,6 +758,17 @@ func (o *VirtualizationVirtualMachinesListParams) WithCreatedn(createdn *string)
 // SetCreatedn adds the createdN to the virtualization virtual machines list params
 func (o *VirtualizationVirtualMachinesListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the virtualization virtual machines list params
+func (o *VirtualizationVirtualMachinesListParams) WithCreatedByRequest(createdByRequest *string) *VirtualizationVirtualMachinesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the virtualization virtual machines list params
+func (o *VirtualizationVirtualMachinesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDevice adds the device to the virtualization virtual machines list params
@@ -1711,6 +1728,17 @@ func (o *VirtualizationVirtualMachinesListParams) SetTenantIDn(tenantIDn *string
 	o.TenantIDn = tenantIDn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the virtualization virtual machines list params
+func (o *VirtualizationVirtualMachinesListParams) WithUpdatedByRequest(updatedByRequest *string) *VirtualizationVirtualMachinesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the virtualization virtual machines list params
+func (o *VirtualizationVirtualMachinesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVcpus adds the vcpus to the virtualization virtual machines list params
 func (o *VirtualizationVirtualMachinesListParams) WithVcpus(vcpus *string) *VirtualizationVirtualMachinesListParams {
 	o.SetVcpus(vcpus)
@@ -2188,6 +2216,23 @@ func (o *VirtualizationVirtualMachinesListParams) WriteToRequest(r runtime.Clien
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -3667,6 +3712,23 @@ func (o *VirtualizationVirtualMachinesListParams) WriteToRequest(r runtime.Clien
 		if qTenantIDn != "" {
 
 			if err := r.SetQueryParam("tenant_id__n", qTenantIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

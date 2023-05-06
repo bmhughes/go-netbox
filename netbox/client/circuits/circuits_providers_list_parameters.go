@@ -77,39 +77,6 @@ CircuitsProvidersListParams contains all the parameters to send to the API endpo
 */
 type CircuitsProvidersListParams struct {
 
-	// Account.
-	Account *string
-
-	// AccountEmpty.
-	AccountEmpty *string
-
-	// AccountIc.
-	AccountIc *string
-
-	// AccountIe.
-	AccountIe *string
-
-	// AccountIew.
-	AccountIew *string
-
-	// AccountIsw.
-	AccountIsw *string
-
-	// Accountn.
-	Accountn *string
-
-	// AccountNic.
-	AccountNic *string
-
-	// AccountNie.
-	AccountNie *string
-
-	// AccountNiew.
-	AccountNiew *string
-
-	// AccountNisw.
-	AccountNisw *string
-
 	// AsnID.
 	AsnID *string
 
@@ -151,6 +118,9 @@ type CircuitsProvidersListParams struct {
 
 	// Createdn.
 	Createdn *string
+
+	// CreatedByRequest.
+	CreatedByRequest *string
 
 	// ID.
 	ID *string
@@ -317,6 +287,9 @@ type CircuitsProvidersListParams struct {
 	// Tagn.
 	Tagn *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -368,127 +341,6 @@ func (o *CircuitsProvidersListParams) WithHTTPClient(client *http.Client) *Circu
 // SetHTTPClient adds the HTTPClient to the circuits providers list params
 func (o *CircuitsProvidersListParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
-}
-
-// WithAccount adds the account to the circuits providers list params
-func (o *CircuitsProvidersListParams) WithAccount(account *string) *CircuitsProvidersListParams {
-	o.SetAccount(account)
-	return o
-}
-
-// SetAccount adds the account to the circuits providers list params
-func (o *CircuitsProvidersListParams) SetAccount(account *string) {
-	o.Account = account
-}
-
-// WithAccountEmpty adds the accountEmpty to the circuits providers list params
-func (o *CircuitsProvidersListParams) WithAccountEmpty(accountEmpty *string) *CircuitsProvidersListParams {
-	o.SetAccountEmpty(accountEmpty)
-	return o
-}
-
-// SetAccountEmpty adds the accountEmpty to the circuits providers list params
-func (o *CircuitsProvidersListParams) SetAccountEmpty(accountEmpty *string) {
-	o.AccountEmpty = accountEmpty
-}
-
-// WithAccountIc adds the accountIc to the circuits providers list params
-func (o *CircuitsProvidersListParams) WithAccountIc(accountIc *string) *CircuitsProvidersListParams {
-	o.SetAccountIc(accountIc)
-	return o
-}
-
-// SetAccountIc adds the accountIc to the circuits providers list params
-func (o *CircuitsProvidersListParams) SetAccountIc(accountIc *string) {
-	o.AccountIc = accountIc
-}
-
-// WithAccountIe adds the accountIe to the circuits providers list params
-func (o *CircuitsProvidersListParams) WithAccountIe(accountIe *string) *CircuitsProvidersListParams {
-	o.SetAccountIe(accountIe)
-	return o
-}
-
-// SetAccountIe adds the accountIe to the circuits providers list params
-func (o *CircuitsProvidersListParams) SetAccountIe(accountIe *string) {
-	o.AccountIe = accountIe
-}
-
-// WithAccountIew adds the accountIew to the circuits providers list params
-func (o *CircuitsProvidersListParams) WithAccountIew(accountIew *string) *CircuitsProvidersListParams {
-	o.SetAccountIew(accountIew)
-	return o
-}
-
-// SetAccountIew adds the accountIew to the circuits providers list params
-func (o *CircuitsProvidersListParams) SetAccountIew(accountIew *string) {
-	o.AccountIew = accountIew
-}
-
-// WithAccountIsw adds the accountIsw to the circuits providers list params
-func (o *CircuitsProvidersListParams) WithAccountIsw(accountIsw *string) *CircuitsProvidersListParams {
-	o.SetAccountIsw(accountIsw)
-	return o
-}
-
-// SetAccountIsw adds the accountIsw to the circuits providers list params
-func (o *CircuitsProvidersListParams) SetAccountIsw(accountIsw *string) {
-	o.AccountIsw = accountIsw
-}
-
-// WithAccountn adds the accountn to the circuits providers list params
-func (o *CircuitsProvidersListParams) WithAccountn(accountn *string) *CircuitsProvidersListParams {
-	o.SetAccountn(accountn)
-	return o
-}
-
-// SetAccountn adds the accountN to the circuits providers list params
-func (o *CircuitsProvidersListParams) SetAccountn(accountn *string) {
-	o.Accountn = accountn
-}
-
-// WithAccountNic adds the accountNic to the circuits providers list params
-func (o *CircuitsProvidersListParams) WithAccountNic(accountNic *string) *CircuitsProvidersListParams {
-	o.SetAccountNic(accountNic)
-	return o
-}
-
-// SetAccountNic adds the accountNic to the circuits providers list params
-func (o *CircuitsProvidersListParams) SetAccountNic(accountNic *string) {
-	o.AccountNic = accountNic
-}
-
-// WithAccountNie adds the accountNie to the circuits providers list params
-func (o *CircuitsProvidersListParams) WithAccountNie(accountNie *string) *CircuitsProvidersListParams {
-	o.SetAccountNie(accountNie)
-	return o
-}
-
-// SetAccountNie adds the accountNie to the circuits providers list params
-func (o *CircuitsProvidersListParams) SetAccountNie(accountNie *string) {
-	o.AccountNie = accountNie
-}
-
-// WithAccountNiew adds the accountNiew to the circuits providers list params
-func (o *CircuitsProvidersListParams) WithAccountNiew(accountNiew *string) *CircuitsProvidersListParams {
-	o.SetAccountNiew(accountNiew)
-	return o
-}
-
-// SetAccountNiew adds the accountNiew to the circuits providers list params
-func (o *CircuitsProvidersListParams) SetAccountNiew(accountNiew *string) {
-	o.AccountNiew = accountNiew
-}
-
-// WithAccountNisw adds the accountNisw to the circuits providers list params
-func (o *CircuitsProvidersListParams) WithAccountNisw(accountNisw *string) *CircuitsProvidersListParams {
-	o.SetAccountNisw(accountNisw)
-	return o
-}
-
-// SetAccountNisw adds the accountNisw to the circuits providers list params
-func (o *CircuitsProvidersListParams) SetAccountNisw(accountNisw *string) {
-	o.AccountNisw = accountNisw
 }
 
 // WithAsnID adds the asnID to the circuits providers list params
@@ -643,6 +495,17 @@ func (o *CircuitsProvidersListParams) WithCreatedn(createdn *string) *CircuitsPr
 // SetCreatedn adds the createdN to the circuits providers list params
 func (o *CircuitsProvidersListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the circuits providers list params
+func (o *CircuitsProvidersListParams) WithCreatedByRequest(createdByRequest *string) *CircuitsProvidersListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the circuits providers list params
+func (o *CircuitsProvidersListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithID adds the id to the circuits providers list params
@@ -1217,6 +1080,17 @@ func (o *CircuitsProvidersListParams) SetTagn(tagn *string) {
 	o.Tagn = tagn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the circuits providers list params
+func (o *CircuitsProvidersListParams) WithUpdatedByRequest(updatedByRequest *string) *CircuitsProvidersListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the circuits providers list params
+func (o *CircuitsProvidersListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *CircuitsProvidersListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -1224,193 +1098,6 @@ func (o *CircuitsProvidersListParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-
-	if o.Account != nil {
-
-		// query param account
-		var qrAccount string
-
-		if o.Account != nil {
-			qrAccount = *o.Account
-		}
-		qAccount := qrAccount
-		if qAccount != "" {
-
-			if err := r.SetQueryParam("account", qAccount); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.AccountEmpty != nil {
-
-		// query param account__empty
-		var qrAccountEmpty string
-
-		if o.AccountEmpty != nil {
-			qrAccountEmpty = *o.AccountEmpty
-		}
-		qAccountEmpty := qrAccountEmpty
-		if qAccountEmpty != "" {
-
-			if err := r.SetQueryParam("account__empty", qAccountEmpty); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.AccountIc != nil {
-
-		// query param account__ic
-		var qrAccountIc string
-
-		if o.AccountIc != nil {
-			qrAccountIc = *o.AccountIc
-		}
-		qAccountIc := qrAccountIc
-		if qAccountIc != "" {
-
-			if err := r.SetQueryParam("account__ic", qAccountIc); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.AccountIe != nil {
-
-		// query param account__ie
-		var qrAccountIe string
-
-		if o.AccountIe != nil {
-			qrAccountIe = *o.AccountIe
-		}
-		qAccountIe := qrAccountIe
-		if qAccountIe != "" {
-
-			if err := r.SetQueryParam("account__ie", qAccountIe); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.AccountIew != nil {
-
-		// query param account__iew
-		var qrAccountIew string
-
-		if o.AccountIew != nil {
-			qrAccountIew = *o.AccountIew
-		}
-		qAccountIew := qrAccountIew
-		if qAccountIew != "" {
-
-			if err := r.SetQueryParam("account__iew", qAccountIew); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.AccountIsw != nil {
-
-		// query param account__isw
-		var qrAccountIsw string
-
-		if o.AccountIsw != nil {
-			qrAccountIsw = *o.AccountIsw
-		}
-		qAccountIsw := qrAccountIsw
-		if qAccountIsw != "" {
-
-			if err := r.SetQueryParam("account__isw", qAccountIsw); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.Accountn != nil {
-
-		// query param account__n
-		var qrAccountn string
-
-		if o.Accountn != nil {
-			qrAccountn = *o.Accountn
-		}
-		qAccountn := qrAccountn
-		if qAccountn != "" {
-
-			if err := r.SetQueryParam("account__n", qAccountn); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.AccountNic != nil {
-
-		// query param account__nic
-		var qrAccountNic string
-
-		if o.AccountNic != nil {
-			qrAccountNic = *o.AccountNic
-		}
-		qAccountNic := qrAccountNic
-		if qAccountNic != "" {
-
-			if err := r.SetQueryParam("account__nic", qAccountNic); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.AccountNie != nil {
-
-		// query param account__nie
-		var qrAccountNie string
-
-		if o.AccountNie != nil {
-			qrAccountNie = *o.AccountNie
-		}
-		qAccountNie := qrAccountNie
-		if qAccountNie != "" {
-
-			if err := r.SetQueryParam("account__nie", qAccountNie); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.AccountNiew != nil {
-
-		// query param account__niew
-		var qrAccountNiew string
-
-		if o.AccountNiew != nil {
-			qrAccountNiew = *o.AccountNiew
-		}
-		qAccountNiew := qrAccountNiew
-		if qAccountNiew != "" {
-
-			if err := r.SetQueryParam("account__niew", qAccountNiew); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.AccountNisw != nil {
-
-		// query param account__nisw
-		var qrAccountNisw string
-
-		if o.AccountNisw != nil {
-			qrAccountNisw = *o.AccountNisw
-		}
-		qAccountNisw := qrAccountNisw
-		if qAccountNisw != "" {
-
-			if err := r.SetQueryParam("account__nisw", qAccountNisw); err != nil {
-				return err
-			}
-		}
-	}
 
 	if o.AsnID != nil {
 
@@ -1645,6 +1332,23 @@ func (o *CircuitsProvidersListParams) WriteToRequest(r runtime.ClientRequest, re
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2529,6 +2233,23 @@ func (o *CircuitsProvidersListParams) WriteToRequest(r runtime.ClientRequest, re
 		if qTagn != "" {
 
 			if err := r.SetQueryParam("tag__n", qTagn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

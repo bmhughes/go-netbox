@@ -128,6 +128,9 @@ type DcimFrontPortTemplatesListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// DevicetypeID.
 	DevicetypeID *string
 
@@ -235,6 +238,9 @@ type DcimFrontPortTemplatesListParams struct {
 
 	// Typen.
 	Typen *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -474,6 +480,17 @@ func (o *DcimFrontPortTemplatesListParams) WithCreatedn(createdn *string) *DcimF
 // SetCreatedn adds the createdN to the dcim front port templates list params
 func (o *DcimFrontPortTemplatesListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim front port templates list params
+func (o *DcimFrontPortTemplatesListParams) WithCreatedByRequest(createdByRequest *string) *DcimFrontPortTemplatesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim front port templates list params
+func (o *DcimFrontPortTemplatesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDevicetypeID adds the devicetypeID to the dcim front port templates list params
@@ -839,6 +856,17 @@ func (o *DcimFrontPortTemplatesListParams) SetTypen(typen *string) {
 	o.Typen = typen
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim front port templates list params
+func (o *DcimFrontPortTemplatesListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimFrontPortTemplatesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim front port templates list params
+func (o *DcimFrontPortTemplatesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DcimFrontPortTemplatesListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -1131,6 +1159,23 @@ func (o *DcimFrontPortTemplatesListParams) WriteToRequest(r runtime.ClientReques
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -1692,6 +1737,23 @@ func (o *DcimFrontPortTemplatesListParams) WriteToRequest(r runtime.ClientReques
 		if qTypen != "" {
 
 			if err := r.SetQueryParam("type__n", qTypen); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

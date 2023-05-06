@@ -134,6 +134,9 @@ type IpamFhrpGroupsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// GroupID.
 	GroupID *string
 
@@ -256,6 +259,9 @@ type IpamFhrpGroupsListParams struct {
 
 	// Tagn.
 	Tagn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -517,6 +523,17 @@ func (o *IpamFhrpGroupsListParams) WithCreatedn(createdn *string) *IpamFhrpGroup
 // SetCreatedn adds the createdN to the ipam fhrp groups list params
 func (o *IpamFhrpGroupsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the ipam fhrp groups list params
+func (o *IpamFhrpGroupsListParams) WithCreatedByRequest(createdByRequest *string) *IpamFhrpGroupsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the ipam fhrp groups list params
+func (o *IpamFhrpGroupsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithGroupID adds the groupID to the ipam fhrp groups list params
@@ -937,6 +954,17 @@ func (o *IpamFhrpGroupsListParams) SetTagn(tagn *string) {
 	o.Tagn = tagn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the ipam fhrp groups list params
+func (o *IpamFhrpGroupsListParams) WithUpdatedByRequest(updatedByRequest *string) *IpamFhrpGroupsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the ipam fhrp groups list params
+func (o *IpamFhrpGroupsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *IpamFhrpGroupsListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -1263,6 +1291,23 @@ func (o *IpamFhrpGroupsListParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -1909,6 +1954,23 @@ func (o *IpamFhrpGroupsListParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qTagn != "" {
 
 			if err := r.SetQueryParam("tag__n", qTagn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

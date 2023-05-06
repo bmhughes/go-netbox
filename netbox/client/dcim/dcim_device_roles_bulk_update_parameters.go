@@ -79,7 +79,7 @@ DcimDeviceRolesBulkUpdateParams contains all the parameters to send to the API e
 type DcimDeviceRolesBulkUpdateParams struct {
 
 	// Data.
-	Data *models.DeviceRole
+	Data *models.WritableDeviceRole
 
 	timeout    time.Duration
 	Context    context.Context
@@ -135,13 +135,13 @@ func (o *DcimDeviceRolesBulkUpdateParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithData adds the data to the dcim device roles bulk update params
-func (o *DcimDeviceRolesBulkUpdateParams) WithData(data *models.DeviceRole) *DcimDeviceRolesBulkUpdateParams {
+func (o *DcimDeviceRolesBulkUpdateParams) WithData(data *models.WritableDeviceRole) *DcimDeviceRolesBulkUpdateParams {
 	o.SetData(data)
 	return o
 }
 
 // SetData adds the data to the dcim device roles bulk update params
-func (o *DcimDeviceRolesBulkUpdateParams) SetData(data *models.DeviceRole) {
+func (o *DcimDeviceRolesBulkUpdateParams) SetData(data *models.WritableDeviceRole) {
 	o.Data = data
 }
 

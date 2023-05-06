@@ -35,6 +35,8 @@ import (
 type NestedCircuit struct {
 
 	// Circuit ID
+	//
+	// Unique circuit ID
 	// Required: true
 	// Max Length: 100
 	// Min Length: 1

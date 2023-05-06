@@ -98,6 +98,9 @@ type IpamIPRangesListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -130,6 +133,9 @@ type IpamIPRangesListParams struct {
 
 	// DescriptionNisw.
 	DescriptionNisw *string
+
+	// EndAddress.
+	EndAddress *string
 
 	// Family.
 	Family *float64
@@ -176,6 +182,9 @@ type IpamIPRangesListParams struct {
 	*/
 	Limit *int64
 
+	// MarkUtilized.
+	MarkUtilized *string
+
 	/* Offset.
 
 	   The initial index from which to return the results.
@@ -202,6 +211,9 @@ type IpamIPRangesListParams struct {
 
 	// RoleIDn.
 	RoleIDn *string
+
+	// StartAddress.
+	StartAddress *string
 
 	// Status.
 	Status *string
@@ -238,6 +250,9 @@ type IpamIPRangesListParams struct {
 
 	// TenantIDn.
 	TenantIDn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	// Vrf.
 	Vrf *string
@@ -381,6 +396,17 @@ func (o *IpamIPRangesListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
 }
 
+// WithCreatedByRequest adds the createdByRequest to the ipam ip ranges list params
+func (o *IpamIPRangesListParams) WithCreatedByRequest(createdByRequest *string) *IpamIPRangesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the ipam ip ranges list params
+func (o *IpamIPRangesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
+}
+
 // WithDescription adds the description to the ipam ip ranges list params
 func (o *IpamIPRangesListParams) WithDescription(description *string) *IpamIPRangesListParams {
 	o.SetDescription(description)
@@ -500,6 +526,17 @@ func (o *IpamIPRangesListParams) WithDescriptionNisw(descriptionNisw *string) *I
 // SetDescriptionNisw adds the descriptionNisw to the ipam ip ranges list params
 func (o *IpamIPRangesListParams) SetDescriptionNisw(descriptionNisw *string) {
 	o.DescriptionNisw = descriptionNisw
+}
+
+// WithEndAddress adds the endAddress to the ipam ip ranges list params
+func (o *IpamIPRangesListParams) WithEndAddress(endAddress *string) *IpamIPRangesListParams {
+	o.SetEndAddress(endAddress)
+	return o
+}
+
+// SetEndAddress adds the endAddress to the ipam ip ranges list params
+func (o *IpamIPRangesListParams) SetEndAddress(endAddress *string) {
+	o.EndAddress = endAddress
 }
 
 // WithFamily adds the family to the ipam ip ranges list params
@@ -656,6 +693,17 @@ func (o *IpamIPRangesListParams) SetLimit(limit *int64) {
 	o.Limit = limit
 }
 
+// WithMarkUtilized adds the markUtilized to the ipam ip ranges list params
+func (o *IpamIPRangesListParams) WithMarkUtilized(markUtilized *string) *IpamIPRangesListParams {
+	o.SetMarkUtilized(markUtilized)
+	return o
+}
+
+// SetMarkUtilized adds the markUtilized to the ipam ip ranges list params
+func (o *IpamIPRangesListParams) SetMarkUtilized(markUtilized *string) {
+	o.MarkUtilized = markUtilized
+}
+
 // WithOffset adds the offset to the ipam ip ranges list params
 func (o *IpamIPRangesListParams) WithOffset(offset *int64) *IpamIPRangesListParams {
 	o.SetOffset(offset)
@@ -731,6 +779,17 @@ func (o *IpamIPRangesListParams) WithRoleIDn(roleIDn *string) *IpamIPRangesListP
 // SetRoleIDn adds the roleIdN to the ipam ip ranges list params
 func (o *IpamIPRangesListParams) SetRoleIDn(roleIDn *string) {
 	o.RoleIDn = roleIDn
+}
+
+// WithStartAddress adds the startAddress to the ipam ip ranges list params
+func (o *IpamIPRangesListParams) WithStartAddress(startAddress *string) *IpamIPRangesListParams {
+	o.SetStartAddress(startAddress)
+	return o
+}
+
+// SetStartAddress adds the startAddress to the ipam ip ranges list params
+func (o *IpamIPRangesListParams) SetStartAddress(startAddress *string) {
+	o.StartAddress = startAddress
 }
 
 // WithStatus adds the status to the ipam ip ranges list params
@@ -863,6 +922,17 @@ func (o *IpamIPRangesListParams) WithTenantIDn(tenantIDn *string) *IpamIPRangesL
 // SetTenantIDn adds the tenantIdN to the ipam ip ranges list params
 func (o *IpamIPRangesListParams) SetTenantIDn(tenantIDn *string) {
 	o.TenantIDn = tenantIDn
+}
+
+// WithUpdatedByRequest adds the updatedByRequest to the ipam ip ranges list params
+func (o *IpamIPRangesListParams) WithUpdatedByRequest(updatedByRequest *string) *IpamIPRangesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the ipam ip ranges list params
+func (o *IpamIPRangesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
 }
 
 // WithVrf adds the vrf to the ipam ip ranges list params
@@ -1031,6 +1101,23 @@ func (o *IpamIPRangesListParams) WriteToRequest(r runtime.ClientRequest, reg str
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -1218,6 +1305,23 @@ func (o *IpamIPRangesListParams) WriteToRequest(r runtime.ClientRequest, reg str
 		if qDescriptionNisw != "" {
 
 			if err := r.SetQueryParam("description__nisw", qDescriptionNisw); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.EndAddress != nil {
+
+		// query param end_address
+		var qrEndAddress string
+
+		if o.EndAddress != nil {
+			qrEndAddress = *o.EndAddress
+		}
+		qEndAddress := qrEndAddress
+		if qEndAddress != "" {
+
+			if err := r.SetQueryParam("end_address", qEndAddress); err != nil {
 				return err
 			}
 		}
@@ -1461,6 +1565,23 @@ func (o *IpamIPRangesListParams) WriteToRequest(r runtime.ClientRequest, reg str
 		}
 	}
 
+	if o.MarkUtilized != nil {
+
+		// query param mark_utilized
+		var qrMarkUtilized string
+
+		if o.MarkUtilized != nil {
+			qrMarkUtilized = *o.MarkUtilized
+		}
+		qMarkUtilized := qrMarkUtilized
+		if qMarkUtilized != "" {
+
+			if err := r.SetQueryParam("mark_utilized", qMarkUtilized); err != nil {
+				return err
+			}
+		}
+	}
+
 	if o.Offset != nil {
 
 		// query param offset
@@ -1575,6 +1696,23 @@ func (o *IpamIPRangesListParams) WriteToRequest(r runtime.ClientRequest, reg str
 		if qRoleIDn != "" {
 
 			if err := r.SetQueryParam("role_id__n", qRoleIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.StartAddress != nil {
+
+		// query param start_address
+		var qrStartAddress string
+
+		if o.StartAddress != nil {
+			qrStartAddress = *o.StartAddress
+		}
+		qStartAddress := qrStartAddress
+		if qStartAddress != "" {
+
+			if err := r.SetQueryParam("start_address", qStartAddress); err != nil {
 				return err
 			}
 		}
@@ -1779,6 +1917,23 @@ func (o *IpamIPRangesListParams) WriteToRequest(r runtime.ClientRequest, reg str
 		if qTenantIDn != "" {
 
 			if err := r.SetQueryParam("tenant_id__n", qTenantIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

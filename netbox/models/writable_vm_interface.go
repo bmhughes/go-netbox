@@ -83,6 +83,8 @@ type WritableVMInterface struct {
 	MacAddress *string `json:"mac_address,omitempty"`
 
 	// Mode
+	//
+	// IEEE 802.1Q tagging strategy
 	// Enum: [access tagged tagged-all]
 	Mode string `json:"mode,omitempty"`
 

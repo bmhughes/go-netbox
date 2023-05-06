@@ -43,6 +43,8 @@ type NestedSite struct {
 	ID int64 `json:"id,omitempty"`
 
 	// Name
+	//
+	// Full name of the site
 	// Required: true
 	// Max Length: 100
 	// Min Length: 1

@@ -110,6 +110,9 @@ type CircuitsCircuitTerminationsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -250,6 +253,9 @@ type CircuitsCircuitTerminationsListParams struct {
 
 	// TermSiden.
 	TermSiden *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	// UpstreamSpeed.
 	UpstreamSpeed *string
@@ -474,6 +480,17 @@ func (o *CircuitsCircuitTerminationsListParams) WithCreatedn(createdn *string) *
 // SetCreatedn adds the createdN to the circuits circuit terminations list params
 func (o *CircuitsCircuitTerminationsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the circuits circuit terminations list params
+func (o *CircuitsCircuitTerminationsListParams) WithCreatedByRequest(createdByRequest *string) *CircuitsCircuitTerminationsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the circuits circuit terminations list params
+func (o *CircuitsCircuitTerminationsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the circuits circuit terminations list params
@@ -960,6 +977,17 @@ func (o *CircuitsCircuitTerminationsListParams) SetTermSiden(termSiden *string) 
 	o.TermSiden = termSiden
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the circuits circuit terminations list params
+func (o *CircuitsCircuitTerminationsListParams) WithUpdatedByRequest(updatedByRequest *string) *CircuitsCircuitTerminationsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the circuits circuit terminations list params
+func (o *CircuitsCircuitTerminationsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithUpstreamSpeed adds the upstreamSpeed to the circuits circuit terminations list params
 func (o *CircuitsCircuitTerminationsListParams) WithUpstreamSpeed(upstreamSpeed *string) *CircuitsCircuitTerminationsListParams {
 	o.SetUpstreamSpeed(upstreamSpeed)
@@ -1337,6 +1365,23 @@ func (o *CircuitsCircuitTerminationsListParams) WriteToRequest(r runtime.ClientR
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2085,6 +2130,23 @@ func (o *CircuitsCircuitTerminationsListParams) WriteToRequest(r runtime.ClientR
 		if qTermSiden != "" {
 
 			if err := r.SetQueryParam("term_side__n", qTermSiden); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

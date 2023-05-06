@@ -137,6 +137,9 @@ type DcimRearPortsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -403,6 +406,9 @@ type DcimRearPortsListParams struct {
 
 	// Typen.
 	Typen *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	// VirtualChassis.
 	VirtualChassis *string
@@ -687,6 +693,17 @@ func (o *DcimRearPortsListParams) WithCreatedn(createdn *string) *DcimRearPortsL
 // SetCreatedn adds the createdN to the dcim rear ports list params
 func (o *DcimRearPortsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim rear ports list params
+func (o *DcimRearPortsListParams) WithCreatedByRequest(createdByRequest *string) *DcimRearPortsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim rear ports list params
+func (o *DcimRearPortsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the dcim rear ports list params
@@ -1635,6 +1652,17 @@ func (o *DcimRearPortsListParams) SetTypen(typen *string) {
 	o.Typen = typen
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim rear ports list params
+func (o *DcimRearPortsListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimRearPortsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim rear ports list params
+func (o *DcimRearPortsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVirtualChassis adds the virtualChassis to the dcim rear ports list params
 func (o *DcimRearPortsListParams) WithVirtualChassis(virtualChassis *string) *DcimRearPortsListParams {
 	o.SetVirtualChassis(virtualChassis)
@@ -2022,6 +2050,23 @@ func (o *DcimRearPortsListParams) WriteToRequest(r runtime.ClientRequest, reg st
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -3484,6 +3529,23 @@ func (o *DcimRearPortsListParams) WriteToRequest(r runtime.ClientRequest, reg st
 		if qTypen != "" {
 
 			if err := r.SetQueryParam("type__n", qTypen); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

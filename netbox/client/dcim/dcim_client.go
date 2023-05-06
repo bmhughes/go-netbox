@@ -243,11 +243,11 @@ type ClientService interface {
 
 	DcimDevicesList(params *DcimDevicesListParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimDevicesListOK, error)
 
-	DcimDevicesNapalm(params *DcimDevicesNapalmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimDevicesNapalmOK, error)
-
 	DcimDevicesPartialUpdate(params *DcimDevicesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimDevicesPartialUpdateOK, error)
 
 	DcimDevicesRead(params *DcimDevicesReadParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimDevicesReadOK, error)
+
+	DcimDevicesRenderConfig(params *DcimDevicesRenderConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimDevicesRenderConfigCreated, error)
 
 	DcimDevicesUpdate(params *DcimDevicesUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimDevicesUpdateOK, error)
 
@@ -4676,45 +4676,6 @@ func (a *Client) DcimDevicesList(params *DcimDevicesListParams, authInfo runtime
 }
 
 /*
-DcimDevicesNapalm Execute a NAPALM method on a Device
-*/
-func (a *Client) DcimDevicesNapalm(params *DcimDevicesNapalmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimDevicesNapalmOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDcimDevicesNapalmParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "dcim_devices_napalm",
-		Method:             "GET",
-		PathPattern:        "/dcim/devices/{id}/napalm/",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
-		Params:             params,
-		Reader:             &DcimDevicesNapalmReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DcimDevicesNapalmOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for dcim_devices_napalm: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
 DcimDevicesPartialUpdate dcim devices partial update API
 */
 func (a *Client) DcimDevicesPartialUpdate(params *DcimDevicesPartialUpdateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimDevicesPartialUpdateOK, error) {
@@ -4789,6 +4750,45 @@ func (a *Client) DcimDevicesRead(params *DcimDevicesReadParams, authInfo runtime
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for dcim_devices_read: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+DcimDevicesRenderConfig Resolve and render the preferred ConfigTemplate for this Device.
+*/
+func (a *Client) DcimDevicesRenderConfig(params *DcimDevicesRenderConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DcimDevicesRenderConfigCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDcimDevicesRenderConfigParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "dcim_devices_render_config",
+		Method:             "POST",
+		PathPattern:        "/dcim/devices/{id}/render-config/",
+		ProducesMediaTypes: []string{"application/json", "text/plain"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http"},
+		Params:             params,
+		Reader:             &DcimDevicesRenderConfigReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DcimDevicesRenderConfigCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for dcim_devices_render_config: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

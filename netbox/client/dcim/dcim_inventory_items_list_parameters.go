@@ -152,6 +152,9 @@ type DcimInventoryItemsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Device.
 	Device *string
 
@@ -451,6 +454,9 @@ type DcimInventoryItemsListParams struct {
 
 	// Tagn.
 	Tagn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	// VirtualChassis.
 	VirtualChassis *string
@@ -790,6 +796,17 @@ func (o *DcimInventoryItemsListParams) WithCreatedn(createdn *string) *DcimInven
 // SetCreatedn adds the createdN to the dcim inventory items list params
 func (o *DcimInventoryItemsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim inventory items list params
+func (o *DcimInventoryItemsListParams) WithCreatedByRequest(createdByRequest *string) *DcimInventoryItemsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim inventory items list params
+func (o *DcimInventoryItemsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDevice adds the device to the dcim inventory items list params
@@ -1859,6 +1876,17 @@ func (o *DcimInventoryItemsListParams) SetTagn(tagn *string) {
 	o.Tagn = tagn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim inventory items list params
+func (o *DcimInventoryItemsListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimInventoryItemsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim inventory items list params
+func (o *DcimInventoryItemsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVirtualChassis adds the virtualChassis to the dcim inventory items list params
 func (o *DcimInventoryItemsListParams) WithVirtualChassis(virtualChassis *string) *DcimInventoryItemsListParams {
 	o.SetVirtualChassis(virtualChassis)
@@ -2331,6 +2359,23 @@ func (o *DcimInventoryItemsListParams) WriteToRequest(r runtime.ClientRequest, r
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -3980,6 +4025,23 @@ func (o *DcimInventoryItemsListParams) WriteToRequest(r runtime.ClientRequest, r
 		if qTagn != "" {
 
 			if err := r.SetQueryParam("tag__n", qTagn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

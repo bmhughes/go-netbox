@@ -116,6 +116,9 @@ type IpamPrefixesListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Depth.
 	Depth *string
 
@@ -334,6 +337,9 @@ type IpamPrefixesListParams struct {
 
 	// TenantIDn.
 	TenantIDn *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	// VlanID.
 	VlanID *string
@@ -571,6 +577,17 @@ func (o *IpamPrefixesListParams) WithCreatedn(createdn *string) *IpamPrefixesLis
 // SetCreatedn adds the createdN to the ipam prefixes list params
 func (o *IpamPrefixesListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the ipam prefixes list params
+func (o *IpamPrefixesListParams) WithCreatedByRequest(createdByRequest *string) *IpamPrefixesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the ipam prefixes list params
+func (o *IpamPrefixesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDepth adds the depth to the ipam prefixes list params
@@ -1343,6 +1360,17 @@ func (o *IpamPrefixesListParams) SetTenantIDn(tenantIDn *string) {
 	o.TenantIDn = tenantIDn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the ipam prefixes list params
+func (o *IpamPrefixesListParams) WithUpdatedByRequest(updatedByRequest *string) *IpamPrefixesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the ipam prefixes list params
+func (o *IpamPrefixesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVlanID adds the vlanID to the ipam prefixes list params
 func (o *IpamPrefixesListParams) WithVlanID(vlanID *string) *IpamPrefixesListParams {
 	o.SetVlanID(vlanID)
@@ -1721,6 +1749,23 @@ func (o *IpamPrefixesListParams) WriteToRequest(r runtime.ClientRequest, reg str
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2911,6 +2956,23 @@ func (o *IpamPrefixesListParams) WriteToRequest(r runtime.ClientRequest, reg str
 		if qTenantIDn != "" {
 
 			if err := r.SetQueryParam("tenant_id__n", qTenantIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

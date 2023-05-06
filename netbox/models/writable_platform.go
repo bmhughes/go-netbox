@@ -35,6 +35,9 @@ import (
 // swagger:model WritablePlatform
 type WritablePlatform struct {
 
+	// Config template
+	ConfigTemplate *int64 `json:"config_template,omitempty"`
+
 	// Created
 	// Read Only: true
 	// Format: date-time

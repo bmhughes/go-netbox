@@ -95,6 +95,9 @@ type DcimRackReservationsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -269,6 +272,9 @@ type DcimRackReservationsListParams struct {
 	// TenantIDn.
 	TenantIDn *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	// User.
 	User *string
 
@@ -398,6 +404,17 @@ func (o *DcimRackReservationsListParams) WithCreatedn(createdn *string) *DcimRac
 // SetCreatedn adds the createdN to the dcim rack reservations list params
 func (o *DcimRackReservationsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim rack reservations list params
+func (o *DcimRackReservationsListParams) WithCreatedByRequest(createdByRequest *string) *DcimRackReservationsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim rack reservations list params
+func (o *DcimRackReservationsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the dcim rack reservations list params
@@ -1005,6 +1022,17 @@ func (o *DcimRackReservationsListParams) SetTenantIDn(tenantIDn *string) {
 	o.TenantIDn = tenantIDn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim rack reservations list params
+func (o *DcimRackReservationsListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimRackReservationsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim rack reservations list params
+func (o *DcimRackReservationsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithUser adds the user to the dcim rack reservations list params
 func (o *DcimRackReservationsListParams) WithUser(user *string) *DcimRackReservationsListParams {
 	o.SetUser(user)
@@ -1154,6 +1182,23 @@ func (o *DcimRackReservationsListParams) WriteToRequest(r runtime.ClientRequest,
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2089,6 +2134,23 @@ func (o *DcimRackReservationsListParams) WriteToRequest(r runtime.ClientRequest,
 		if qTenantIDn != "" {
 
 			if err := r.SetQueryParam("tenant_id__n", qTenantIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

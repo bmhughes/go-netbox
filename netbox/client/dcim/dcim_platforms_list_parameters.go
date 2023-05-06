@@ -77,6 +77,12 @@ DcimPlatformsListParams contains all the parameters to send to the API endpoint
 */
 type DcimPlatformsListParams struct {
 
+	// ConfigTemplateID.
+	ConfigTemplateID *string
+
+	// ConfigTemplateIDn.
+	ConfigTemplateIDn *string
+
 	// Created.
 	Created *string
 
@@ -94,6 +100,9 @@ type DcimPlatformsListParams struct {
 
 	// Createdn.
 	Createdn *string
+
+	// CreatedByRequest.
+	CreatedByRequest *string
 
 	// Description.
 	Description *string
@@ -215,39 +224,6 @@ type DcimPlatformsListParams struct {
 	// NameNisw.
 	NameNisw *string
 
-	// NapalmDriver.
-	NapalmDriver *string
-
-	// NapalmDriverEmpty.
-	NapalmDriverEmpty *string
-
-	// NapalmDriverIc.
-	NapalmDriverIc *string
-
-	// NapalmDriverIe.
-	NapalmDriverIe *string
-
-	// NapalmDriverIew.
-	NapalmDriverIew *string
-
-	// NapalmDriverIsw.
-	NapalmDriverIsw *string
-
-	// NapalmDrivern.
-	NapalmDrivern *string
-
-	// NapalmDriverNic.
-	NapalmDriverNic *string
-
-	// NapalmDriverNie.
-	NapalmDriverNie *string
-
-	// NapalmDriverNiew.
-	NapalmDriverNiew *string
-
-	// NapalmDriverNisw.
-	NapalmDriverNisw *string
-
 	/* Offset.
 
 	   The initial index from which to return the results.
@@ -302,6 +278,9 @@ type DcimPlatformsListParams struct {
 	// Tagn.
 	Tagn *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -353,6 +332,28 @@ func (o *DcimPlatformsListParams) WithHTTPClient(client *http.Client) *DcimPlatf
 // SetHTTPClient adds the HTTPClient to the dcim platforms list params
 func (o *DcimPlatformsListParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
+}
+
+// WithConfigTemplateID adds the configTemplateID to the dcim platforms list params
+func (o *DcimPlatformsListParams) WithConfigTemplateID(configTemplateID *string) *DcimPlatformsListParams {
+	o.SetConfigTemplateID(configTemplateID)
+	return o
+}
+
+// SetConfigTemplateID adds the configTemplateId to the dcim platforms list params
+func (o *DcimPlatformsListParams) SetConfigTemplateID(configTemplateID *string) {
+	o.ConfigTemplateID = configTemplateID
+}
+
+// WithConfigTemplateIDn adds the configTemplateIDn to the dcim platforms list params
+func (o *DcimPlatformsListParams) WithConfigTemplateIDn(configTemplateIDn *string) *DcimPlatformsListParams {
+	o.SetConfigTemplateIDn(configTemplateIDn)
+	return o
+}
+
+// SetConfigTemplateIDn adds the configTemplateIdN to the dcim platforms list params
+func (o *DcimPlatformsListParams) SetConfigTemplateIDn(configTemplateIDn *string) {
+	o.ConfigTemplateIDn = configTemplateIDn
 }
 
 // WithCreated adds the created to the dcim platforms list params
@@ -419,6 +420,17 @@ func (o *DcimPlatformsListParams) WithCreatedn(createdn *string) *DcimPlatformsL
 // SetCreatedn adds the createdN to the dcim platforms list params
 func (o *DcimPlatformsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim platforms list params
+func (o *DcimPlatformsListParams) WithCreatedByRequest(createdByRequest *string) *DcimPlatformsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim platforms list params
+func (o *DcimPlatformsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the dcim platforms list params
@@ -850,127 +862,6 @@ func (o *DcimPlatformsListParams) SetNameNisw(nameNisw *string) {
 	o.NameNisw = nameNisw
 }
 
-// WithNapalmDriver adds the napalmDriver to the dcim platforms list params
-func (o *DcimPlatformsListParams) WithNapalmDriver(napalmDriver *string) *DcimPlatformsListParams {
-	o.SetNapalmDriver(napalmDriver)
-	return o
-}
-
-// SetNapalmDriver adds the napalmDriver to the dcim platforms list params
-func (o *DcimPlatformsListParams) SetNapalmDriver(napalmDriver *string) {
-	o.NapalmDriver = napalmDriver
-}
-
-// WithNapalmDriverEmpty adds the napalmDriverEmpty to the dcim platforms list params
-func (o *DcimPlatformsListParams) WithNapalmDriverEmpty(napalmDriverEmpty *string) *DcimPlatformsListParams {
-	o.SetNapalmDriverEmpty(napalmDriverEmpty)
-	return o
-}
-
-// SetNapalmDriverEmpty adds the napalmDriverEmpty to the dcim platforms list params
-func (o *DcimPlatformsListParams) SetNapalmDriverEmpty(napalmDriverEmpty *string) {
-	o.NapalmDriverEmpty = napalmDriverEmpty
-}
-
-// WithNapalmDriverIc adds the napalmDriverIc to the dcim platforms list params
-func (o *DcimPlatformsListParams) WithNapalmDriverIc(napalmDriverIc *string) *DcimPlatformsListParams {
-	o.SetNapalmDriverIc(napalmDriverIc)
-	return o
-}
-
-// SetNapalmDriverIc adds the napalmDriverIc to the dcim platforms list params
-func (o *DcimPlatformsListParams) SetNapalmDriverIc(napalmDriverIc *string) {
-	o.NapalmDriverIc = napalmDriverIc
-}
-
-// WithNapalmDriverIe adds the napalmDriverIe to the dcim platforms list params
-func (o *DcimPlatformsListParams) WithNapalmDriverIe(napalmDriverIe *string) *DcimPlatformsListParams {
-	o.SetNapalmDriverIe(napalmDriverIe)
-	return o
-}
-
-// SetNapalmDriverIe adds the napalmDriverIe to the dcim platforms list params
-func (o *DcimPlatformsListParams) SetNapalmDriverIe(napalmDriverIe *string) {
-	o.NapalmDriverIe = napalmDriverIe
-}
-
-// WithNapalmDriverIew adds the napalmDriverIew to the dcim platforms list params
-func (o *DcimPlatformsListParams) WithNapalmDriverIew(napalmDriverIew *string) *DcimPlatformsListParams {
-	o.SetNapalmDriverIew(napalmDriverIew)
-	return o
-}
-
-// SetNapalmDriverIew adds the napalmDriverIew to the dcim platforms list params
-func (o *DcimPlatformsListParams) SetNapalmDriverIew(napalmDriverIew *string) {
-	o.NapalmDriverIew = napalmDriverIew
-}
-
-// WithNapalmDriverIsw adds the napalmDriverIsw to the dcim platforms list params
-func (o *DcimPlatformsListParams) WithNapalmDriverIsw(napalmDriverIsw *string) *DcimPlatformsListParams {
-	o.SetNapalmDriverIsw(napalmDriverIsw)
-	return o
-}
-
-// SetNapalmDriverIsw adds the napalmDriverIsw to the dcim platforms list params
-func (o *DcimPlatformsListParams) SetNapalmDriverIsw(napalmDriverIsw *string) {
-	o.NapalmDriverIsw = napalmDriverIsw
-}
-
-// WithNapalmDrivern adds the napalmDrivern to the dcim platforms list params
-func (o *DcimPlatformsListParams) WithNapalmDrivern(napalmDrivern *string) *DcimPlatformsListParams {
-	o.SetNapalmDrivern(napalmDrivern)
-	return o
-}
-
-// SetNapalmDrivern adds the napalmDriverN to the dcim platforms list params
-func (o *DcimPlatformsListParams) SetNapalmDrivern(napalmDrivern *string) {
-	o.NapalmDrivern = napalmDrivern
-}
-
-// WithNapalmDriverNic adds the napalmDriverNic to the dcim platforms list params
-func (o *DcimPlatformsListParams) WithNapalmDriverNic(napalmDriverNic *string) *DcimPlatformsListParams {
-	o.SetNapalmDriverNic(napalmDriverNic)
-	return o
-}
-
-// SetNapalmDriverNic adds the napalmDriverNic to the dcim platforms list params
-func (o *DcimPlatformsListParams) SetNapalmDriverNic(napalmDriverNic *string) {
-	o.NapalmDriverNic = napalmDriverNic
-}
-
-// WithNapalmDriverNie adds the napalmDriverNie to the dcim platforms list params
-func (o *DcimPlatformsListParams) WithNapalmDriverNie(napalmDriverNie *string) *DcimPlatformsListParams {
-	o.SetNapalmDriverNie(napalmDriverNie)
-	return o
-}
-
-// SetNapalmDriverNie adds the napalmDriverNie to the dcim platforms list params
-func (o *DcimPlatformsListParams) SetNapalmDriverNie(napalmDriverNie *string) {
-	o.NapalmDriverNie = napalmDriverNie
-}
-
-// WithNapalmDriverNiew adds the napalmDriverNiew to the dcim platforms list params
-func (o *DcimPlatformsListParams) WithNapalmDriverNiew(napalmDriverNiew *string) *DcimPlatformsListParams {
-	o.SetNapalmDriverNiew(napalmDriverNiew)
-	return o
-}
-
-// SetNapalmDriverNiew adds the napalmDriverNiew to the dcim platforms list params
-func (o *DcimPlatformsListParams) SetNapalmDriverNiew(napalmDriverNiew *string) {
-	o.NapalmDriverNiew = napalmDriverNiew
-}
-
-// WithNapalmDriverNisw adds the napalmDriverNisw to the dcim platforms list params
-func (o *DcimPlatformsListParams) WithNapalmDriverNisw(napalmDriverNisw *string) *DcimPlatformsListParams {
-	o.SetNapalmDriverNisw(napalmDriverNisw)
-	return o
-}
-
-// SetNapalmDriverNisw adds the napalmDriverNisw to the dcim platforms list params
-func (o *DcimPlatformsListParams) SetNapalmDriverNisw(napalmDriverNisw *string) {
-	o.NapalmDriverNisw = napalmDriverNisw
-}
-
 // WithOffset adds the offset to the dcim platforms list params
 func (o *DcimPlatformsListParams) WithOffset(offset *int64) *DcimPlatformsListParams {
 	o.SetOffset(offset)
@@ -1147,6 +1038,17 @@ func (o *DcimPlatformsListParams) SetTagn(tagn *string) {
 	o.Tagn = tagn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim platforms list params
+func (o *DcimPlatformsListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimPlatformsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim platforms list params
+func (o *DcimPlatformsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DcimPlatformsListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -1154,6 +1056,40 @@ func (o *DcimPlatformsListParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
+
+	if o.ConfigTemplateID != nil {
+
+		// query param config_template_id
+		var qrConfigTemplateID string
+
+		if o.ConfigTemplateID != nil {
+			qrConfigTemplateID = *o.ConfigTemplateID
+		}
+		qConfigTemplateID := qrConfigTemplateID
+		if qConfigTemplateID != "" {
+
+			if err := r.SetQueryParam("config_template_id", qConfigTemplateID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ConfigTemplateIDn != nil {
+
+		// query param config_template_id__n
+		var qrConfigTemplateIDn string
+
+		if o.ConfigTemplateIDn != nil {
+			qrConfigTemplateIDn = *o.ConfigTemplateIDn
+		}
+		qConfigTemplateIDn := qrConfigTemplateIDn
+		if qConfigTemplateIDn != "" {
+
+			if err := r.SetQueryParam("config_template_id__n", qConfigTemplateIDn); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.Created != nil {
 
@@ -1252,6 +1188,23 @@ func (o *DcimPlatformsListParams) WriteToRequest(r runtime.ClientRequest, reg st
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -1920,193 +1873,6 @@ func (o *DcimPlatformsListParams) WriteToRequest(r runtime.ClientRequest, reg st
 		}
 	}
 
-	if o.NapalmDriver != nil {
-
-		// query param napalm_driver
-		var qrNapalmDriver string
-
-		if o.NapalmDriver != nil {
-			qrNapalmDriver = *o.NapalmDriver
-		}
-		qNapalmDriver := qrNapalmDriver
-		if qNapalmDriver != "" {
-
-			if err := r.SetQueryParam("napalm_driver", qNapalmDriver); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.NapalmDriverEmpty != nil {
-
-		// query param napalm_driver__empty
-		var qrNapalmDriverEmpty string
-
-		if o.NapalmDriverEmpty != nil {
-			qrNapalmDriverEmpty = *o.NapalmDriverEmpty
-		}
-		qNapalmDriverEmpty := qrNapalmDriverEmpty
-		if qNapalmDriverEmpty != "" {
-
-			if err := r.SetQueryParam("napalm_driver__empty", qNapalmDriverEmpty); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.NapalmDriverIc != nil {
-
-		// query param napalm_driver__ic
-		var qrNapalmDriverIc string
-
-		if o.NapalmDriverIc != nil {
-			qrNapalmDriverIc = *o.NapalmDriverIc
-		}
-		qNapalmDriverIc := qrNapalmDriverIc
-		if qNapalmDriverIc != "" {
-
-			if err := r.SetQueryParam("napalm_driver__ic", qNapalmDriverIc); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.NapalmDriverIe != nil {
-
-		// query param napalm_driver__ie
-		var qrNapalmDriverIe string
-
-		if o.NapalmDriverIe != nil {
-			qrNapalmDriverIe = *o.NapalmDriverIe
-		}
-		qNapalmDriverIe := qrNapalmDriverIe
-		if qNapalmDriverIe != "" {
-
-			if err := r.SetQueryParam("napalm_driver__ie", qNapalmDriverIe); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.NapalmDriverIew != nil {
-
-		// query param napalm_driver__iew
-		var qrNapalmDriverIew string
-
-		if o.NapalmDriverIew != nil {
-			qrNapalmDriverIew = *o.NapalmDriverIew
-		}
-		qNapalmDriverIew := qrNapalmDriverIew
-		if qNapalmDriverIew != "" {
-
-			if err := r.SetQueryParam("napalm_driver__iew", qNapalmDriverIew); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.NapalmDriverIsw != nil {
-
-		// query param napalm_driver__isw
-		var qrNapalmDriverIsw string
-
-		if o.NapalmDriverIsw != nil {
-			qrNapalmDriverIsw = *o.NapalmDriverIsw
-		}
-		qNapalmDriverIsw := qrNapalmDriverIsw
-		if qNapalmDriverIsw != "" {
-
-			if err := r.SetQueryParam("napalm_driver__isw", qNapalmDriverIsw); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.NapalmDrivern != nil {
-
-		// query param napalm_driver__n
-		var qrNapalmDrivern string
-
-		if o.NapalmDrivern != nil {
-			qrNapalmDrivern = *o.NapalmDrivern
-		}
-		qNapalmDrivern := qrNapalmDrivern
-		if qNapalmDrivern != "" {
-
-			if err := r.SetQueryParam("napalm_driver__n", qNapalmDrivern); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.NapalmDriverNic != nil {
-
-		// query param napalm_driver__nic
-		var qrNapalmDriverNic string
-
-		if o.NapalmDriverNic != nil {
-			qrNapalmDriverNic = *o.NapalmDriverNic
-		}
-		qNapalmDriverNic := qrNapalmDriverNic
-		if qNapalmDriverNic != "" {
-
-			if err := r.SetQueryParam("napalm_driver__nic", qNapalmDriverNic); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.NapalmDriverNie != nil {
-
-		// query param napalm_driver__nie
-		var qrNapalmDriverNie string
-
-		if o.NapalmDriverNie != nil {
-			qrNapalmDriverNie = *o.NapalmDriverNie
-		}
-		qNapalmDriverNie := qrNapalmDriverNie
-		if qNapalmDriverNie != "" {
-
-			if err := r.SetQueryParam("napalm_driver__nie", qNapalmDriverNie); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.NapalmDriverNiew != nil {
-
-		// query param napalm_driver__niew
-		var qrNapalmDriverNiew string
-
-		if o.NapalmDriverNiew != nil {
-			qrNapalmDriverNiew = *o.NapalmDriverNiew
-		}
-		qNapalmDriverNiew := qrNapalmDriverNiew
-		if qNapalmDriverNiew != "" {
-
-			if err := r.SetQueryParam("napalm_driver__niew", qNapalmDriverNiew); err != nil {
-				return err
-			}
-		}
-	}
-
-	if o.NapalmDriverNisw != nil {
-
-		// query param napalm_driver__nisw
-		var qrNapalmDriverNisw string
-
-		if o.NapalmDriverNisw != nil {
-			qrNapalmDriverNisw = *o.NapalmDriverNisw
-		}
-		qNapalmDriverNisw := qrNapalmDriverNisw
-		if qNapalmDriverNisw != "" {
-
-			if err := r.SetQueryParam("napalm_driver__nisw", qNapalmDriverNisw); err != nil {
-				return err
-			}
-		}
-	}
-
 	if o.Offset != nil {
 
 		// query param offset
@@ -2374,6 +2140,23 @@ func (o *DcimPlatformsListParams) WriteToRequest(r runtime.ClientRequest, reg st
 		if qTagn != "" {
 
 			if err := r.SetQueryParam("tag__n", qTagn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

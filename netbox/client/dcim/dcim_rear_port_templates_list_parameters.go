@@ -128,6 +128,9 @@ type DcimRearPortTemplatesListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// DevicetypeID.
 	DevicetypeID *string
 
@@ -253,6 +256,9 @@ type DcimRearPortTemplatesListParams struct {
 
 	// Typen.
 	Typen *string
+
+	// UpdatedByRequest.
+	UpdatedByRequest *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -492,6 +498,17 @@ func (o *DcimRearPortTemplatesListParams) WithCreatedn(createdn *string) *DcimRe
 // SetCreatedn adds the createdN to the dcim rear port templates list params
 func (o *DcimRearPortTemplatesListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim rear port templates list params
+func (o *DcimRearPortTemplatesListParams) WithCreatedByRequest(createdByRequest *string) *DcimRearPortTemplatesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim rear port templates list params
+func (o *DcimRearPortTemplatesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDevicetypeID adds the devicetypeID to the dcim rear port templates list params
@@ -923,6 +940,17 @@ func (o *DcimRearPortTemplatesListParams) SetTypen(typen *string) {
 	o.Typen = typen
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim rear port templates list params
+func (o *DcimRearPortTemplatesListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimRearPortTemplatesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim rear port templates list params
+func (o *DcimRearPortTemplatesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *DcimRearPortTemplatesListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -1215,6 +1243,23 @@ func (o *DcimRearPortTemplatesListParams) WriteToRequest(r runtime.ClientRequest
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -1878,6 +1923,23 @@ func (o *DcimRearPortTemplatesListParams) WriteToRequest(r runtime.ClientRequest
 		if qTypen != "" {
 
 			if err := r.SetQueryParam("type__n", qTypen); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

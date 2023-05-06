@@ -62,7 +62,7 @@ type WritableService struct {
 	// Read Only: true
 	ID int64 `json:"id,omitempty"`
 
-	// ipaddresses
+	// The specific IP addresses (if any) to which this service is bound
 	// Unique: true
 	Ipaddresses []int64 `json:"ipaddresses"`
 

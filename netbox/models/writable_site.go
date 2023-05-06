@@ -87,21 +87,25 @@ type WritableSite struct {
 
 	// Latitude
 	//
-	// GPS coordinate (latitude)
+	// GPS coordinate in decimal format (xx.yyyyyy)
 	Latitude *float64 `json:"latitude,omitempty"`
 
 	// Longitude
 	//
-	// GPS coordinate (longitude)
+	// GPS coordinate in decimal format (xx.yyyyyy)
 	Longitude *float64 `json:"longitude,omitempty"`
 
 	// Name
+	//
+	// Full name of the site
 	// Required: true
 	// Max Length: 100
 	// Min Length: 1
 	Name *string `json:"name"`
 
 	// Physical address
+	//
+	// Physical location of the building
 	// Max Length: 200
 	PhysicalAddress string `json:"physical_address,omitempty"`
 
@@ -117,6 +121,8 @@ type WritableSite struct {
 	Region *int64 `json:"region,omitempty"`
 
 	// Shipping address
+	//
+	// If different from the physical address
 	// Max Length: 200
 	ShippingAddress string `json:"shipping_address,omitempty"`
 

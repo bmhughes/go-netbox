@@ -29,8 +29,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/smutel/go-netbox/v3/netbox/models"
 )
 
 // NewDcimDevicesBulkUpdateParams creates a new DcimDevicesBulkUpdateParams object,
@@ -77,10 +75,6 @@ DcimDevicesBulkUpdateParams contains all the parameters to send to the API endpo
 	Typically these are written to a http.Request.
 */
 type DcimDevicesBulkUpdateParams struct {
-
-	// Data.
-	Data *models.WritableDeviceWithConfigContext
-
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -134,17 +128,6 @@ func (o *DcimDevicesBulkUpdateParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithData adds the data to the dcim devices bulk update params
-func (o *DcimDevicesBulkUpdateParams) WithData(data *models.WritableDeviceWithConfigContext) *DcimDevicesBulkUpdateParams {
-	o.SetData(data)
-	return o
-}
-
-// SetData adds the data to the dcim devices bulk update params
-func (o *DcimDevicesBulkUpdateParams) SetData(data *models.WritableDeviceWithConfigContext) {
-	o.Data = data
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *DcimDevicesBulkUpdateParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -152,11 +135,6 @@ func (o *DcimDevicesBulkUpdateParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-	if o.Data != nil {
-		if err := r.SetBodyParam(o.Data); err != nil {
-			return err
-		}
-	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

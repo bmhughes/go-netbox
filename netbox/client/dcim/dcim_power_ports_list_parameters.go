@@ -125,6 +125,9 @@ type DcimPowerPortsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -392,6 +395,9 @@ type DcimPowerPortsListParams struct {
 	// Typen.
 	Typen *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	// VirtualChassis.
 	VirtualChassis *string
 
@@ -631,6 +637,17 @@ func (o *DcimPowerPortsListParams) WithCreatedn(createdn *string) *DcimPowerPort
 // SetCreatedn adds the createdN to the dcim power ports list params
 func (o *DcimPowerPortsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim power ports list params
+func (o *DcimPowerPortsListParams) WithCreatedByRequest(createdByRequest *string) *DcimPowerPortsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim power ports list params
+func (o *DcimPowerPortsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the dcim power ports list params
@@ -1579,6 +1596,17 @@ func (o *DcimPowerPortsListParams) SetTypen(typen *string) {
 	o.Typen = typen
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim power ports list params
+func (o *DcimPowerPortsListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimPowerPortsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim power ports list params
+func (o *DcimPowerPortsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVirtualChassis adds the virtualChassis to the dcim power ports list params
 func (o *DcimPowerPortsListParams) WithVirtualChassis(virtualChassis *string) *DcimPowerPortsListParams {
 	o.SetVirtualChassis(virtualChassis)
@@ -1898,6 +1926,23 @@ func (o *DcimPowerPortsListParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -3360,6 +3405,23 @@ func (o *DcimPowerPortsListParams) WriteToRequest(r runtime.ClientRequest, reg s
 		if qTypen != "" {
 
 			if err := r.SetQueryParam("type__n", qTypen); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

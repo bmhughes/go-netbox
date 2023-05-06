@@ -107,6 +107,9 @@ type DcimConsolePortsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -356,6 +359,9 @@ type DcimConsolePortsListParams struct {
 	// Typen.
 	Typen *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	// VirtualChassis.
 	VirtualChassis *string
 
@@ -529,6 +535,17 @@ func (o *DcimConsolePortsListParams) WithCreatedn(createdn *string) *DcimConsole
 // SetCreatedn adds the createdN to the dcim console ports list params
 func (o *DcimConsolePortsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim console ports list params
+func (o *DcimConsolePortsListParams) WithCreatedByRequest(createdByRequest *string) *DcimConsolePortsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim console ports list params
+func (o *DcimConsolePortsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the dcim console ports list params
@@ -1411,6 +1428,17 @@ func (o *DcimConsolePortsListParams) SetTypen(typen *string) {
 	o.Typen = typen
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim console ports list params
+func (o *DcimConsolePortsListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimConsolePortsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim console ports list params
+func (o *DcimConsolePortsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVirtualChassis adds the virtualChassis to the dcim console ports list params
 func (o *DcimConsolePortsListParams) WithVirtualChassis(virtualChassis *string) *DcimConsolePortsListParams {
 	o.SetVirtualChassis(virtualChassis)
@@ -1628,6 +1656,23 @@ func (o *DcimConsolePortsListParams) WriteToRequest(r runtime.ClientRequest, reg
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2988,6 +3033,23 @@ func (o *DcimConsolePortsListParams) WriteToRequest(r runtime.ClientRequest, reg
 		if qTypen != "" {
 
 			if err := r.SetQueryParam("type__n", qTypen); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

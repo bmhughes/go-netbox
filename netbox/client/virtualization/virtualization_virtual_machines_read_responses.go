@@ -22,12 +22,9 @@ package virtualization
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-
-	"github.com/smutel/go-netbox/v3/netbox/models"
 )
 
 // VirtualizationVirtualMachinesReadReader is a Reader for the VirtualizationVirtualMachinesRead structure.
@@ -60,7 +57,6 @@ VirtualizationVirtualMachinesReadOK describes a response with status code 200, w
 VirtualizationVirtualMachinesReadOK virtualization virtual machines read o k
 */
 type VirtualizationVirtualMachinesReadOK struct {
-	Payload *models.VirtualMachineWithConfigContext
 }
 
 // IsSuccess returns true when this virtualization virtual machines read o k response has a 2xx status code
@@ -89,25 +85,14 @@ func (o *VirtualizationVirtualMachinesReadOK) IsCode(code int) bool {
 }
 
 func (o *VirtualizationVirtualMachinesReadOK) Error() string {
-	return fmt.Sprintf("[GET /virtualization/virtual-machines/{id}/][%d] virtualizationVirtualMachinesReadOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /virtualization/virtual-machines/{id}/][%d] virtualizationVirtualMachinesReadOK ", 200)
 }
 
 func (o *VirtualizationVirtualMachinesReadOK) String() string {
-	return fmt.Sprintf("[GET /virtualization/virtual-machines/{id}/][%d] virtualizationVirtualMachinesReadOK  %+v", 200, o.Payload)
-}
-
-func (o *VirtualizationVirtualMachinesReadOK) GetPayload() *models.VirtualMachineWithConfigContext {
-	return o.Payload
+	return fmt.Sprintf("[GET /virtualization/virtual-machines/{id}/][%d] virtualizationVirtualMachinesReadOK ", 200)
 }
 
 func (o *VirtualizationVirtualMachinesReadOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.VirtualMachineWithConfigContext)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
 
 	return nil
 }

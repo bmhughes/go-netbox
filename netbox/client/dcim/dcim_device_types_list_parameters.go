@@ -107,6 +107,21 @@ type DcimDeviceTypesListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
+	// DefaultPlatform.
+	DefaultPlatform *string
+
+	// DefaultPlatformn.
+	DefaultPlatformn *string
+
+	// DefaultPlatformID.
+	DefaultPlatformID *string
+
+	// DefaultPlatformIDn.
+	DefaultPlatformIDn *string
+
 	// DeviceBays.
 	DeviceBays *string
 
@@ -335,6 +350,9 @@ type DcimDeviceTypesListParams struct {
 	// UHeightn.
 	UHeightn *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	// Weight.
 	Weight *string
 
@@ -520,6 +538,61 @@ func (o *DcimDeviceTypesListParams) WithCreatedn(createdn *string) *DcimDeviceTy
 // SetCreatedn adds the createdN to the dcim device types list params
 func (o *DcimDeviceTypesListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the dcim device types list params
+func (o *DcimDeviceTypesListParams) WithCreatedByRequest(createdByRequest *string) *DcimDeviceTypesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the dcim device types list params
+func (o *DcimDeviceTypesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
+}
+
+// WithDefaultPlatform adds the defaultPlatform to the dcim device types list params
+func (o *DcimDeviceTypesListParams) WithDefaultPlatform(defaultPlatform *string) *DcimDeviceTypesListParams {
+	o.SetDefaultPlatform(defaultPlatform)
+	return o
+}
+
+// SetDefaultPlatform adds the defaultPlatform to the dcim device types list params
+func (o *DcimDeviceTypesListParams) SetDefaultPlatform(defaultPlatform *string) {
+	o.DefaultPlatform = defaultPlatform
+}
+
+// WithDefaultPlatformn adds the defaultPlatformn to the dcim device types list params
+func (o *DcimDeviceTypesListParams) WithDefaultPlatformn(defaultPlatformn *string) *DcimDeviceTypesListParams {
+	o.SetDefaultPlatformn(defaultPlatformn)
+	return o
+}
+
+// SetDefaultPlatformn adds the defaultPlatformN to the dcim device types list params
+func (o *DcimDeviceTypesListParams) SetDefaultPlatformn(defaultPlatformn *string) {
+	o.DefaultPlatformn = defaultPlatformn
+}
+
+// WithDefaultPlatformID adds the defaultPlatformID to the dcim device types list params
+func (o *DcimDeviceTypesListParams) WithDefaultPlatformID(defaultPlatformID *string) *DcimDeviceTypesListParams {
+	o.SetDefaultPlatformID(defaultPlatformID)
+	return o
+}
+
+// SetDefaultPlatformID adds the defaultPlatformId to the dcim device types list params
+func (o *DcimDeviceTypesListParams) SetDefaultPlatformID(defaultPlatformID *string) {
+	o.DefaultPlatformID = defaultPlatformID
+}
+
+// WithDefaultPlatformIDn adds the defaultPlatformIDn to the dcim device types list params
+func (o *DcimDeviceTypesListParams) WithDefaultPlatformIDn(defaultPlatformIDn *string) *DcimDeviceTypesListParams {
+	o.SetDefaultPlatformIDn(defaultPlatformIDn)
+	return o
+}
+
+// SetDefaultPlatformIDn adds the defaultPlatformIdN to the dcim device types list params
+func (o *DcimDeviceTypesListParams) SetDefaultPlatformIDn(defaultPlatformIDn *string) {
+	o.DefaultPlatformIDn = defaultPlatformIDn
 }
 
 // WithDeviceBays adds the deviceBays to the dcim device types list params
@@ -1325,6 +1398,17 @@ func (o *DcimDeviceTypesListParams) SetUHeightn(uHeightn *string) {
 	o.UHeightn = uHeightn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the dcim device types list params
+func (o *DcimDeviceTypesListParams) WithUpdatedByRequest(updatedByRequest *string) *DcimDeviceTypesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the dcim device types list params
+func (o *DcimDeviceTypesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithWeight adds the weight to the dcim device types list params
 func (o *DcimDeviceTypesListParams) WithWeight(weight *string) *DcimDeviceTypesListParams {
 	o.SetWeight(weight)
@@ -1586,6 +1670,91 @@ func (o *DcimDeviceTypesListParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.DefaultPlatform != nil {
+
+		// query param default_platform
+		var qrDefaultPlatform string
+
+		if o.DefaultPlatform != nil {
+			qrDefaultPlatform = *o.DefaultPlatform
+		}
+		qDefaultPlatform := qrDefaultPlatform
+		if qDefaultPlatform != "" {
+
+			if err := r.SetQueryParam("default_platform", qDefaultPlatform); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.DefaultPlatformn != nil {
+
+		// query param default_platform__n
+		var qrDefaultPlatformn string
+
+		if o.DefaultPlatformn != nil {
+			qrDefaultPlatformn = *o.DefaultPlatformn
+		}
+		qDefaultPlatformn := qrDefaultPlatformn
+		if qDefaultPlatformn != "" {
+
+			if err := r.SetQueryParam("default_platform__n", qDefaultPlatformn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.DefaultPlatformID != nil {
+
+		// query param default_platform_id
+		var qrDefaultPlatformID string
+
+		if o.DefaultPlatformID != nil {
+			qrDefaultPlatformID = *o.DefaultPlatformID
+		}
+		qDefaultPlatformID := qrDefaultPlatformID
+		if qDefaultPlatformID != "" {
+
+			if err := r.SetQueryParam("default_platform_id", qDefaultPlatformID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.DefaultPlatformIDn != nil {
+
+		// query param default_platform_id__n
+		var qrDefaultPlatformIDn string
+
+		if o.DefaultPlatformIDn != nil {
+			qrDefaultPlatformIDn = *o.DefaultPlatformIDn
+		}
+		qDefaultPlatformIDn := qrDefaultPlatformIDn
+		if qDefaultPlatformIDn != "" {
+
+			if err := r.SetQueryParam("default_platform_id__n", qDefaultPlatformIDn); err != nil {
 				return err
 			}
 		}
@@ -2827,6 +2996,23 @@ func (o *DcimDeviceTypesListParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if qUHeightn != "" {
 
 			if err := r.SetQueryParam("u_height__n", qUHeightn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

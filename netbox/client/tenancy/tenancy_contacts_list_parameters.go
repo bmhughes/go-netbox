@@ -128,6 +128,9 @@ type TenancyContactsListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Email.
 	Email *string
 
@@ -368,6 +371,9 @@ type TenancyContactsListParams struct {
 	// TitleNisw.
 	TitleNisw *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -606,6 +612,17 @@ func (o *TenancyContactsListParams) WithCreatedn(createdn *string) *TenancyConta
 // SetCreatedn adds the createdN to the tenancy contacts list params
 func (o *TenancyContactsListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the tenancy contacts list params
+func (o *TenancyContactsListParams) WithCreatedByRequest(createdByRequest *string) *TenancyContactsListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the tenancy contacts list params
+func (o *TenancyContactsListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithEmail adds the email to the tenancy contacts list params
@@ -1455,6 +1472,17 @@ func (o *TenancyContactsListParams) SetTitleNisw(titleNisw *string) {
 	o.TitleNisw = titleNisw
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the tenancy contacts list params
+func (o *TenancyContactsListParams) WithUpdatedByRequest(updatedByRequest *string) *TenancyContactsListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the tenancy contacts list params
+func (o *TenancyContactsListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *TenancyContactsListParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -1747,6 +1775,23 @@ func (o *TenancyContactsListParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -3056,6 +3101,23 @@ func (o *TenancyContactsListParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if qTitleNisw != "" {
 
 			if err := r.SetQueryParam("title__nisw", qTitleNisw); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

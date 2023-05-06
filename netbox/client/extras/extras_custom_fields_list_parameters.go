@@ -215,6 +215,9 @@ type ExtrasCustomFieldsListParams struct {
 	// IDn.
 	IDn *string
 
+	// IsCloneable.
+	IsCloneable *string
+
 	/* Limit.
 
 	   Number of results to return per page.
@@ -877,6 +880,17 @@ func (o *ExtrasCustomFieldsListParams) WithIDn(iDn *string) *ExtrasCustomFieldsL
 // SetIDn adds the idN to the extras custom fields list params
 func (o *ExtrasCustomFieldsListParams) SetIDn(iDn *string) {
 	o.IDn = iDn
+}
+
+// WithIsCloneable adds the isCloneable to the extras custom fields list params
+func (o *ExtrasCustomFieldsListParams) WithIsCloneable(isCloneable *string) *ExtrasCustomFieldsListParams {
+	o.SetIsCloneable(isCloneable)
+	return o
+}
+
+// SetIsCloneable adds the isCloneable to the extras custom fields list params
+func (o *ExtrasCustomFieldsListParams) SetIsCloneable(isCloneable *string) {
+	o.IsCloneable = isCloneable
 }
 
 // WithLimit adds the limit to the extras custom fields list params
@@ -2016,6 +2030,23 @@ func (o *ExtrasCustomFieldsListParams) WriteToRequest(r runtime.ClientRequest, r
 		if qIDn != "" {
 
 			if err := r.SetQueryParam("id__n", qIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.IsCloneable != nil {
+
+		// query param is_cloneable
+		var qrIsCloneable string
+
+		if o.IsCloneable != nil {
+			qrIsCloneable = *o.IsCloneable
+		}
+		qIsCloneable := qrIsCloneable
+		if qIsCloneable != "" {
+
+			if err := r.SetQueryParam("is_cloneable", qIsCloneable); err != nil {
 				return err
 			}
 		}

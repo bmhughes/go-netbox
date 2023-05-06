@@ -101,6 +101,9 @@ type IpamIPAddressesListParams struct {
 	// Createdn.
 	Createdn *string
 
+	// CreatedByRequest.
+	CreatedByRequest *string
+
 	// Description.
 	Description *string
 
@@ -305,6 +308,9 @@ type IpamIPAddressesListParams struct {
 	// TenantIDn.
 	TenantIDn *string
 
+	// UpdatedByRequest.
+	UpdatedByRequest *string
+
 	// VirtualMachine.
 	VirtualMachine *string
 
@@ -474,6 +480,17 @@ func (o *IpamIPAddressesListParams) WithCreatedn(createdn *string) *IpamIPAddres
 // SetCreatedn adds the createdN to the ipam ip addresses list params
 func (o *IpamIPAddressesListParams) SetCreatedn(createdn *string) {
 	o.Createdn = createdn
+}
+
+// WithCreatedByRequest adds the createdByRequest to the ipam ip addresses list params
+func (o *IpamIPAddressesListParams) WithCreatedByRequest(createdByRequest *string) *IpamIPAddressesListParams {
+	o.SetCreatedByRequest(createdByRequest)
+	return o
+}
+
+// SetCreatedByRequest adds the createdByRequest to the ipam ip addresses list params
+func (o *IpamIPAddressesListParams) SetCreatedByRequest(createdByRequest *string) {
+	o.CreatedByRequest = createdByRequest
 }
 
 // WithDescription adds the description to the ipam ip addresses list params
@@ -1191,6 +1208,17 @@ func (o *IpamIPAddressesListParams) SetTenantIDn(tenantIDn *string) {
 	o.TenantIDn = tenantIDn
 }
 
+// WithUpdatedByRequest adds the updatedByRequest to the ipam ip addresses list params
+func (o *IpamIPAddressesListParams) WithUpdatedByRequest(updatedByRequest *string) *IpamIPAddressesListParams {
+	o.SetUpdatedByRequest(updatedByRequest)
+	return o
+}
+
+// SetUpdatedByRequest adds the updatedByRequest to the ipam ip addresses list params
+func (o *IpamIPAddressesListParams) SetUpdatedByRequest(updatedByRequest *string) {
+	o.UpdatedByRequest = updatedByRequest
+}
+
 // WithVirtualMachine adds the virtualMachine to the ipam ip addresses list params
 func (o *IpamIPAddressesListParams) WithVirtualMachine(virtualMachine *string) *IpamIPAddressesListParams {
 	o.SetVirtualMachine(virtualMachine)
@@ -1440,6 +1468,23 @@ func (o *IpamIPAddressesListParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if qCreatedn != "" {
 
 			if err := r.SetQueryParam("created__n", qCreatedn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.CreatedByRequest != nil {
+
+		// query param created_by_request
+		var qrCreatedByRequest string
+
+		if o.CreatedByRequest != nil {
+			qrCreatedByRequest = *o.CreatedByRequest
+		}
+		qCreatedByRequest := qrCreatedByRequest
+		if qCreatedByRequest != "" {
+
+			if err := r.SetQueryParam("created_by_request", qCreatedByRequest); err != nil {
 				return err
 			}
 		}
@@ -2545,6 +2590,23 @@ func (o *IpamIPAddressesListParams) WriteToRequest(r runtime.ClientRequest, reg 
 		if qTenantIDn != "" {
 
 			if err := r.SetQueryParam("tenant_id__n", qTenantIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.UpdatedByRequest != nil {
+
+		// query param updated_by_request
+		var qrUpdatedByRequest string
+
+		if o.UpdatedByRequest != nil {
+			qrUpdatedByRequest = *o.UpdatedByRequest
+		}
+		qUpdatedByRequest := qrUpdatedByRequest
+		if qUpdatedByRequest != "" {
+
+			if err := r.SetQueryParam("updated_by_request", qUpdatedByRequest); err != nil {
 				return err
 			}
 		}

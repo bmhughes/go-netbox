@@ -113,6 +113,8 @@ type RearPort struct {
 	Name *string `json:"name"`
 
 	// Positions
+	//
+	// Number of front ports which may be mapped
 	// Maximum: 1024
 	// Minimum: 1
 	Positions int64 `json:"positions,omitempty"`
