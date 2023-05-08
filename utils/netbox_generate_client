@@ -56,6 +56,7 @@ if [ ! "${PROJECT_ROOT}/swagger/swagger-${VERSION}.json" ]; then
   sed -i 's/netbox-media-files/gonetbox-media-files/g' docker-compose.yml
   sed -i 's/netbox-postgres-data/gonetbox-postgres-data/g' docker-compose.yml
   sed -i 's/netbox-redis-data/gonetbox-redis-data/g' docker-compose.yml
+  sed -i 's/start_period: 60s/start_period: 120s/g' docker-compose.yml
   docker-compose up -d --quiet-pull
   cd ..
 
