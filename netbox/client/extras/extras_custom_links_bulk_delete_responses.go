@@ -22,6 +22,7 @@ package extras
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
@@ -41,6 +42,12 @@ func (o *ExtrasCustomLinksBulkDeleteReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewExtrasCustomLinksBulkDeleteBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -93,6 +100,67 @@ func (o *ExtrasCustomLinksBulkDeleteNoContent) String() string {
 }
 
 func (o *ExtrasCustomLinksBulkDeleteNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewExtrasCustomLinksBulkDeleteBadRequest creates a ExtrasCustomLinksBulkDeleteBadRequest with default headers values
+func NewExtrasCustomLinksBulkDeleteBadRequest() *ExtrasCustomLinksBulkDeleteBadRequest {
+	return &ExtrasCustomLinksBulkDeleteBadRequest{}
+}
+
+/*
+ExtrasCustomLinksBulkDeleteBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type ExtrasCustomLinksBulkDeleteBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this extras custom links bulk delete bad request response has a 2xx status code
+func (o *ExtrasCustomLinksBulkDeleteBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this extras custom links bulk delete bad request response has a 3xx status code
+func (o *ExtrasCustomLinksBulkDeleteBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this extras custom links bulk delete bad request response has a 4xx status code
+func (o *ExtrasCustomLinksBulkDeleteBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this extras custom links bulk delete bad request response has a 5xx status code
+func (o *ExtrasCustomLinksBulkDeleteBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this extras custom links bulk delete bad request response a status code equal to that given
+func (o *ExtrasCustomLinksBulkDeleteBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *ExtrasCustomLinksBulkDeleteBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /extras/custom-links/][%d] extrasCustomLinksBulkDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasCustomLinksBulkDeleteBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /extras/custom-links/][%d] extrasCustomLinksBulkDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasCustomLinksBulkDeleteBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasCustomLinksBulkDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

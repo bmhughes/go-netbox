@@ -44,6 +44,12 @@ func (o *ExtrasImageAttachmentsPartialUpdateReader) ReadResponse(response runtim
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewExtrasImageAttachmentsPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *ExtrasImageAttachmentsPartialUpdateOK) readResponse(response runtime.Cl
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasImageAttachmentsPartialUpdateBadRequest creates a ExtrasImageAttachmentsPartialUpdateBadRequest with default headers values
+func NewExtrasImageAttachmentsPartialUpdateBadRequest() *ExtrasImageAttachmentsPartialUpdateBadRequest {
+	return &ExtrasImageAttachmentsPartialUpdateBadRequest{}
+}
+
+/*
+ExtrasImageAttachmentsPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type ExtrasImageAttachmentsPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this extras image attachments partial update bad request response has a 2xx status code
+func (o *ExtrasImageAttachmentsPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this extras image attachments partial update bad request response has a 3xx status code
+func (o *ExtrasImageAttachmentsPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this extras image attachments partial update bad request response has a 4xx status code
+func (o *ExtrasImageAttachmentsPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this extras image attachments partial update bad request response has a 5xx status code
+func (o *ExtrasImageAttachmentsPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this extras image attachments partial update bad request response a status code equal to that given
+func (o *ExtrasImageAttachmentsPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *ExtrasImageAttachmentsPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /extras/image-attachments/{id}/][%d] extrasImageAttachmentsPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasImageAttachmentsPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /extras/image-attachments/{id}/][%d] extrasImageAttachmentsPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasImageAttachmentsPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasImageAttachmentsPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

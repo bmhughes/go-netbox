@@ -22,6 +22,7 @@ package ipam
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
@@ -41,6 +42,12 @@ func (o *IpamRirsDeleteReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewIpamRirsDeleteBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -93,6 +100,67 @@ func (o *IpamRirsDeleteNoContent) String() string {
 }
 
 func (o *IpamRirsDeleteNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewIpamRirsDeleteBadRequest creates a IpamRirsDeleteBadRequest with default headers values
+func NewIpamRirsDeleteBadRequest() *IpamRirsDeleteBadRequest {
+	return &IpamRirsDeleteBadRequest{}
+}
+
+/*
+IpamRirsDeleteBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type IpamRirsDeleteBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this ipam rirs delete bad request response has a 2xx status code
+func (o *IpamRirsDeleteBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this ipam rirs delete bad request response has a 3xx status code
+func (o *IpamRirsDeleteBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this ipam rirs delete bad request response has a 4xx status code
+func (o *IpamRirsDeleteBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this ipam rirs delete bad request response has a 5xx status code
+func (o *IpamRirsDeleteBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this ipam rirs delete bad request response a status code equal to that given
+func (o *IpamRirsDeleteBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *IpamRirsDeleteBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /ipam/rirs/{id}/][%d] ipamRirsDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamRirsDeleteBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /ipam/rirs/{id}/][%d] ipamRirsDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamRirsDeleteBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamRirsDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

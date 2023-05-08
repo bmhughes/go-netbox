@@ -44,6 +44,12 @@ func (o *IpamPrefixesBulkPartialUpdateReader) ReadResponse(response runtime.Clie
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewIpamPrefixesBulkPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *IpamPrefixesBulkPartialUpdateOK) readResponse(response runtime.ClientRe
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamPrefixesBulkPartialUpdateBadRequest creates a IpamPrefixesBulkPartialUpdateBadRequest with default headers values
+func NewIpamPrefixesBulkPartialUpdateBadRequest() *IpamPrefixesBulkPartialUpdateBadRequest {
+	return &IpamPrefixesBulkPartialUpdateBadRequest{}
+}
+
+/*
+IpamPrefixesBulkPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type IpamPrefixesBulkPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this ipam prefixes bulk partial update bad request response has a 2xx status code
+func (o *IpamPrefixesBulkPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this ipam prefixes bulk partial update bad request response has a 3xx status code
+func (o *IpamPrefixesBulkPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this ipam prefixes bulk partial update bad request response has a 4xx status code
+func (o *IpamPrefixesBulkPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this ipam prefixes bulk partial update bad request response has a 5xx status code
+func (o *IpamPrefixesBulkPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this ipam prefixes bulk partial update bad request response a status code equal to that given
+func (o *IpamPrefixesBulkPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *IpamPrefixesBulkPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /ipam/prefixes/][%d] ipamPrefixesBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamPrefixesBulkPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /ipam/prefixes/][%d] ipamPrefixesBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamPrefixesBulkPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamPrefixesBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

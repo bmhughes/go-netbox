@@ -44,6 +44,12 @@ func (o *DcimInventoryItemRolesReadReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimInventoryItemRolesReadBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimInventoryItemRolesReadOK) readResponse(response runtime.ClientRespo
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimInventoryItemRolesReadBadRequest creates a DcimInventoryItemRolesReadBadRequest with default headers values
+func NewDcimInventoryItemRolesReadBadRequest() *DcimInventoryItemRolesReadBadRequest {
+	return &DcimInventoryItemRolesReadBadRequest{}
+}
+
+/*
+DcimInventoryItemRolesReadBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimInventoryItemRolesReadBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim inventory item roles read bad request response has a 2xx status code
+func (o *DcimInventoryItemRolesReadBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim inventory item roles read bad request response has a 3xx status code
+func (o *DcimInventoryItemRolesReadBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim inventory item roles read bad request response has a 4xx status code
+func (o *DcimInventoryItemRolesReadBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim inventory item roles read bad request response has a 5xx status code
+func (o *DcimInventoryItemRolesReadBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim inventory item roles read bad request response a status code equal to that given
+func (o *DcimInventoryItemRolesReadBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimInventoryItemRolesReadBadRequest) Error() string {
+	return fmt.Sprintf("[GET /dcim/inventory-item-roles/{id}/][%d] dcimInventoryItemRolesReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimInventoryItemRolesReadBadRequest) String() string {
+	return fmt.Sprintf("[GET /dcim/inventory-item-roles/{id}/][%d] dcimInventoryItemRolesReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimInventoryItemRolesReadBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimInventoryItemRolesReadBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

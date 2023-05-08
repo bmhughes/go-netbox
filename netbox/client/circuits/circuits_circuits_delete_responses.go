@@ -22,6 +22,7 @@ package circuits
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
@@ -41,6 +42,12 @@ func (o *CircuitsCircuitsDeleteReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewCircuitsCircuitsDeleteBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -93,6 +100,67 @@ func (o *CircuitsCircuitsDeleteNoContent) String() string {
 }
 
 func (o *CircuitsCircuitsDeleteNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewCircuitsCircuitsDeleteBadRequest creates a CircuitsCircuitsDeleteBadRequest with default headers values
+func NewCircuitsCircuitsDeleteBadRequest() *CircuitsCircuitsDeleteBadRequest {
+	return &CircuitsCircuitsDeleteBadRequest{}
+}
+
+/*
+CircuitsCircuitsDeleteBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type CircuitsCircuitsDeleteBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this circuits circuits delete bad request response has a 2xx status code
+func (o *CircuitsCircuitsDeleteBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this circuits circuits delete bad request response has a 3xx status code
+func (o *CircuitsCircuitsDeleteBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this circuits circuits delete bad request response has a 4xx status code
+func (o *CircuitsCircuitsDeleteBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this circuits circuits delete bad request response has a 5xx status code
+func (o *CircuitsCircuitsDeleteBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this circuits circuits delete bad request response a status code equal to that given
+func (o *CircuitsCircuitsDeleteBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *CircuitsCircuitsDeleteBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /circuits/circuits/{id}/][%d] circuitsCircuitsDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CircuitsCircuitsDeleteBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /circuits/circuits/{id}/][%d] circuitsCircuitsDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CircuitsCircuitsDeleteBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *CircuitsCircuitsDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

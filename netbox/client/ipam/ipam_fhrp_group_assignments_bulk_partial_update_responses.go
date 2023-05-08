@@ -44,6 +44,12 @@ func (o *IpamFhrpGroupAssignmentsBulkPartialUpdateReader) ReadResponse(response 
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewIpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *IpamFhrpGroupAssignmentsBulkPartialUpdateOK) readResponse(response runt
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest creates a IpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest with default headers values
+func NewIpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest() *IpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest {
+	return &IpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest{}
+}
+
+/*
+IpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type IpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this ipam fhrp group assignments bulk partial update bad request response has a 2xx status code
+func (o *IpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this ipam fhrp group assignments bulk partial update bad request response has a 3xx status code
+func (o *IpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this ipam fhrp group assignments bulk partial update bad request response has a 4xx status code
+func (o *IpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this ipam fhrp group assignments bulk partial update bad request response has a 5xx status code
+func (o *IpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this ipam fhrp group assignments bulk partial update bad request response a status code equal to that given
+func (o *IpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *IpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /ipam/fhrp-group-assignments/][%d] ipamFhrpGroupAssignmentsBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /ipam/fhrp-group-assignments/][%d] ipamFhrpGroupAssignmentsBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamFhrpGroupAssignmentsBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

@@ -44,6 +44,12 @@ func (o *DcimPowerPortsTraceReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimPowerPortsTraceBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimPowerPortsTraceOK) readResponse(response runtime.ClientResponse, co
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimPowerPortsTraceBadRequest creates a DcimPowerPortsTraceBadRequest with default headers values
+func NewDcimPowerPortsTraceBadRequest() *DcimPowerPortsTraceBadRequest {
+	return &DcimPowerPortsTraceBadRequest{}
+}
+
+/*
+DcimPowerPortsTraceBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimPowerPortsTraceBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim power ports trace bad request response has a 2xx status code
+func (o *DcimPowerPortsTraceBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim power ports trace bad request response has a 3xx status code
+func (o *DcimPowerPortsTraceBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim power ports trace bad request response has a 4xx status code
+func (o *DcimPowerPortsTraceBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim power ports trace bad request response has a 5xx status code
+func (o *DcimPowerPortsTraceBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim power ports trace bad request response a status code equal to that given
+func (o *DcimPowerPortsTraceBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimPowerPortsTraceBadRequest) Error() string {
+	return fmt.Sprintf("[GET /dcim/power-ports/{id}/trace/][%d] dcimPowerPortsTraceBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimPowerPortsTraceBadRequest) String() string {
+	return fmt.Sprintf("[GET /dcim/power-ports/{id}/trace/][%d] dcimPowerPortsTraceBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimPowerPortsTraceBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimPowerPortsTraceBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

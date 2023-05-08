@@ -44,6 +44,12 @@ func (o *ExtrasWebhooksBulkPartialUpdateReader) ReadResponse(response runtime.Cl
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewExtrasWebhooksBulkPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *ExtrasWebhooksBulkPartialUpdateOK) readResponse(response runtime.Client
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasWebhooksBulkPartialUpdateBadRequest creates a ExtrasWebhooksBulkPartialUpdateBadRequest with default headers values
+func NewExtrasWebhooksBulkPartialUpdateBadRequest() *ExtrasWebhooksBulkPartialUpdateBadRequest {
+	return &ExtrasWebhooksBulkPartialUpdateBadRequest{}
+}
+
+/*
+ExtrasWebhooksBulkPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type ExtrasWebhooksBulkPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this extras webhooks bulk partial update bad request response has a 2xx status code
+func (o *ExtrasWebhooksBulkPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this extras webhooks bulk partial update bad request response has a 3xx status code
+func (o *ExtrasWebhooksBulkPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this extras webhooks bulk partial update bad request response has a 4xx status code
+func (o *ExtrasWebhooksBulkPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this extras webhooks bulk partial update bad request response has a 5xx status code
+func (o *ExtrasWebhooksBulkPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this extras webhooks bulk partial update bad request response a status code equal to that given
+func (o *ExtrasWebhooksBulkPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *ExtrasWebhooksBulkPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /extras/webhooks/][%d] extrasWebhooksBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasWebhooksBulkPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /extras/webhooks/][%d] extrasWebhooksBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasWebhooksBulkPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasWebhooksBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

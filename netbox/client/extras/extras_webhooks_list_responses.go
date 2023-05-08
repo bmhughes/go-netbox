@@ -49,6 +49,12 @@ func (o *ExtrasWebhooksListReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewExtrasWebhooksListBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -111,6 +117,67 @@ func (o *ExtrasWebhooksListOK) readResponse(response runtime.ClientResponse, con
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasWebhooksListBadRequest creates a ExtrasWebhooksListBadRequest with default headers values
+func NewExtrasWebhooksListBadRequest() *ExtrasWebhooksListBadRequest {
+	return &ExtrasWebhooksListBadRequest{}
+}
+
+/*
+ExtrasWebhooksListBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type ExtrasWebhooksListBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this extras webhooks list bad request response has a 2xx status code
+func (o *ExtrasWebhooksListBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this extras webhooks list bad request response has a 3xx status code
+func (o *ExtrasWebhooksListBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this extras webhooks list bad request response has a 4xx status code
+func (o *ExtrasWebhooksListBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this extras webhooks list bad request response has a 5xx status code
+func (o *ExtrasWebhooksListBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this extras webhooks list bad request response a status code equal to that given
+func (o *ExtrasWebhooksListBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *ExtrasWebhooksListBadRequest) Error() string {
+	return fmt.Sprintf("[GET /extras/webhooks/][%d] extrasWebhooksListBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasWebhooksListBadRequest) String() string {
+	return fmt.Sprintf("[GET /extras/webhooks/][%d] extrasWebhooksListBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasWebhooksListBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasWebhooksListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

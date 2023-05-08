@@ -44,6 +44,12 @@ func (o *DcimFrontPortTemplatesPartialUpdateReader) ReadResponse(response runtim
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimFrontPortTemplatesPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimFrontPortTemplatesPartialUpdateOK) readResponse(response runtime.Cl
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimFrontPortTemplatesPartialUpdateBadRequest creates a DcimFrontPortTemplatesPartialUpdateBadRequest with default headers values
+func NewDcimFrontPortTemplatesPartialUpdateBadRequest() *DcimFrontPortTemplatesPartialUpdateBadRequest {
+	return &DcimFrontPortTemplatesPartialUpdateBadRequest{}
+}
+
+/*
+DcimFrontPortTemplatesPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimFrontPortTemplatesPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim front port templates partial update bad request response has a 2xx status code
+func (o *DcimFrontPortTemplatesPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim front port templates partial update bad request response has a 3xx status code
+func (o *DcimFrontPortTemplatesPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim front port templates partial update bad request response has a 4xx status code
+func (o *DcimFrontPortTemplatesPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim front port templates partial update bad request response has a 5xx status code
+func (o *DcimFrontPortTemplatesPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim front port templates partial update bad request response a status code equal to that given
+func (o *DcimFrontPortTemplatesPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimFrontPortTemplatesPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /dcim/front-port-templates/{id}/][%d] dcimFrontPortTemplatesPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimFrontPortTemplatesPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /dcim/front-port-templates/{id}/][%d] dcimFrontPortTemplatesPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimFrontPortTemplatesPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimFrontPortTemplatesPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

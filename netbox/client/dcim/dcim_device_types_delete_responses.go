@@ -22,6 +22,7 @@ package dcim
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
@@ -41,6 +42,12 @@ func (o *DcimDeviceTypesDeleteReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimDeviceTypesDeleteBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -93,6 +100,67 @@ func (o *DcimDeviceTypesDeleteNoContent) String() string {
 }
 
 func (o *DcimDeviceTypesDeleteNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewDcimDeviceTypesDeleteBadRequest creates a DcimDeviceTypesDeleteBadRequest with default headers values
+func NewDcimDeviceTypesDeleteBadRequest() *DcimDeviceTypesDeleteBadRequest {
+	return &DcimDeviceTypesDeleteBadRequest{}
+}
+
+/*
+DcimDeviceTypesDeleteBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimDeviceTypesDeleteBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim device types delete bad request response has a 2xx status code
+func (o *DcimDeviceTypesDeleteBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim device types delete bad request response has a 3xx status code
+func (o *DcimDeviceTypesDeleteBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim device types delete bad request response has a 4xx status code
+func (o *DcimDeviceTypesDeleteBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim device types delete bad request response has a 5xx status code
+func (o *DcimDeviceTypesDeleteBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim device types delete bad request response a status code equal to that given
+func (o *DcimDeviceTypesDeleteBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimDeviceTypesDeleteBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /dcim/device-types/{id}/][%d] dcimDeviceTypesDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimDeviceTypesDeleteBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /dcim/device-types/{id}/][%d] dcimDeviceTypesDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimDeviceTypesDeleteBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimDeviceTypesDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

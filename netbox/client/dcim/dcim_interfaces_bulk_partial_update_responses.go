@@ -44,6 +44,12 @@ func (o *DcimInterfacesBulkPartialUpdateReader) ReadResponse(response runtime.Cl
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimInterfacesBulkPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimInterfacesBulkPartialUpdateOK) readResponse(response runtime.Client
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimInterfacesBulkPartialUpdateBadRequest creates a DcimInterfacesBulkPartialUpdateBadRequest with default headers values
+func NewDcimInterfacesBulkPartialUpdateBadRequest() *DcimInterfacesBulkPartialUpdateBadRequest {
+	return &DcimInterfacesBulkPartialUpdateBadRequest{}
+}
+
+/*
+DcimInterfacesBulkPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimInterfacesBulkPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim interfaces bulk partial update bad request response has a 2xx status code
+func (o *DcimInterfacesBulkPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim interfaces bulk partial update bad request response has a 3xx status code
+func (o *DcimInterfacesBulkPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim interfaces bulk partial update bad request response has a 4xx status code
+func (o *DcimInterfacesBulkPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim interfaces bulk partial update bad request response has a 5xx status code
+func (o *DcimInterfacesBulkPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim interfaces bulk partial update bad request response a status code equal to that given
+func (o *DcimInterfacesBulkPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimInterfacesBulkPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /dcim/interfaces/][%d] dcimInterfacesBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimInterfacesBulkPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /dcim/interfaces/][%d] dcimInterfacesBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimInterfacesBulkPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimInterfacesBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

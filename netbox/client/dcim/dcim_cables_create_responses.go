@@ -44,6 +44,12 @@ func (o *DcimCablesCreateReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimCablesCreateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimCablesCreateCreated) readResponse(response runtime.ClientResponse, 
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimCablesCreateBadRequest creates a DcimCablesCreateBadRequest with default headers values
+func NewDcimCablesCreateBadRequest() *DcimCablesCreateBadRequest {
+	return &DcimCablesCreateBadRequest{}
+}
+
+/*
+DcimCablesCreateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimCablesCreateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim cables create bad request response has a 2xx status code
+func (o *DcimCablesCreateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim cables create bad request response has a 3xx status code
+func (o *DcimCablesCreateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim cables create bad request response has a 4xx status code
+func (o *DcimCablesCreateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim cables create bad request response has a 5xx status code
+func (o *DcimCablesCreateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim cables create bad request response a status code equal to that given
+func (o *DcimCablesCreateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimCablesCreateBadRequest) Error() string {
+	return fmt.Sprintf("[POST /dcim/cables/][%d] dcimCablesCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimCablesCreateBadRequest) String() string {
+	return fmt.Sprintf("[POST /dcim/cables/][%d] dcimCablesCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimCablesCreateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimCablesCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

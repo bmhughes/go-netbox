@@ -22,6 +22,7 @@ package extras
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
@@ -41,6 +42,12 @@ func (o *ExtrasTagsBulkDeleteReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewExtrasTagsBulkDeleteBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -93,6 +100,67 @@ func (o *ExtrasTagsBulkDeleteNoContent) String() string {
 }
 
 func (o *ExtrasTagsBulkDeleteNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewExtrasTagsBulkDeleteBadRequest creates a ExtrasTagsBulkDeleteBadRequest with default headers values
+func NewExtrasTagsBulkDeleteBadRequest() *ExtrasTagsBulkDeleteBadRequest {
+	return &ExtrasTagsBulkDeleteBadRequest{}
+}
+
+/*
+ExtrasTagsBulkDeleteBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type ExtrasTagsBulkDeleteBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this extras tags bulk delete bad request response has a 2xx status code
+func (o *ExtrasTagsBulkDeleteBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this extras tags bulk delete bad request response has a 3xx status code
+func (o *ExtrasTagsBulkDeleteBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this extras tags bulk delete bad request response has a 4xx status code
+func (o *ExtrasTagsBulkDeleteBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this extras tags bulk delete bad request response has a 5xx status code
+func (o *ExtrasTagsBulkDeleteBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this extras tags bulk delete bad request response a status code equal to that given
+func (o *ExtrasTagsBulkDeleteBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *ExtrasTagsBulkDeleteBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /extras/tags/][%d] extrasTagsBulkDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasTagsBulkDeleteBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /extras/tags/][%d] extrasTagsBulkDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasTagsBulkDeleteBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasTagsBulkDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

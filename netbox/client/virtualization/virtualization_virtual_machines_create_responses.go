@@ -44,6 +44,12 @@ func (o *VirtualizationVirtualMachinesCreateReader) ReadResponse(response runtim
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewVirtualizationVirtualMachinesCreateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *VirtualizationVirtualMachinesCreateCreated) readResponse(response runti
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewVirtualizationVirtualMachinesCreateBadRequest creates a VirtualizationVirtualMachinesCreateBadRequest with default headers values
+func NewVirtualizationVirtualMachinesCreateBadRequest() *VirtualizationVirtualMachinesCreateBadRequest {
+	return &VirtualizationVirtualMachinesCreateBadRequest{}
+}
+
+/*
+VirtualizationVirtualMachinesCreateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type VirtualizationVirtualMachinesCreateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this virtualization virtual machines create bad request response has a 2xx status code
+func (o *VirtualizationVirtualMachinesCreateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this virtualization virtual machines create bad request response has a 3xx status code
+func (o *VirtualizationVirtualMachinesCreateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this virtualization virtual machines create bad request response has a 4xx status code
+func (o *VirtualizationVirtualMachinesCreateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this virtualization virtual machines create bad request response has a 5xx status code
+func (o *VirtualizationVirtualMachinesCreateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this virtualization virtual machines create bad request response a status code equal to that given
+func (o *VirtualizationVirtualMachinesCreateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *VirtualizationVirtualMachinesCreateBadRequest) Error() string {
+	return fmt.Sprintf("[POST /virtualization/virtual-machines/][%d] virtualizationVirtualMachinesCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *VirtualizationVirtualMachinesCreateBadRequest) String() string {
+	return fmt.Sprintf("[POST /virtualization/virtual-machines/][%d] virtualizationVirtualMachinesCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *VirtualizationVirtualMachinesCreateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *VirtualizationVirtualMachinesCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

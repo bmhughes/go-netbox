@@ -49,6 +49,12 @@ func (o *DcimInterfacesListReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimInterfacesListBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -111,6 +117,67 @@ func (o *DcimInterfacesListOK) readResponse(response runtime.ClientResponse, con
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimInterfacesListBadRequest creates a DcimInterfacesListBadRequest with default headers values
+func NewDcimInterfacesListBadRequest() *DcimInterfacesListBadRequest {
+	return &DcimInterfacesListBadRequest{}
+}
+
+/*
+DcimInterfacesListBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimInterfacesListBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim interfaces list bad request response has a 2xx status code
+func (o *DcimInterfacesListBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim interfaces list bad request response has a 3xx status code
+func (o *DcimInterfacesListBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim interfaces list bad request response has a 4xx status code
+func (o *DcimInterfacesListBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim interfaces list bad request response has a 5xx status code
+func (o *DcimInterfacesListBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim interfaces list bad request response a status code equal to that given
+func (o *DcimInterfacesListBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimInterfacesListBadRequest) Error() string {
+	return fmt.Sprintf("[GET /dcim/interfaces/][%d] dcimInterfacesListBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimInterfacesListBadRequest) String() string {
+	return fmt.Sprintf("[GET /dcim/interfaces/][%d] dcimInterfacesListBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimInterfacesListBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimInterfacesListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

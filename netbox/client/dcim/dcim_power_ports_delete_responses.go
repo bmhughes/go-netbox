@@ -22,6 +22,7 @@ package dcim
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
@@ -41,6 +42,12 @@ func (o *DcimPowerPortsDeleteReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimPowerPortsDeleteBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -93,6 +100,67 @@ func (o *DcimPowerPortsDeleteNoContent) String() string {
 }
 
 func (o *DcimPowerPortsDeleteNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewDcimPowerPortsDeleteBadRequest creates a DcimPowerPortsDeleteBadRequest with default headers values
+func NewDcimPowerPortsDeleteBadRequest() *DcimPowerPortsDeleteBadRequest {
+	return &DcimPowerPortsDeleteBadRequest{}
+}
+
+/*
+DcimPowerPortsDeleteBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimPowerPortsDeleteBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim power ports delete bad request response has a 2xx status code
+func (o *DcimPowerPortsDeleteBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim power ports delete bad request response has a 3xx status code
+func (o *DcimPowerPortsDeleteBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim power ports delete bad request response has a 4xx status code
+func (o *DcimPowerPortsDeleteBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim power ports delete bad request response has a 5xx status code
+func (o *DcimPowerPortsDeleteBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim power ports delete bad request response a status code equal to that given
+func (o *DcimPowerPortsDeleteBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimPowerPortsDeleteBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /dcim/power-ports/{id}/][%d] dcimPowerPortsDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimPowerPortsDeleteBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /dcim/power-ports/{id}/][%d] dcimPowerPortsDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimPowerPortsDeleteBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimPowerPortsDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

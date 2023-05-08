@@ -22,6 +22,7 @@ package dcim
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
@@ -41,6 +42,12 @@ func (o *DcimFrontPortTemplatesBulkDeleteReader) ReadResponse(response runtime.C
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimFrontPortTemplatesBulkDeleteBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -93,6 +100,67 @@ func (o *DcimFrontPortTemplatesBulkDeleteNoContent) String() string {
 }
 
 func (o *DcimFrontPortTemplatesBulkDeleteNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewDcimFrontPortTemplatesBulkDeleteBadRequest creates a DcimFrontPortTemplatesBulkDeleteBadRequest with default headers values
+func NewDcimFrontPortTemplatesBulkDeleteBadRequest() *DcimFrontPortTemplatesBulkDeleteBadRequest {
+	return &DcimFrontPortTemplatesBulkDeleteBadRequest{}
+}
+
+/*
+DcimFrontPortTemplatesBulkDeleteBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimFrontPortTemplatesBulkDeleteBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim front port templates bulk delete bad request response has a 2xx status code
+func (o *DcimFrontPortTemplatesBulkDeleteBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim front port templates bulk delete bad request response has a 3xx status code
+func (o *DcimFrontPortTemplatesBulkDeleteBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim front port templates bulk delete bad request response has a 4xx status code
+func (o *DcimFrontPortTemplatesBulkDeleteBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim front port templates bulk delete bad request response has a 5xx status code
+func (o *DcimFrontPortTemplatesBulkDeleteBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim front port templates bulk delete bad request response a status code equal to that given
+func (o *DcimFrontPortTemplatesBulkDeleteBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimFrontPortTemplatesBulkDeleteBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /dcim/front-port-templates/][%d] dcimFrontPortTemplatesBulkDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimFrontPortTemplatesBulkDeleteBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /dcim/front-port-templates/][%d] dcimFrontPortTemplatesBulkDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimFrontPortTemplatesBulkDeleteBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimFrontPortTemplatesBulkDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

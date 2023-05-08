@@ -44,6 +44,12 @@ func (o *ExtrasSavedFiltersCreateReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewExtrasSavedFiltersCreateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *ExtrasSavedFiltersCreateCreated) readResponse(response runtime.ClientRe
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasSavedFiltersCreateBadRequest creates a ExtrasSavedFiltersCreateBadRequest with default headers values
+func NewExtrasSavedFiltersCreateBadRequest() *ExtrasSavedFiltersCreateBadRequest {
+	return &ExtrasSavedFiltersCreateBadRequest{}
+}
+
+/*
+ExtrasSavedFiltersCreateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type ExtrasSavedFiltersCreateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this extras saved filters create bad request response has a 2xx status code
+func (o *ExtrasSavedFiltersCreateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this extras saved filters create bad request response has a 3xx status code
+func (o *ExtrasSavedFiltersCreateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this extras saved filters create bad request response has a 4xx status code
+func (o *ExtrasSavedFiltersCreateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this extras saved filters create bad request response has a 5xx status code
+func (o *ExtrasSavedFiltersCreateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this extras saved filters create bad request response a status code equal to that given
+func (o *ExtrasSavedFiltersCreateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *ExtrasSavedFiltersCreateBadRequest) Error() string {
+	return fmt.Sprintf("[POST /extras/saved-filters/][%d] extrasSavedFiltersCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasSavedFiltersCreateBadRequest) String() string {
+	return fmt.Sprintf("[POST /extras/saved-filters/][%d] extrasSavedFiltersCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasSavedFiltersCreateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasSavedFiltersCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

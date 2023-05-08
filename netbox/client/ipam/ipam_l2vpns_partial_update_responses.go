@@ -44,6 +44,12 @@ func (o *IpamL2vpnsPartialUpdateReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewIpamL2vpnsPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *IpamL2vpnsPartialUpdateOK) readResponse(response runtime.ClientResponse
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamL2vpnsPartialUpdateBadRequest creates a IpamL2vpnsPartialUpdateBadRequest with default headers values
+func NewIpamL2vpnsPartialUpdateBadRequest() *IpamL2vpnsPartialUpdateBadRequest {
+	return &IpamL2vpnsPartialUpdateBadRequest{}
+}
+
+/*
+IpamL2vpnsPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type IpamL2vpnsPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this ipam l2vpns partial update bad request response has a 2xx status code
+func (o *IpamL2vpnsPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this ipam l2vpns partial update bad request response has a 3xx status code
+func (o *IpamL2vpnsPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this ipam l2vpns partial update bad request response has a 4xx status code
+func (o *IpamL2vpnsPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this ipam l2vpns partial update bad request response has a 5xx status code
+func (o *IpamL2vpnsPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this ipam l2vpns partial update bad request response a status code equal to that given
+func (o *IpamL2vpnsPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *IpamL2vpnsPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /ipam/l2vpns/{id}/][%d] ipamL2vpnsPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamL2vpnsPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /ipam/l2vpns/{id}/][%d] ipamL2vpnsPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamL2vpnsPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamL2vpnsPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

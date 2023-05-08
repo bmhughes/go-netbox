@@ -44,6 +44,12 @@ func (o *IpamIPRangesPartialUpdateReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewIpamIPRangesPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *IpamIPRangesPartialUpdateOK) readResponse(response runtime.ClientRespon
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamIPRangesPartialUpdateBadRequest creates a IpamIPRangesPartialUpdateBadRequest with default headers values
+func NewIpamIPRangesPartialUpdateBadRequest() *IpamIPRangesPartialUpdateBadRequest {
+	return &IpamIPRangesPartialUpdateBadRequest{}
+}
+
+/*
+IpamIPRangesPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type IpamIPRangesPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this ipam Ip ranges partial update bad request response has a 2xx status code
+func (o *IpamIPRangesPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this ipam Ip ranges partial update bad request response has a 3xx status code
+func (o *IpamIPRangesPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this ipam Ip ranges partial update bad request response has a 4xx status code
+func (o *IpamIPRangesPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this ipam Ip ranges partial update bad request response has a 5xx status code
+func (o *IpamIPRangesPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this ipam Ip ranges partial update bad request response a status code equal to that given
+func (o *IpamIPRangesPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *IpamIPRangesPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /ipam/ip-ranges/{id}/][%d] ipamIpRangesPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamIPRangesPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /ipam/ip-ranges/{id}/][%d] ipamIpRangesPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamIPRangesPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamIPRangesPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

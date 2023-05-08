@@ -44,6 +44,12 @@ func (o *ExtrasSavedFiltersBulkUpdateReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewExtrasSavedFiltersBulkUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *ExtrasSavedFiltersBulkUpdateOK) readResponse(response runtime.ClientRes
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasSavedFiltersBulkUpdateBadRequest creates a ExtrasSavedFiltersBulkUpdateBadRequest with default headers values
+func NewExtrasSavedFiltersBulkUpdateBadRequest() *ExtrasSavedFiltersBulkUpdateBadRequest {
+	return &ExtrasSavedFiltersBulkUpdateBadRequest{}
+}
+
+/*
+ExtrasSavedFiltersBulkUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type ExtrasSavedFiltersBulkUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this extras saved filters bulk update bad request response has a 2xx status code
+func (o *ExtrasSavedFiltersBulkUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this extras saved filters bulk update bad request response has a 3xx status code
+func (o *ExtrasSavedFiltersBulkUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this extras saved filters bulk update bad request response has a 4xx status code
+func (o *ExtrasSavedFiltersBulkUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this extras saved filters bulk update bad request response has a 5xx status code
+func (o *ExtrasSavedFiltersBulkUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this extras saved filters bulk update bad request response a status code equal to that given
+func (o *ExtrasSavedFiltersBulkUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *ExtrasSavedFiltersBulkUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PUT /extras/saved-filters/][%d] extrasSavedFiltersBulkUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasSavedFiltersBulkUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PUT /extras/saved-filters/][%d] extrasSavedFiltersBulkUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasSavedFiltersBulkUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasSavedFiltersBulkUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

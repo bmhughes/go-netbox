@@ -44,6 +44,12 @@ func (o *DcimModuleBayTemplatesCreateReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimModuleBayTemplatesCreateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimModuleBayTemplatesCreateCreated) readResponse(response runtime.Clie
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimModuleBayTemplatesCreateBadRequest creates a DcimModuleBayTemplatesCreateBadRequest with default headers values
+func NewDcimModuleBayTemplatesCreateBadRequest() *DcimModuleBayTemplatesCreateBadRequest {
+	return &DcimModuleBayTemplatesCreateBadRequest{}
+}
+
+/*
+DcimModuleBayTemplatesCreateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimModuleBayTemplatesCreateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim module bay templates create bad request response has a 2xx status code
+func (o *DcimModuleBayTemplatesCreateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim module bay templates create bad request response has a 3xx status code
+func (o *DcimModuleBayTemplatesCreateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim module bay templates create bad request response has a 4xx status code
+func (o *DcimModuleBayTemplatesCreateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim module bay templates create bad request response has a 5xx status code
+func (o *DcimModuleBayTemplatesCreateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim module bay templates create bad request response a status code equal to that given
+func (o *DcimModuleBayTemplatesCreateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimModuleBayTemplatesCreateBadRequest) Error() string {
+	return fmt.Sprintf("[POST /dcim/module-bay-templates/][%d] dcimModuleBayTemplatesCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimModuleBayTemplatesCreateBadRequest) String() string {
+	return fmt.Sprintf("[POST /dcim/module-bay-templates/][%d] dcimModuleBayTemplatesCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimModuleBayTemplatesCreateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimModuleBayTemplatesCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

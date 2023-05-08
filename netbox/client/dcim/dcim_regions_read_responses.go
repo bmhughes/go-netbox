@@ -44,6 +44,12 @@ func (o *DcimRegionsReadReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimRegionsReadBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimRegionsReadOK) readResponse(response runtime.ClientResponse, consum
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimRegionsReadBadRequest creates a DcimRegionsReadBadRequest with default headers values
+func NewDcimRegionsReadBadRequest() *DcimRegionsReadBadRequest {
+	return &DcimRegionsReadBadRequest{}
+}
+
+/*
+DcimRegionsReadBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimRegionsReadBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim regions read bad request response has a 2xx status code
+func (o *DcimRegionsReadBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim regions read bad request response has a 3xx status code
+func (o *DcimRegionsReadBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim regions read bad request response has a 4xx status code
+func (o *DcimRegionsReadBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim regions read bad request response has a 5xx status code
+func (o *DcimRegionsReadBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim regions read bad request response a status code equal to that given
+func (o *DcimRegionsReadBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimRegionsReadBadRequest) Error() string {
+	return fmt.Sprintf("[GET /dcim/regions/{id}/][%d] dcimRegionsReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimRegionsReadBadRequest) String() string {
+	return fmt.Sprintf("[GET /dcim/regions/{id}/][%d] dcimRegionsReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimRegionsReadBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimRegionsReadBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

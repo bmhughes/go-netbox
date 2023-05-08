@@ -44,6 +44,12 @@ func (o *DcimCablesPartialUpdateReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimCablesPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimCablesPartialUpdateOK) readResponse(response runtime.ClientResponse
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimCablesPartialUpdateBadRequest creates a DcimCablesPartialUpdateBadRequest with default headers values
+func NewDcimCablesPartialUpdateBadRequest() *DcimCablesPartialUpdateBadRequest {
+	return &DcimCablesPartialUpdateBadRequest{}
+}
+
+/*
+DcimCablesPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimCablesPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim cables partial update bad request response has a 2xx status code
+func (o *DcimCablesPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim cables partial update bad request response has a 3xx status code
+func (o *DcimCablesPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim cables partial update bad request response has a 4xx status code
+func (o *DcimCablesPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim cables partial update bad request response has a 5xx status code
+func (o *DcimCablesPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim cables partial update bad request response a status code equal to that given
+func (o *DcimCablesPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimCablesPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /dcim/cables/{id}/][%d] dcimCablesPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimCablesPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /dcim/cables/{id}/][%d] dcimCablesPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimCablesPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimCablesPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

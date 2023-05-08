@@ -49,6 +49,12 @@ func (o *WirelessWirelessLanGroupsListReader) ReadResponse(response runtime.Clie
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewWirelessWirelessLanGroupsListBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -111,6 +117,67 @@ func (o *WirelessWirelessLanGroupsListOK) readResponse(response runtime.ClientRe
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewWirelessWirelessLanGroupsListBadRequest creates a WirelessWirelessLanGroupsListBadRequest with default headers values
+func NewWirelessWirelessLanGroupsListBadRequest() *WirelessWirelessLanGroupsListBadRequest {
+	return &WirelessWirelessLanGroupsListBadRequest{}
+}
+
+/*
+WirelessWirelessLanGroupsListBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type WirelessWirelessLanGroupsListBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this wireless wireless lan groups list bad request response has a 2xx status code
+func (o *WirelessWirelessLanGroupsListBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this wireless wireless lan groups list bad request response has a 3xx status code
+func (o *WirelessWirelessLanGroupsListBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this wireless wireless lan groups list bad request response has a 4xx status code
+func (o *WirelessWirelessLanGroupsListBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this wireless wireless lan groups list bad request response has a 5xx status code
+func (o *WirelessWirelessLanGroupsListBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this wireless wireless lan groups list bad request response a status code equal to that given
+func (o *WirelessWirelessLanGroupsListBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *WirelessWirelessLanGroupsListBadRequest) Error() string {
+	return fmt.Sprintf("[GET /wireless/wireless-lan-groups/][%d] wirelessWirelessLanGroupsListBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *WirelessWirelessLanGroupsListBadRequest) String() string {
+	return fmt.Sprintf("[GET /wireless/wireless-lan-groups/][%d] wirelessWirelessLanGroupsListBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *WirelessWirelessLanGroupsListBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *WirelessWirelessLanGroupsListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

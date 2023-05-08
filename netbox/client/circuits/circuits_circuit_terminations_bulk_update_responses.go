@@ -44,6 +44,12 @@ func (o *CircuitsCircuitTerminationsBulkUpdateReader) ReadResponse(response runt
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewCircuitsCircuitTerminationsBulkUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *CircuitsCircuitTerminationsBulkUpdateOK) readResponse(response runtime.
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCircuitsCircuitTerminationsBulkUpdateBadRequest creates a CircuitsCircuitTerminationsBulkUpdateBadRequest with default headers values
+func NewCircuitsCircuitTerminationsBulkUpdateBadRequest() *CircuitsCircuitTerminationsBulkUpdateBadRequest {
+	return &CircuitsCircuitTerminationsBulkUpdateBadRequest{}
+}
+
+/*
+CircuitsCircuitTerminationsBulkUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type CircuitsCircuitTerminationsBulkUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this circuits circuit terminations bulk update bad request response has a 2xx status code
+func (o *CircuitsCircuitTerminationsBulkUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this circuits circuit terminations bulk update bad request response has a 3xx status code
+func (o *CircuitsCircuitTerminationsBulkUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this circuits circuit terminations bulk update bad request response has a 4xx status code
+func (o *CircuitsCircuitTerminationsBulkUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this circuits circuit terminations bulk update bad request response has a 5xx status code
+func (o *CircuitsCircuitTerminationsBulkUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this circuits circuit terminations bulk update bad request response a status code equal to that given
+func (o *CircuitsCircuitTerminationsBulkUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *CircuitsCircuitTerminationsBulkUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PUT /circuits/circuit-terminations/][%d] circuitsCircuitTerminationsBulkUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CircuitsCircuitTerminationsBulkUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PUT /circuits/circuit-terminations/][%d] circuitsCircuitTerminationsBulkUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CircuitsCircuitTerminationsBulkUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *CircuitsCircuitTerminationsBulkUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

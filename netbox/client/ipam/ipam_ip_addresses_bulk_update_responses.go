@@ -44,6 +44,12 @@ func (o *IpamIPAddressesBulkUpdateReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewIpamIPAddressesBulkUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *IpamIPAddressesBulkUpdateOK) readResponse(response runtime.ClientRespon
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamIPAddressesBulkUpdateBadRequest creates a IpamIPAddressesBulkUpdateBadRequest with default headers values
+func NewIpamIPAddressesBulkUpdateBadRequest() *IpamIPAddressesBulkUpdateBadRequest {
+	return &IpamIPAddressesBulkUpdateBadRequest{}
+}
+
+/*
+IpamIPAddressesBulkUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type IpamIPAddressesBulkUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this ipam Ip addresses bulk update bad request response has a 2xx status code
+func (o *IpamIPAddressesBulkUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this ipam Ip addresses bulk update bad request response has a 3xx status code
+func (o *IpamIPAddressesBulkUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this ipam Ip addresses bulk update bad request response has a 4xx status code
+func (o *IpamIPAddressesBulkUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this ipam Ip addresses bulk update bad request response has a 5xx status code
+func (o *IpamIPAddressesBulkUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this ipam Ip addresses bulk update bad request response a status code equal to that given
+func (o *IpamIPAddressesBulkUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *IpamIPAddressesBulkUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PUT /ipam/ip-addresses/][%d] ipamIpAddressesBulkUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamIPAddressesBulkUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PUT /ipam/ip-addresses/][%d] ipamIpAddressesBulkUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamIPAddressesBulkUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamIPAddressesBulkUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

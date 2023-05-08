@@ -44,6 +44,12 @@ func (o *CircuitsCircuitsReadReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewCircuitsCircuitsReadBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *CircuitsCircuitsReadOK) readResponse(response runtime.ClientResponse, c
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCircuitsCircuitsReadBadRequest creates a CircuitsCircuitsReadBadRequest with default headers values
+func NewCircuitsCircuitsReadBadRequest() *CircuitsCircuitsReadBadRequest {
+	return &CircuitsCircuitsReadBadRequest{}
+}
+
+/*
+CircuitsCircuitsReadBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type CircuitsCircuitsReadBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this circuits circuits read bad request response has a 2xx status code
+func (o *CircuitsCircuitsReadBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this circuits circuits read bad request response has a 3xx status code
+func (o *CircuitsCircuitsReadBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this circuits circuits read bad request response has a 4xx status code
+func (o *CircuitsCircuitsReadBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this circuits circuits read bad request response has a 5xx status code
+func (o *CircuitsCircuitsReadBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this circuits circuits read bad request response a status code equal to that given
+func (o *CircuitsCircuitsReadBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *CircuitsCircuitsReadBadRequest) Error() string {
+	return fmt.Sprintf("[GET /circuits/circuits/{id}/][%d] circuitsCircuitsReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CircuitsCircuitsReadBadRequest) String() string {
+	return fmt.Sprintf("[GET /circuits/circuits/{id}/][%d] circuitsCircuitsReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CircuitsCircuitsReadBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *CircuitsCircuitsReadBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

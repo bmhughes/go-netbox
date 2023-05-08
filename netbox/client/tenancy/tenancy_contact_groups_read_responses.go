@@ -44,6 +44,12 @@ func (o *TenancyContactGroupsReadReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewTenancyContactGroupsReadBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *TenancyContactGroupsReadOK) readResponse(response runtime.ClientRespons
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewTenancyContactGroupsReadBadRequest creates a TenancyContactGroupsReadBadRequest with default headers values
+func NewTenancyContactGroupsReadBadRequest() *TenancyContactGroupsReadBadRequest {
+	return &TenancyContactGroupsReadBadRequest{}
+}
+
+/*
+TenancyContactGroupsReadBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type TenancyContactGroupsReadBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this tenancy contact groups read bad request response has a 2xx status code
+func (o *TenancyContactGroupsReadBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this tenancy contact groups read bad request response has a 3xx status code
+func (o *TenancyContactGroupsReadBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this tenancy contact groups read bad request response has a 4xx status code
+func (o *TenancyContactGroupsReadBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this tenancy contact groups read bad request response has a 5xx status code
+func (o *TenancyContactGroupsReadBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this tenancy contact groups read bad request response a status code equal to that given
+func (o *TenancyContactGroupsReadBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *TenancyContactGroupsReadBadRequest) Error() string {
+	return fmt.Sprintf("[GET /tenancy/contact-groups/{id}/][%d] tenancyContactGroupsReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *TenancyContactGroupsReadBadRequest) String() string {
+	return fmt.Sprintf("[GET /tenancy/contact-groups/{id}/][%d] tenancyContactGroupsReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *TenancyContactGroupsReadBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *TenancyContactGroupsReadBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

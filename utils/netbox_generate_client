@@ -20,10 +20,10 @@ get_last_netbox_version() {
   done
 
   for t in $tags; do
-    MAJOR=$(echo $t | cut -d"-" -f1 | cut -d"." -f3)
+    MAJOR=$(echo $t | cut -d"-" -f1 | cut -d"." -f3 2>/dev/null)
     if [ "$MAJOR" != "" -a $MAJOR -gt $max ]; then
       max=$MAJOR
-      docker="$(echo $t | cut -d"-" -f2)"
+      docker="$(echo $t | cut -d"-" -f2 2>/dev/null)"
     fi
   done
 
@@ -33,7 +33,7 @@ get_last_netbox_version() {
 NETBOX_MAJOR_VERSION=$(cat netbox_major_version)
 echo "NETBOX_MAJOR_VERSION=${NETBOX_MAJOR_VERSION}"
 
-DOCKER_RESULT="$(get_last_netbox_version ${NETBOX_MAJOR_VERSION})"
+DOCKER_RESULT="$(get_last_netbox_version ${NETBOX_MAJOR_VERSION} 2>/dev/null)"
 
 LAST_NETBOX_VERSION="$(echo ${DOCKER_RESULT} | cut -d"-" -f1)"
 echo "LAST_NETBOX_VERSION=${LAST_NETBOX_VERSION}"
@@ -45,7 +45,7 @@ export VERSION=${LAST_NETBOX_VERSION}
 echo "Purge old lib generated ..."
 rm -rf "${PROJECT_ROOT}/netbox" && mkdir "${PROJECT_ROOT}/netbox" && touch "${PROJECT_ROOT}/netbox/.gitkeep"
 
-if [ ! "${PROJECT_ROOT}/swagger/swagger-${VERSION}.json" ]; then
+if [ ! -f "${PROJECT_ROOT}/swagger/swagger-${VERSION}.json" ]; then
   echo "Get github project netbox-docker ..."
   rm -rf netbox-docker
   git clone https://github.com/netbox-community/netbox-docker.git -q
@@ -56,7 +56,7 @@ if [ ! "${PROJECT_ROOT}/swagger/swagger-${VERSION}.json" ]; then
   sed -i 's/netbox-media-files/gonetbox-media-files/g' docker-compose.yml
   sed -i 's/netbox-postgres-data/gonetbox-postgres-data/g' docker-compose.yml
   sed -i 's/netbox-redis-data/gonetbox-redis-data/g' docker-compose.yml
-  sed -i 's/start_period: 60s/start_period: 120s/g' docker-compose.yml
+  sed -i 's/start_period: 60s/start_period: 240s/g' docker-compose.yml
   docker-compose up -d --quiet-pull
   cd ..
 
@@ -69,11 +69,13 @@ else
   cp "${PROJECT_ROOT}/swagger/swagger-${VERSION}.json" "${PROJECT_ROOT}/netbox/swagger-${VERSION}.json"
 fi
 
-
 echo "Patch swagger definition ..."
 cd ../patchs
 find . -type f -name "swagger-${VERSION}-*.patch" -exec echo "Using path {}" \; -exec patch -u ../netbox/swagger-${VERSION}.json -i {} \;
 cd ../utils
+
+echo "Add BadResponse request reponse type"
+./patch_bad_request.rb -f "${PROJECT_ROOT}/netbox/swagger-${VERSION}.json"
 
 echo "Apply hack for int64 ..."
 sed -i 's/922337203685477580/214748364/g' "${PROJECT_ROOT}/netbox/swagger-${VERSION}.json"

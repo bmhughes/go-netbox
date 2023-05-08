@@ -44,6 +44,12 @@ func (o *DcimFrontPortsReadReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimFrontPortsReadBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimFrontPortsReadOK) readResponse(response runtime.ClientResponse, con
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimFrontPortsReadBadRequest creates a DcimFrontPortsReadBadRequest with default headers values
+func NewDcimFrontPortsReadBadRequest() *DcimFrontPortsReadBadRequest {
+	return &DcimFrontPortsReadBadRequest{}
+}
+
+/*
+DcimFrontPortsReadBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimFrontPortsReadBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim front ports read bad request response has a 2xx status code
+func (o *DcimFrontPortsReadBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim front ports read bad request response has a 3xx status code
+func (o *DcimFrontPortsReadBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim front ports read bad request response has a 4xx status code
+func (o *DcimFrontPortsReadBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim front ports read bad request response has a 5xx status code
+func (o *DcimFrontPortsReadBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim front ports read bad request response a status code equal to that given
+func (o *DcimFrontPortsReadBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimFrontPortsReadBadRequest) Error() string {
+	return fmt.Sprintf("[GET /dcim/front-ports/{id}/][%d] dcimFrontPortsReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimFrontPortsReadBadRequest) String() string {
+	return fmt.Sprintf("[GET /dcim/front-ports/{id}/][%d] dcimFrontPortsReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimFrontPortsReadBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimFrontPortsReadBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

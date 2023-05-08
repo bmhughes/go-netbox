@@ -44,6 +44,12 @@ func (o *VirtualizationClusterTypesCreateReader) ReadResponse(response runtime.C
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewVirtualizationClusterTypesCreateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *VirtualizationClusterTypesCreateCreated) readResponse(response runtime.
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewVirtualizationClusterTypesCreateBadRequest creates a VirtualizationClusterTypesCreateBadRequest with default headers values
+func NewVirtualizationClusterTypesCreateBadRequest() *VirtualizationClusterTypesCreateBadRequest {
+	return &VirtualizationClusterTypesCreateBadRequest{}
+}
+
+/*
+VirtualizationClusterTypesCreateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type VirtualizationClusterTypesCreateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this virtualization cluster types create bad request response has a 2xx status code
+func (o *VirtualizationClusterTypesCreateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this virtualization cluster types create bad request response has a 3xx status code
+func (o *VirtualizationClusterTypesCreateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this virtualization cluster types create bad request response has a 4xx status code
+func (o *VirtualizationClusterTypesCreateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this virtualization cluster types create bad request response has a 5xx status code
+func (o *VirtualizationClusterTypesCreateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this virtualization cluster types create bad request response a status code equal to that given
+func (o *VirtualizationClusterTypesCreateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *VirtualizationClusterTypesCreateBadRequest) Error() string {
+	return fmt.Sprintf("[POST /virtualization/cluster-types/][%d] virtualizationClusterTypesCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *VirtualizationClusterTypesCreateBadRequest) String() string {
+	return fmt.Sprintf("[POST /virtualization/cluster-types/][%d] virtualizationClusterTypesCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *VirtualizationClusterTypesCreateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *VirtualizationClusterTypesCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

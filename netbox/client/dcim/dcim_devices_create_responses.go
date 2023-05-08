@@ -44,6 +44,12 @@ func (o *DcimDevicesCreateReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimDevicesCreateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimDevicesCreateCreated) readResponse(response runtime.ClientResponse,
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimDevicesCreateBadRequest creates a DcimDevicesCreateBadRequest with default headers values
+func NewDcimDevicesCreateBadRequest() *DcimDevicesCreateBadRequest {
+	return &DcimDevicesCreateBadRequest{}
+}
+
+/*
+DcimDevicesCreateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimDevicesCreateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim devices create bad request response has a 2xx status code
+func (o *DcimDevicesCreateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim devices create bad request response has a 3xx status code
+func (o *DcimDevicesCreateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim devices create bad request response has a 4xx status code
+func (o *DcimDevicesCreateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim devices create bad request response has a 5xx status code
+func (o *DcimDevicesCreateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim devices create bad request response a status code equal to that given
+func (o *DcimDevicesCreateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimDevicesCreateBadRequest) Error() string {
+	return fmt.Sprintf("[POST /dcim/devices/][%d] dcimDevicesCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimDevicesCreateBadRequest) String() string {
+	return fmt.Sprintf("[POST /dcim/devices/][%d] dcimDevicesCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimDevicesCreateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimDevicesCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

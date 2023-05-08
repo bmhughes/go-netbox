@@ -44,6 +44,12 @@ func (o *DcimSiteGroupsReadReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimSiteGroupsReadBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimSiteGroupsReadOK) readResponse(response runtime.ClientResponse, con
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimSiteGroupsReadBadRequest creates a DcimSiteGroupsReadBadRequest with default headers values
+func NewDcimSiteGroupsReadBadRequest() *DcimSiteGroupsReadBadRequest {
+	return &DcimSiteGroupsReadBadRequest{}
+}
+
+/*
+DcimSiteGroupsReadBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimSiteGroupsReadBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim site groups read bad request response has a 2xx status code
+func (o *DcimSiteGroupsReadBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim site groups read bad request response has a 3xx status code
+func (o *DcimSiteGroupsReadBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim site groups read bad request response has a 4xx status code
+func (o *DcimSiteGroupsReadBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim site groups read bad request response has a 5xx status code
+func (o *DcimSiteGroupsReadBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim site groups read bad request response a status code equal to that given
+func (o *DcimSiteGroupsReadBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimSiteGroupsReadBadRequest) Error() string {
+	return fmt.Sprintf("[GET /dcim/site-groups/{id}/][%d] dcimSiteGroupsReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimSiteGroupsReadBadRequest) String() string {
+	return fmt.Sprintf("[GET /dcim/site-groups/{id}/][%d] dcimSiteGroupsReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimSiteGroupsReadBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimSiteGroupsReadBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

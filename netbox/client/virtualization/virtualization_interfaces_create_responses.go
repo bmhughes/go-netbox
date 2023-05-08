@@ -44,6 +44,12 @@ func (o *VirtualizationInterfacesCreateReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewVirtualizationInterfacesCreateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *VirtualizationInterfacesCreateCreated) readResponse(response runtime.Cl
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewVirtualizationInterfacesCreateBadRequest creates a VirtualizationInterfacesCreateBadRequest with default headers values
+func NewVirtualizationInterfacesCreateBadRequest() *VirtualizationInterfacesCreateBadRequest {
+	return &VirtualizationInterfacesCreateBadRequest{}
+}
+
+/*
+VirtualizationInterfacesCreateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type VirtualizationInterfacesCreateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this virtualization interfaces create bad request response has a 2xx status code
+func (o *VirtualizationInterfacesCreateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this virtualization interfaces create bad request response has a 3xx status code
+func (o *VirtualizationInterfacesCreateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this virtualization interfaces create bad request response has a 4xx status code
+func (o *VirtualizationInterfacesCreateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this virtualization interfaces create bad request response has a 5xx status code
+func (o *VirtualizationInterfacesCreateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this virtualization interfaces create bad request response a status code equal to that given
+func (o *VirtualizationInterfacesCreateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *VirtualizationInterfacesCreateBadRequest) Error() string {
+	return fmt.Sprintf("[POST /virtualization/interfaces/][%d] virtualizationInterfacesCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *VirtualizationInterfacesCreateBadRequest) String() string {
+	return fmt.Sprintf("[POST /virtualization/interfaces/][%d] virtualizationInterfacesCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *VirtualizationInterfacesCreateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *VirtualizationInterfacesCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

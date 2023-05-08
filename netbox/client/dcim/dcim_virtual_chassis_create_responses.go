@@ -44,6 +44,12 @@ func (o *DcimVirtualChassisCreateReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimVirtualChassisCreateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimVirtualChassisCreateCreated) readResponse(response runtime.ClientRe
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimVirtualChassisCreateBadRequest creates a DcimVirtualChassisCreateBadRequest with default headers values
+func NewDcimVirtualChassisCreateBadRequest() *DcimVirtualChassisCreateBadRequest {
+	return &DcimVirtualChassisCreateBadRequest{}
+}
+
+/*
+DcimVirtualChassisCreateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimVirtualChassisCreateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim virtual chassis create bad request response has a 2xx status code
+func (o *DcimVirtualChassisCreateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim virtual chassis create bad request response has a 3xx status code
+func (o *DcimVirtualChassisCreateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim virtual chassis create bad request response has a 4xx status code
+func (o *DcimVirtualChassisCreateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim virtual chassis create bad request response has a 5xx status code
+func (o *DcimVirtualChassisCreateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim virtual chassis create bad request response a status code equal to that given
+func (o *DcimVirtualChassisCreateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimVirtualChassisCreateBadRequest) Error() string {
+	return fmt.Sprintf("[POST /dcim/virtual-chassis/][%d] dcimVirtualChassisCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimVirtualChassisCreateBadRequest) String() string {
+	return fmt.Sprintf("[POST /dcim/virtual-chassis/][%d] dcimVirtualChassisCreateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimVirtualChassisCreateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimVirtualChassisCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

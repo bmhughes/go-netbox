@@ -44,6 +44,12 @@ func (o *CircuitsCircuitTypesBulkPartialUpdateReader) ReadResponse(response runt
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewCircuitsCircuitTypesBulkPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *CircuitsCircuitTypesBulkPartialUpdateOK) readResponse(response runtime.
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCircuitsCircuitTypesBulkPartialUpdateBadRequest creates a CircuitsCircuitTypesBulkPartialUpdateBadRequest with default headers values
+func NewCircuitsCircuitTypesBulkPartialUpdateBadRequest() *CircuitsCircuitTypesBulkPartialUpdateBadRequest {
+	return &CircuitsCircuitTypesBulkPartialUpdateBadRequest{}
+}
+
+/*
+CircuitsCircuitTypesBulkPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type CircuitsCircuitTypesBulkPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this circuits circuit types bulk partial update bad request response has a 2xx status code
+func (o *CircuitsCircuitTypesBulkPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this circuits circuit types bulk partial update bad request response has a 3xx status code
+func (o *CircuitsCircuitTypesBulkPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this circuits circuit types bulk partial update bad request response has a 4xx status code
+func (o *CircuitsCircuitTypesBulkPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this circuits circuit types bulk partial update bad request response has a 5xx status code
+func (o *CircuitsCircuitTypesBulkPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this circuits circuit types bulk partial update bad request response a status code equal to that given
+func (o *CircuitsCircuitTypesBulkPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *CircuitsCircuitTypesBulkPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /circuits/circuit-types/][%d] circuitsCircuitTypesBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CircuitsCircuitTypesBulkPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /circuits/circuit-types/][%d] circuitsCircuitTypesBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CircuitsCircuitTypesBulkPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *CircuitsCircuitTypesBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

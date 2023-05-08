@@ -44,6 +44,12 @@ func (o *VirtualizationVirtualMachinesBulkPartialUpdateReader) ReadResponse(resp
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewVirtualizationVirtualMachinesBulkPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *VirtualizationVirtualMachinesBulkPartialUpdateOK) readResponse(response
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewVirtualizationVirtualMachinesBulkPartialUpdateBadRequest creates a VirtualizationVirtualMachinesBulkPartialUpdateBadRequest with default headers values
+func NewVirtualizationVirtualMachinesBulkPartialUpdateBadRequest() *VirtualizationVirtualMachinesBulkPartialUpdateBadRequest {
+	return &VirtualizationVirtualMachinesBulkPartialUpdateBadRequest{}
+}
+
+/*
+VirtualizationVirtualMachinesBulkPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type VirtualizationVirtualMachinesBulkPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this virtualization virtual machines bulk partial update bad request response has a 2xx status code
+func (o *VirtualizationVirtualMachinesBulkPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this virtualization virtual machines bulk partial update bad request response has a 3xx status code
+func (o *VirtualizationVirtualMachinesBulkPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this virtualization virtual machines bulk partial update bad request response has a 4xx status code
+func (o *VirtualizationVirtualMachinesBulkPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this virtualization virtual machines bulk partial update bad request response has a 5xx status code
+func (o *VirtualizationVirtualMachinesBulkPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this virtualization virtual machines bulk partial update bad request response a status code equal to that given
+func (o *VirtualizationVirtualMachinesBulkPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *VirtualizationVirtualMachinesBulkPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /virtualization/virtual-machines/][%d] virtualizationVirtualMachinesBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *VirtualizationVirtualMachinesBulkPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /virtualization/virtual-machines/][%d] virtualizationVirtualMachinesBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *VirtualizationVirtualMachinesBulkPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *VirtualizationVirtualMachinesBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

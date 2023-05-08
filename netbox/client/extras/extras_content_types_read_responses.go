@@ -44,6 +44,12 @@ func (o *ExtrasContentTypesReadReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewExtrasContentTypesReadBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *ExtrasContentTypesReadOK) readResponse(response runtime.ClientResponse,
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasContentTypesReadBadRequest creates a ExtrasContentTypesReadBadRequest with default headers values
+func NewExtrasContentTypesReadBadRequest() *ExtrasContentTypesReadBadRequest {
+	return &ExtrasContentTypesReadBadRequest{}
+}
+
+/*
+ExtrasContentTypesReadBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type ExtrasContentTypesReadBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this extras content types read bad request response has a 2xx status code
+func (o *ExtrasContentTypesReadBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this extras content types read bad request response has a 3xx status code
+func (o *ExtrasContentTypesReadBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this extras content types read bad request response has a 4xx status code
+func (o *ExtrasContentTypesReadBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this extras content types read bad request response has a 5xx status code
+func (o *ExtrasContentTypesReadBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this extras content types read bad request response a status code equal to that given
+func (o *ExtrasContentTypesReadBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *ExtrasContentTypesReadBadRequest) Error() string {
+	return fmt.Sprintf("[GET /extras/content-types/{id}/][%d] extrasContentTypesReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasContentTypesReadBadRequest) String() string {
+	return fmt.Sprintf("[GET /extras/content-types/{id}/][%d] extrasContentTypesReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasContentTypesReadBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasContentTypesReadBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

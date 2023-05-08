@@ -44,6 +44,12 @@ func (o *DcimConsoleServerPortTemplatesReadReader) ReadResponse(response runtime
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimConsoleServerPortTemplatesReadBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimConsoleServerPortTemplatesReadOK) readResponse(response runtime.Cli
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimConsoleServerPortTemplatesReadBadRequest creates a DcimConsoleServerPortTemplatesReadBadRequest with default headers values
+func NewDcimConsoleServerPortTemplatesReadBadRequest() *DcimConsoleServerPortTemplatesReadBadRequest {
+	return &DcimConsoleServerPortTemplatesReadBadRequest{}
+}
+
+/*
+DcimConsoleServerPortTemplatesReadBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimConsoleServerPortTemplatesReadBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim console server port templates read bad request response has a 2xx status code
+func (o *DcimConsoleServerPortTemplatesReadBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim console server port templates read bad request response has a 3xx status code
+func (o *DcimConsoleServerPortTemplatesReadBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim console server port templates read bad request response has a 4xx status code
+func (o *DcimConsoleServerPortTemplatesReadBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim console server port templates read bad request response has a 5xx status code
+func (o *DcimConsoleServerPortTemplatesReadBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim console server port templates read bad request response a status code equal to that given
+func (o *DcimConsoleServerPortTemplatesReadBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimConsoleServerPortTemplatesReadBadRequest) Error() string {
+	return fmt.Sprintf("[GET /dcim/console-server-port-templates/{id}/][%d] dcimConsoleServerPortTemplatesReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimConsoleServerPortTemplatesReadBadRequest) String() string {
+	return fmt.Sprintf("[GET /dcim/console-server-port-templates/{id}/][%d] dcimConsoleServerPortTemplatesReadBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimConsoleServerPortTemplatesReadBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimConsoleServerPortTemplatesReadBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

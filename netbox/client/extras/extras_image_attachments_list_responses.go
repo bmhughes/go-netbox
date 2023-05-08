@@ -49,6 +49,12 @@ func (o *ExtrasImageAttachmentsListReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewExtrasImageAttachmentsListBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -111,6 +117,67 @@ func (o *ExtrasImageAttachmentsListOK) readResponse(response runtime.ClientRespo
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasImageAttachmentsListBadRequest creates a ExtrasImageAttachmentsListBadRequest with default headers values
+func NewExtrasImageAttachmentsListBadRequest() *ExtrasImageAttachmentsListBadRequest {
+	return &ExtrasImageAttachmentsListBadRequest{}
+}
+
+/*
+ExtrasImageAttachmentsListBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type ExtrasImageAttachmentsListBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this extras image attachments list bad request response has a 2xx status code
+func (o *ExtrasImageAttachmentsListBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this extras image attachments list bad request response has a 3xx status code
+func (o *ExtrasImageAttachmentsListBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this extras image attachments list bad request response has a 4xx status code
+func (o *ExtrasImageAttachmentsListBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this extras image attachments list bad request response has a 5xx status code
+func (o *ExtrasImageAttachmentsListBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this extras image attachments list bad request response a status code equal to that given
+func (o *ExtrasImageAttachmentsListBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *ExtrasImageAttachmentsListBadRequest) Error() string {
+	return fmt.Sprintf("[GET /extras/image-attachments/][%d] extrasImageAttachmentsListBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasImageAttachmentsListBadRequest) String() string {
+	return fmt.Sprintf("[GET /extras/image-attachments/][%d] extrasImageAttachmentsListBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasImageAttachmentsListBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasImageAttachmentsListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

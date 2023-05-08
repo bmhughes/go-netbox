@@ -44,6 +44,12 @@ func (o *DcimPowerOutletTemplatesBulkUpdateReader) ReadResponse(response runtime
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimPowerOutletTemplatesBulkUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimPowerOutletTemplatesBulkUpdateOK) readResponse(response runtime.Cli
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimPowerOutletTemplatesBulkUpdateBadRequest creates a DcimPowerOutletTemplatesBulkUpdateBadRequest with default headers values
+func NewDcimPowerOutletTemplatesBulkUpdateBadRequest() *DcimPowerOutletTemplatesBulkUpdateBadRequest {
+	return &DcimPowerOutletTemplatesBulkUpdateBadRequest{}
+}
+
+/*
+DcimPowerOutletTemplatesBulkUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimPowerOutletTemplatesBulkUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim power outlet templates bulk update bad request response has a 2xx status code
+func (o *DcimPowerOutletTemplatesBulkUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim power outlet templates bulk update bad request response has a 3xx status code
+func (o *DcimPowerOutletTemplatesBulkUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim power outlet templates bulk update bad request response has a 4xx status code
+func (o *DcimPowerOutletTemplatesBulkUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim power outlet templates bulk update bad request response has a 5xx status code
+func (o *DcimPowerOutletTemplatesBulkUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim power outlet templates bulk update bad request response a status code equal to that given
+func (o *DcimPowerOutletTemplatesBulkUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimPowerOutletTemplatesBulkUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PUT /dcim/power-outlet-templates/][%d] dcimPowerOutletTemplatesBulkUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimPowerOutletTemplatesBulkUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PUT /dcim/power-outlet-templates/][%d] dcimPowerOutletTemplatesBulkUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimPowerOutletTemplatesBulkUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimPowerOutletTemplatesBulkUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

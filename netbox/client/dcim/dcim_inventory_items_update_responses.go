@@ -44,6 +44,12 @@ func (o *DcimInventoryItemsUpdateReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimInventoryItemsUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimInventoryItemsUpdateOK) readResponse(response runtime.ClientRespons
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimInventoryItemsUpdateBadRequest creates a DcimInventoryItemsUpdateBadRequest with default headers values
+func NewDcimInventoryItemsUpdateBadRequest() *DcimInventoryItemsUpdateBadRequest {
+	return &DcimInventoryItemsUpdateBadRequest{}
+}
+
+/*
+DcimInventoryItemsUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimInventoryItemsUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim inventory items update bad request response has a 2xx status code
+func (o *DcimInventoryItemsUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim inventory items update bad request response has a 3xx status code
+func (o *DcimInventoryItemsUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim inventory items update bad request response has a 4xx status code
+func (o *DcimInventoryItemsUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim inventory items update bad request response has a 5xx status code
+func (o *DcimInventoryItemsUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim inventory items update bad request response a status code equal to that given
+func (o *DcimInventoryItemsUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimInventoryItemsUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PUT /dcim/inventory-items/{id}/][%d] dcimInventoryItemsUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimInventoryItemsUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PUT /dcim/inventory-items/{id}/][%d] dcimInventoryItemsUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimInventoryItemsUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimInventoryItemsUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

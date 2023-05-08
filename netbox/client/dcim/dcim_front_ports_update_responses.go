@@ -44,6 +44,12 @@ func (o *DcimFrontPortsUpdateReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimFrontPortsUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimFrontPortsUpdateOK) readResponse(response runtime.ClientResponse, c
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimFrontPortsUpdateBadRequest creates a DcimFrontPortsUpdateBadRequest with default headers values
+func NewDcimFrontPortsUpdateBadRequest() *DcimFrontPortsUpdateBadRequest {
+	return &DcimFrontPortsUpdateBadRequest{}
+}
+
+/*
+DcimFrontPortsUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimFrontPortsUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim front ports update bad request response has a 2xx status code
+func (o *DcimFrontPortsUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim front ports update bad request response has a 3xx status code
+func (o *DcimFrontPortsUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim front ports update bad request response has a 4xx status code
+func (o *DcimFrontPortsUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim front ports update bad request response has a 5xx status code
+func (o *DcimFrontPortsUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim front ports update bad request response a status code equal to that given
+func (o *DcimFrontPortsUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimFrontPortsUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PUT /dcim/front-ports/{id}/][%d] dcimFrontPortsUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimFrontPortsUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PUT /dcim/front-ports/{id}/][%d] dcimFrontPortsUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimFrontPortsUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimFrontPortsUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

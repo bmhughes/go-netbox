@@ -22,6 +22,7 @@ package extras
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
@@ -41,6 +42,12 @@ func (o *ExtrasExportTemplatesDeleteReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewExtrasExportTemplatesDeleteBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -93,6 +100,67 @@ func (o *ExtrasExportTemplatesDeleteNoContent) String() string {
 }
 
 func (o *ExtrasExportTemplatesDeleteNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewExtrasExportTemplatesDeleteBadRequest creates a ExtrasExportTemplatesDeleteBadRequest with default headers values
+func NewExtrasExportTemplatesDeleteBadRequest() *ExtrasExportTemplatesDeleteBadRequest {
+	return &ExtrasExportTemplatesDeleteBadRequest{}
+}
+
+/*
+ExtrasExportTemplatesDeleteBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type ExtrasExportTemplatesDeleteBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this extras export templates delete bad request response has a 2xx status code
+func (o *ExtrasExportTemplatesDeleteBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this extras export templates delete bad request response has a 3xx status code
+func (o *ExtrasExportTemplatesDeleteBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this extras export templates delete bad request response has a 4xx status code
+func (o *ExtrasExportTemplatesDeleteBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this extras export templates delete bad request response has a 5xx status code
+func (o *ExtrasExportTemplatesDeleteBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this extras export templates delete bad request response a status code equal to that given
+func (o *ExtrasExportTemplatesDeleteBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *ExtrasExportTemplatesDeleteBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /extras/export-templates/{id}/][%d] extrasExportTemplatesDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasExportTemplatesDeleteBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /extras/export-templates/{id}/][%d] extrasExportTemplatesDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasExportTemplatesDeleteBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasExportTemplatesDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

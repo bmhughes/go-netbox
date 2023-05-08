@@ -44,6 +44,12 @@ func (o *IpamPrefixesAvailableIpsListReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewIpamPrefixesAvailableIpsListBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -101,6 +107,67 @@ func (o *IpamPrefixesAvailableIpsListOK) GetPayload() []*models.AvailableIP {
 }
 
 func (o *IpamPrefixesAvailableIpsListOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamPrefixesAvailableIpsListBadRequest creates a IpamPrefixesAvailableIpsListBadRequest with default headers values
+func NewIpamPrefixesAvailableIpsListBadRequest() *IpamPrefixesAvailableIpsListBadRequest {
+	return &IpamPrefixesAvailableIpsListBadRequest{}
+}
+
+/*
+IpamPrefixesAvailableIpsListBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type IpamPrefixesAvailableIpsListBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this ipam prefixes available ips list bad request response has a 2xx status code
+func (o *IpamPrefixesAvailableIpsListBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this ipam prefixes available ips list bad request response has a 3xx status code
+func (o *IpamPrefixesAvailableIpsListBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this ipam prefixes available ips list bad request response has a 4xx status code
+func (o *IpamPrefixesAvailableIpsListBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this ipam prefixes available ips list bad request response has a 5xx status code
+func (o *IpamPrefixesAvailableIpsListBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this ipam prefixes available ips list bad request response a status code equal to that given
+func (o *IpamPrefixesAvailableIpsListBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *IpamPrefixesAvailableIpsListBadRequest) Error() string {
+	return fmt.Sprintf("[GET /ipam/prefixes/{id}/available-ips/][%d] ipamPrefixesAvailableIpsListBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamPrefixesAvailableIpsListBadRequest) String() string {
+	return fmt.Sprintf("[GET /ipam/prefixes/{id}/available-ips/][%d] ipamPrefixesAvailableIpsListBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamPrefixesAvailableIpsListBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamPrefixesAvailableIpsListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

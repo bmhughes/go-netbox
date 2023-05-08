@@ -44,6 +44,12 @@ func (o *IpamServiceTemplatesBulkPartialUpdateReader) ReadResponse(response runt
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewIpamServiceTemplatesBulkPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *IpamServiceTemplatesBulkPartialUpdateOK) readResponse(response runtime.
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamServiceTemplatesBulkPartialUpdateBadRequest creates a IpamServiceTemplatesBulkPartialUpdateBadRequest with default headers values
+func NewIpamServiceTemplatesBulkPartialUpdateBadRequest() *IpamServiceTemplatesBulkPartialUpdateBadRequest {
+	return &IpamServiceTemplatesBulkPartialUpdateBadRequest{}
+}
+
+/*
+IpamServiceTemplatesBulkPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type IpamServiceTemplatesBulkPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this ipam service templates bulk partial update bad request response has a 2xx status code
+func (o *IpamServiceTemplatesBulkPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this ipam service templates bulk partial update bad request response has a 3xx status code
+func (o *IpamServiceTemplatesBulkPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this ipam service templates bulk partial update bad request response has a 4xx status code
+func (o *IpamServiceTemplatesBulkPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this ipam service templates bulk partial update bad request response has a 5xx status code
+func (o *IpamServiceTemplatesBulkPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this ipam service templates bulk partial update bad request response a status code equal to that given
+func (o *IpamServiceTemplatesBulkPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *IpamServiceTemplatesBulkPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /ipam/service-templates/][%d] ipamServiceTemplatesBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamServiceTemplatesBulkPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /ipam/service-templates/][%d] ipamServiceTemplatesBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamServiceTemplatesBulkPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamServiceTemplatesBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

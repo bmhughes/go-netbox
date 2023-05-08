@@ -44,6 +44,12 @@ func (o *DcimModuleBaysPartialUpdateReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimModuleBaysPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimModuleBaysPartialUpdateOK) readResponse(response runtime.ClientResp
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimModuleBaysPartialUpdateBadRequest creates a DcimModuleBaysPartialUpdateBadRequest with default headers values
+func NewDcimModuleBaysPartialUpdateBadRequest() *DcimModuleBaysPartialUpdateBadRequest {
+	return &DcimModuleBaysPartialUpdateBadRequest{}
+}
+
+/*
+DcimModuleBaysPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimModuleBaysPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim module bays partial update bad request response has a 2xx status code
+func (o *DcimModuleBaysPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim module bays partial update bad request response has a 3xx status code
+func (o *DcimModuleBaysPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim module bays partial update bad request response has a 4xx status code
+func (o *DcimModuleBaysPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim module bays partial update bad request response has a 5xx status code
+func (o *DcimModuleBaysPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim module bays partial update bad request response a status code equal to that given
+func (o *DcimModuleBaysPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimModuleBaysPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /dcim/module-bays/{id}/][%d] dcimModuleBaysPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimModuleBaysPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /dcim/module-bays/{id}/][%d] dcimModuleBaysPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimModuleBaysPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimModuleBaysPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

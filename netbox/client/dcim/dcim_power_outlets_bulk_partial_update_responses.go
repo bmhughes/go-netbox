@@ -44,6 +44,12 @@ func (o *DcimPowerOutletsBulkPartialUpdateReader) ReadResponse(response runtime.
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimPowerOutletsBulkPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimPowerOutletsBulkPartialUpdateOK) readResponse(response runtime.Clie
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimPowerOutletsBulkPartialUpdateBadRequest creates a DcimPowerOutletsBulkPartialUpdateBadRequest with default headers values
+func NewDcimPowerOutletsBulkPartialUpdateBadRequest() *DcimPowerOutletsBulkPartialUpdateBadRequest {
+	return &DcimPowerOutletsBulkPartialUpdateBadRequest{}
+}
+
+/*
+DcimPowerOutletsBulkPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimPowerOutletsBulkPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim power outlets bulk partial update bad request response has a 2xx status code
+func (o *DcimPowerOutletsBulkPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim power outlets bulk partial update bad request response has a 3xx status code
+func (o *DcimPowerOutletsBulkPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim power outlets bulk partial update bad request response has a 4xx status code
+func (o *DcimPowerOutletsBulkPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim power outlets bulk partial update bad request response has a 5xx status code
+func (o *DcimPowerOutletsBulkPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim power outlets bulk partial update bad request response a status code equal to that given
+func (o *DcimPowerOutletsBulkPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimPowerOutletsBulkPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /dcim/power-outlets/][%d] dcimPowerOutletsBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimPowerOutletsBulkPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /dcim/power-outlets/][%d] dcimPowerOutletsBulkPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimPowerOutletsBulkPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimPowerOutletsBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

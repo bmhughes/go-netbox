@@ -44,6 +44,12 @@ func (o *TenancyTenantsPartialUpdateReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewTenancyTenantsPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *TenancyTenantsPartialUpdateOK) readResponse(response runtime.ClientResp
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewTenancyTenantsPartialUpdateBadRequest creates a TenancyTenantsPartialUpdateBadRequest with default headers values
+func NewTenancyTenantsPartialUpdateBadRequest() *TenancyTenantsPartialUpdateBadRequest {
+	return &TenancyTenantsPartialUpdateBadRequest{}
+}
+
+/*
+TenancyTenantsPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type TenancyTenantsPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this tenancy tenants partial update bad request response has a 2xx status code
+func (o *TenancyTenantsPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this tenancy tenants partial update bad request response has a 3xx status code
+func (o *TenancyTenantsPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this tenancy tenants partial update bad request response has a 4xx status code
+func (o *TenancyTenantsPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this tenancy tenants partial update bad request response has a 5xx status code
+func (o *TenancyTenantsPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this tenancy tenants partial update bad request response a status code equal to that given
+func (o *TenancyTenantsPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *TenancyTenantsPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /tenancy/tenants/{id}/][%d] tenancyTenantsPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *TenancyTenantsPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /tenancy/tenants/{id}/][%d] tenancyTenantsPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *TenancyTenantsPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *TenancyTenantsPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

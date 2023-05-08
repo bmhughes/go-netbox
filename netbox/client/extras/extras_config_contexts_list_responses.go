@@ -49,6 +49,12 @@ func (o *ExtrasConfigContextsListReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewExtrasConfigContextsListBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -111,6 +117,67 @@ func (o *ExtrasConfigContextsListOK) readResponse(response runtime.ClientRespons
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasConfigContextsListBadRequest creates a ExtrasConfigContextsListBadRequest with default headers values
+func NewExtrasConfigContextsListBadRequest() *ExtrasConfigContextsListBadRequest {
+	return &ExtrasConfigContextsListBadRequest{}
+}
+
+/*
+ExtrasConfigContextsListBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type ExtrasConfigContextsListBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this extras config contexts list bad request response has a 2xx status code
+func (o *ExtrasConfigContextsListBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this extras config contexts list bad request response has a 3xx status code
+func (o *ExtrasConfigContextsListBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this extras config contexts list bad request response has a 4xx status code
+func (o *ExtrasConfigContextsListBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this extras config contexts list bad request response has a 5xx status code
+func (o *ExtrasConfigContextsListBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this extras config contexts list bad request response a status code equal to that given
+func (o *ExtrasConfigContextsListBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *ExtrasConfigContextsListBadRequest) Error() string {
+	return fmt.Sprintf("[GET /extras/config-contexts/][%d] extrasConfigContextsListBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasConfigContextsListBadRequest) String() string {
+	return fmt.Sprintf("[GET /extras/config-contexts/][%d] extrasConfigContextsListBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ExtrasConfigContextsListBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasConfigContextsListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

@@ -22,6 +22,7 @@ package ipam
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
@@ -41,6 +42,12 @@ func (o *IpamVlanGroupsBulkDeleteReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewIpamVlanGroupsBulkDeleteBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -93,6 +100,67 @@ func (o *IpamVlanGroupsBulkDeleteNoContent) String() string {
 }
 
 func (o *IpamVlanGroupsBulkDeleteNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewIpamVlanGroupsBulkDeleteBadRequest creates a IpamVlanGroupsBulkDeleteBadRequest with default headers values
+func NewIpamVlanGroupsBulkDeleteBadRequest() *IpamVlanGroupsBulkDeleteBadRequest {
+	return &IpamVlanGroupsBulkDeleteBadRequest{}
+}
+
+/*
+IpamVlanGroupsBulkDeleteBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type IpamVlanGroupsBulkDeleteBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this ipam vlan groups bulk delete bad request response has a 2xx status code
+func (o *IpamVlanGroupsBulkDeleteBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this ipam vlan groups bulk delete bad request response has a 3xx status code
+func (o *IpamVlanGroupsBulkDeleteBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this ipam vlan groups bulk delete bad request response has a 4xx status code
+func (o *IpamVlanGroupsBulkDeleteBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this ipam vlan groups bulk delete bad request response has a 5xx status code
+func (o *IpamVlanGroupsBulkDeleteBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this ipam vlan groups bulk delete bad request response a status code equal to that given
+func (o *IpamVlanGroupsBulkDeleteBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *IpamVlanGroupsBulkDeleteBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /ipam/vlan-groups/][%d] ipamVlanGroupsBulkDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamVlanGroupsBulkDeleteBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /ipam/vlan-groups/][%d] ipamVlanGroupsBulkDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamVlanGroupsBulkDeleteBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamVlanGroupsBulkDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

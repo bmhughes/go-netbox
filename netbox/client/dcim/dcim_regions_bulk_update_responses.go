@@ -44,6 +44,12 @@ func (o *DcimRegionsBulkUpdateReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDcimRegionsBulkUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *DcimRegionsBulkUpdateOK) readResponse(response runtime.ClientResponse, 
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimRegionsBulkUpdateBadRequest creates a DcimRegionsBulkUpdateBadRequest with default headers values
+func NewDcimRegionsBulkUpdateBadRequest() *DcimRegionsBulkUpdateBadRequest {
+	return &DcimRegionsBulkUpdateBadRequest{}
+}
+
+/*
+DcimRegionsBulkUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type DcimRegionsBulkUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this dcim regions bulk update bad request response has a 2xx status code
+func (o *DcimRegionsBulkUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this dcim regions bulk update bad request response has a 3xx status code
+func (o *DcimRegionsBulkUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this dcim regions bulk update bad request response has a 4xx status code
+func (o *DcimRegionsBulkUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this dcim regions bulk update bad request response has a 5xx status code
+func (o *DcimRegionsBulkUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this dcim regions bulk update bad request response a status code equal to that given
+func (o *DcimRegionsBulkUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *DcimRegionsBulkUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PUT /dcim/regions/][%d] dcimRegionsBulkUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimRegionsBulkUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PUT /dcim/regions/][%d] dcimRegionsBulkUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DcimRegionsBulkUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimRegionsBulkUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

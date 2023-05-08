@@ -44,6 +44,12 @@ func (o *VirtualizationInterfacesPartialUpdateReader) ReadResponse(response runt
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewVirtualizationInterfacesPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *VirtualizationInterfacesPartialUpdateOK) readResponse(response runtime.
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewVirtualizationInterfacesPartialUpdateBadRequest creates a VirtualizationInterfacesPartialUpdateBadRequest with default headers values
+func NewVirtualizationInterfacesPartialUpdateBadRequest() *VirtualizationInterfacesPartialUpdateBadRequest {
+	return &VirtualizationInterfacesPartialUpdateBadRequest{}
+}
+
+/*
+VirtualizationInterfacesPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type VirtualizationInterfacesPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this virtualization interfaces partial update bad request response has a 2xx status code
+func (o *VirtualizationInterfacesPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this virtualization interfaces partial update bad request response has a 3xx status code
+func (o *VirtualizationInterfacesPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this virtualization interfaces partial update bad request response has a 4xx status code
+func (o *VirtualizationInterfacesPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this virtualization interfaces partial update bad request response has a 5xx status code
+func (o *VirtualizationInterfacesPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this virtualization interfaces partial update bad request response a status code equal to that given
+func (o *VirtualizationInterfacesPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *VirtualizationInterfacesPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /virtualization/interfaces/{id}/][%d] virtualizationInterfacesPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *VirtualizationInterfacesPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /virtualization/interfaces/{id}/][%d] virtualizationInterfacesPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *VirtualizationInterfacesPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *VirtualizationInterfacesPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

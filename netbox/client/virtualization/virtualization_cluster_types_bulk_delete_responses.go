@@ -22,6 +22,7 @@ package virtualization
 
 import (
 	"fmt"
+	"io"
 
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
@@ -41,6 +42,12 @@ func (o *VirtualizationClusterTypesBulkDeleteReader) ReadResponse(response runti
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewVirtualizationClusterTypesBulkDeleteBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -93,6 +100,67 @@ func (o *VirtualizationClusterTypesBulkDeleteNoContent) String() string {
 }
 
 func (o *VirtualizationClusterTypesBulkDeleteNoContent) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	return nil
+}
+
+// NewVirtualizationClusterTypesBulkDeleteBadRequest creates a VirtualizationClusterTypesBulkDeleteBadRequest with default headers values
+func NewVirtualizationClusterTypesBulkDeleteBadRequest() *VirtualizationClusterTypesBulkDeleteBadRequest {
+	return &VirtualizationClusterTypesBulkDeleteBadRequest{}
+}
+
+/*
+VirtualizationClusterTypesBulkDeleteBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type VirtualizationClusterTypesBulkDeleteBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this virtualization cluster types bulk delete bad request response has a 2xx status code
+func (o *VirtualizationClusterTypesBulkDeleteBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this virtualization cluster types bulk delete bad request response has a 3xx status code
+func (o *VirtualizationClusterTypesBulkDeleteBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this virtualization cluster types bulk delete bad request response has a 4xx status code
+func (o *VirtualizationClusterTypesBulkDeleteBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this virtualization cluster types bulk delete bad request response has a 5xx status code
+func (o *VirtualizationClusterTypesBulkDeleteBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this virtualization cluster types bulk delete bad request response a status code equal to that given
+func (o *VirtualizationClusterTypesBulkDeleteBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *VirtualizationClusterTypesBulkDeleteBadRequest) Error() string {
+	return fmt.Sprintf("[DELETE /virtualization/cluster-types/][%d] virtualizationClusterTypesBulkDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *VirtualizationClusterTypesBulkDeleteBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /virtualization/cluster-types/][%d] virtualizationClusterTypesBulkDeleteBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *VirtualizationClusterTypesBulkDeleteBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *VirtualizationClusterTypesBulkDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
 
 	return nil
 }

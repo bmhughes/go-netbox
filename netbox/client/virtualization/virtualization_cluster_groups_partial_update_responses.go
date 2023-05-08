@@ -44,6 +44,12 @@ func (o *VirtualizationClusterGroupsPartialUpdateReader) ReadResponse(response r
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewVirtualizationClusterGroupsPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *VirtualizationClusterGroupsPartialUpdateOK) readResponse(response runti
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewVirtualizationClusterGroupsPartialUpdateBadRequest creates a VirtualizationClusterGroupsPartialUpdateBadRequest with default headers values
+func NewVirtualizationClusterGroupsPartialUpdateBadRequest() *VirtualizationClusterGroupsPartialUpdateBadRequest {
+	return &VirtualizationClusterGroupsPartialUpdateBadRequest{}
+}
+
+/*
+VirtualizationClusterGroupsPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type VirtualizationClusterGroupsPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this virtualization cluster groups partial update bad request response has a 2xx status code
+func (o *VirtualizationClusterGroupsPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this virtualization cluster groups partial update bad request response has a 3xx status code
+func (o *VirtualizationClusterGroupsPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this virtualization cluster groups partial update bad request response has a 4xx status code
+func (o *VirtualizationClusterGroupsPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this virtualization cluster groups partial update bad request response has a 5xx status code
+func (o *VirtualizationClusterGroupsPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this virtualization cluster groups partial update bad request response a status code equal to that given
+func (o *VirtualizationClusterGroupsPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *VirtualizationClusterGroupsPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /virtualization/cluster-groups/{id}/][%d] virtualizationClusterGroupsPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *VirtualizationClusterGroupsPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /virtualization/cluster-groups/{id}/][%d] virtualizationClusterGroupsPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *VirtualizationClusterGroupsPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *VirtualizationClusterGroupsPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

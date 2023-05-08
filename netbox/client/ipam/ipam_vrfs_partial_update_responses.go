@@ -44,6 +44,12 @@ func (o *IpamVrfsPartialUpdateReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewIpamVrfsPartialUpdateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -106,6 +112,67 @@ func (o *IpamVrfsPartialUpdateOK) readResponse(response runtime.ClientResponse, 
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamVrfsPartialUpdateBadRequest creates a IpamVrfsPartialUpdateBadRequest with default headers values
+func NewIpamVrfsPartialUpdateBadRequest() *IpamVrfsPartialUpdateBadRequest {
+	return &IpamVrfsPartialUpdateBadRequest{}
+}
+
+/*
+IpamVrfsPartialUpdateBadRequest describes a response with status code 400, with default header values.
+
+Bad Request
+*/
+type IpamVrfsPartialUpdateBadRequest struct {
+	Payload interface{}
+}
+
+// IsSuccess returns true when this ipam vrfs partial update bad request response has a 2xx status code
+func (o *IpamVrfsPartialUpdateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this ipam vrfs partial update bad request response has a 3xx status code
+func (o *IpamVrfsPartialUpdateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this ipam vrfs partial update bad request response has a 4xx status code
+func (o *IpamVrfsPartialUpdateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this ipam vrfs partial update bad request response has a 5xx status code
+func (o *IpamVrfsPartialUpdateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this ipam vrfs partial update bad request response a status code equal to that given
+func (o *IpamVrfsPartialUpdateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+func (o *IpamVrfsPartialUpdateBadRequest) Error() string {
+	return fmt.Sprintf("[PATCH /ipam/vrfs/{id}/][%d] ipamVrfsPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamVrfsPartialUpdateBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /ipam/vrfs/{id}/][%d] ipamVrfsPartialUpdateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *IpamVrfsPartialUpdateBadRequest) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamVrfsPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
