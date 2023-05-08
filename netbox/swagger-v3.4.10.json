@@ -3420,7 +3420,7 @@
                   "x-nullable" : true
                 },
               "mime_type" : { 
-                  "description" : "Defaults to <code>text/plain</code>",
+                  "description" : "Defaults to <code>text/plain; charset=utf-8</code>",
                   "maxLength" : 50,
                   "title" : "MIME type",
                   "type" : "string"
@@ -5001,6 +5001,7 @@
                               "Cisco StackWise-160",
                               "Cisco StackWise-320",
                               "Cisco StackWise-480",
+                              "Cisco StackWise-1T",
                               "Juniper VCP",
                               "Extreme SummitStack",
                               "Extreme SummitStack-128",
@@ -5110,6 +5111,7 @@
                               "cisco-stackwise-160",
                               "cisco-stackwise-320",
                               "cisco-stackwise-480",
+                              "cisco-stackwise-1t",
                               "juniper-vcp",
                               "extreme-summitstack",
                               "extreme-summitstack-128",
@@ -5377,6 +5379,7 @@
                               "Cisco StackWise-160",
                               "Cisco StackWise-320",
                               "Cisco StackWise-480",
+                              "Cisco StackWise-1T",
                               "Juniper VCP",
                               "Extreme SummitStack",
                               "Extreme SummitStack-128",
@@ -5486,6 +5489,7 @@
                               "cisco-stackwise-160",
                               "cisco-stackwise-320",
                               "cisco-stackwise-480",
+                              "cisco-stackwise-1t",
                               "juniper-vcp",
                               "extreme-summitstack",
                               "extreme-summitstack-128",
@@ -15133,7 +15137,11 @@
         },
       "WritableCircuitTermination" : { 
           "properties" : { 
-              "cable" : { "$ref" : "#/definitions/NestedCable" },
+              "cable" : { 
+                  "title" : "Cable",
+                  "type" : "integer",
+                  "x-nullable" : true
+                },
               "cable_end" : { 
                   "minLength" : 1,
                   "readOnly" : true,
@@ -15500,7 +15508,11 @@
         },
       "WritableConsolePort" : { 
           "properties" : { 
-              "cable" : { "$ref" : "#/definitions/NestedCable" },
+              "cable" : { 
+                  "title" : "Cable",
+                  "type" : "integer",
+                  "x-nullable" : true
+                },
               "cable_end" : { 
                   "minLength" : 1,
                   "readOnly" : true,
@@ -15747,7 +15759,11 @@
         },
       "WritableConsoleServerPort" : { 
           "properties" : { 
-              "cable" : { "$ref" : "#/definitions/NestedCable" },
+              "cable" : { 
+                  "title" : "Cable",
+                  "type" : "integer",
+                  "x-nullable" : true
+                },
               "cable_end" : { 
                   "minLength" : 1,
                   "readOnly" : true,
@@ -17016,7 +17032,11 @@
         },
       "WritableFrontPort" : { 
           "properties" : { 
-              "cable" : { "$ref" : "#/definitions/NestedCable" },
+              "cable" : { 
+                  "title" : "Cable",
+                  "type" : "integer",
+                  "x-nullable" : true
+                },
               "cable_end" : { 
                   "minLength" : 1,
                   "readOnly" : true,
@@ -17326,7 +17346,11 @@
                   "type" : "integer",
                   "x-nullable" : true
                 },
-              "cable" : { "$ref" : "#/definitions/NestedCable" },
+              "cable" : { 
+                  "title" : "Cable",
+                  "type" : "integer",
+                  "x-nullable" : true
+                },
               "cable_end" : { 
                   "minLength" : 1,
                   "readOnly" : true,
@@ -17862,6 +17886,7 @@
                       "cisco-stackwise-160",
                       "cisco-stackwise-320",
                       "cisco-stackwise-480",
+                      "cisco-stackwise-1t",
                       "juniper-vcp",
                       "extreme-summitstack",
                       "extreme-summitstack-128",
@@ -18106,6 +18131,7 @@
                       "cisco-stackwise-160",
                       "cisco-stackwise-320",
                       "cisco-stackwise-480",
+                      "cisco-stackwise-1t",
                       "juniper-vcp",
                       "extreme-summitstack",
                       "extreme-summitstack-128",
@@ -19483,7 +19509,11 @@
                   "title" : "Amperage",
                   "type" : "integer"
                 },
-              "cable" : { "$ref" : "#/definitions/NestedCable" },
+              "cable" : { 
+                  "title" : "Cable",
+                  "type" : "integer",
+                  "x-nullable" : true
+                },
               "cable_end" : { 
                   "minLength" : 1,
                   "readOnly" : true,
@@ -19652,7 +19682,11 @@
         },
       "WritablePowerOutlet" : { 
           "properties" : { 
-              "cable" : { "$ref" : "#/definitions/NestedCable" },
+              "cable" : { 
+                  "title" : "Cable",
+                  "type" : "integer",
+                  "x-nullable" : true
+                },
               "cable_end" : { 
                   "minLength" : 1,
                   "readOnly" : true,
@@ -20148,7 +20182,11 @@
                   "type" : "integer",
                   "x-nullable" : true
                 },
-              "cable" : { "$ref" : "#/definitions/NestedCable" },
+              "cable" : { 
+                  "title" : "Cable",
+                  "type" : "integer",
+                  "x-nullable" : true
+                },
               "cable_end" : { 
                   "minLength" : 1,
                   "readOnly" : true,
@@ -21142,7 +21180,11 @@
         },
       "WritableRearPort" : { 
           "properties" : { 
-              "cable" : { "$ref" : "#/definitions/NestedCable" },
+              "cable" : { 
+                  "title" : "Cable",
+                  "type" : "integer",
+                  "x-nullable" : true
+                },
               "cable_end" : { 
                   "minLength" : 1,
                   "readOnly" : true,
@@ -27426,77 +27468,7 @@
                   { 
                     "description" : "",
                     "in" : "query",
-                    "name" : "termination_a_id__n",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "termination_a_id__lte",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "termination_a_id__lt",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "termination_a_id__gte",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "termination_a_id__gt",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
                     "name" : "termination_b_type__n",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "termination_b_id__n",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "termination_b_id__lte",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "termination_b_id__lt",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "termination_b_id__gte",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "termination_b_id__gt",
                     "required" : false,
                     "type" : "string"
                   },
@@ -36147,6 +36119,48 @@
                   { 
                     "description" : "",
                     "in" : "query",
+                    "name" : "vlan_id",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "vlan",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "vrf_id",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "vrf",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "l2vpn_id",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "l2vpn",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
                     "name" : "kind",
                     "required" : false,
                     "type" : "string"
@@ -36203,34 +36217,6 @@
                   { 
                     "description" : "",
                     "in" : "query",
-                    "name" : "vlan_id",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "vlan",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "vrf_id",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "vrf",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
                     "name" : "vdc_id",
                     "required" : false,
                     "type" : "string"
@@ -36246,20 +36232,6 @@
                     "description" : "",
                     "in" : "query",
                     "name" : "vdc",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "l2vpn_id",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "l2vpn",
                     "required" : false,
                     "type" : "string"
                   },
@@ -36868,6 +36840,34 @@
                   { 
                     "description" : "",
                     "in" : "query",
+                    "name" : "vrf_id__n",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "vrf__n",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "l2vpn_id__n",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "l2vpn__n",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
                     "name" : "parent_id__n",
                     "required" : false,
                     "type" : "string"
@@ -37057,20 +37057,6 @@
                   { 
                     "description" : "",
                     "in" : "query",
-                    "name" : "vrf_id__n",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "vrf__n",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
                     "name" : "vdc_id__n",
                     "required" : false,
                     "type" : "string"
@@ -37086,20 +37072,6 @@
                     "description" : "",
                     "in" : "query",
                     "name" : "vdc__n",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "l2vpn_id__n",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "l2vpn__n",
                     "required" : false,
                     "type" : "string"
                   },
@@ -64136,6 +64108,20 @@
                   { 
                     "description" : "",
                     "in" : "query",
+                    "name" : "start_address",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "end_address",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
                     "name" : "contains",
                     "required" : false,
                     "type" : "string"
@@ -78815,6 +78801,48 @@
                   { 
                     "description" : "",
                     "in" : "query",
+                    "name" : "vlan_id",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "vlan",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "vrf_id",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "vrf",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "l2vpn_id",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "l2vpn",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
                     "name" : "cluster_id",
                     "required" : false,
                     "type" : "string"
@@ -78858,34 +78886,6 @@
                     "description" : "",
                     "in" : "query",
                     "name" : "mac_address",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "vrf_id",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "vrf",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "l2vpn_id",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "l2vpn",
                     "required" : false,
                     "type" : "string"
                   },
@@ -79179,6 +79179,34 @@
                   { 
                     "description" : "",
                     "in" : "query",
+                    "name" : "vrf_id__n",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "vrf__n",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "l2vpn_id__n",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
+                    "name" : "l2vpn__n",
+                    "required" : false,
+                    "type" : "string"
+                  },
+                  { 
+                    "description" : "",
+                    "in" : "query",
                     "name" : "cluster_id__n",
                     "required" : false,
                     "type" : "string"
@@ -79278,34 +79306,6 @@
                     "description" : "",
                     "in" : "query",
                     "name" : "mac_address__nie",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "vrf_id__n",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "vrf__n",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "l2vpn_id__n",
-                    "required" : false,
-                    "type" : "string"
-                  },
-                  { 
-                    "description" : "",
-                    "in" : "query",
-                    "name" : "l2vpn__n",
                     "required" : false,
                     "type" : "string"
                   },

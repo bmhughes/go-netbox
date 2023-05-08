@@ -323,6 +323,12 @@ type VirtualizationInterfacesListParams struct {
 	// VirtualMachineIDn.
 	VirtualMachineIDn *string
 
+	// Vlan.
+	Vlan *string
+
+	// VlanID.
+	VlanID *string
+
 	// Vrf.
 	Vrf *string
 
@@ -1255,6 +1261,28 @@ func (o *VirtualizationInterfacesListParams) WithVirtualMachineIDn(virtualMachin
 // SetVirtualMachineIDn adds the virtualMachineIdN to the virtualization interfaces list params
 func (o *VirtualizationInterfacesListParams) SetVirtualMachineIDn(virtualMachineIDn *string) {
 	o.VirtualMachineIDn = virtualMachineIDn
+}
+
+// WithVlan adds the vlan to the virtualization interfaces list params
+func (o *VirtualizationInterfacesListParams) WithVlan(vlan *string) *VirtualizationInterfacesListParams {
+	o.SetVlan(vlan)
+	return o
+}
+
+// SetVlan adds the vlan to the virtualization interfaces list params
+func (o *VirtualizationInterfacesListParams) SetVlan(vlan *string) {
+	o.Vlan = vlan
+}
+
+// WithVlanID adds the vlanID to the virtualization interfaces list params
+func (o *VirtualizationInterfacesListParams) WithVlanID(vlanID *string) *VirtualizationInterfacesListParams {
+	o.SetVlanID(vlanID)
+	return o
+}
+
+// SetVlanID adds the vlanId to the virtualization interfaces list params
+func (o *VirtualizationInterfacesListParams) SetVlanID(vlanID *string) {
+	o.VlanID = vlanID
 }
 
 // WithVrf adds the vrf to the virtualization interfaces list params
@@ -2647,6 +2675,40 @@ func (o *VirtualizationInterfacesListParams) WriteToRequest(r runtime.ClientRequ
 		if qVirtualMachineIDn != "" {
 
 			if err := r.SetQueryParam("virtual_machine_id__n", qVirtualMachineIDn); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.Vlan != nil {
+
+		// query param vlan
+		var qrVlan string
+
+		if o.Vlan != nil {
+			qrVlan = *o.Vlan
+		}
+		qVlan := qrVlan
+		if qVlan != "" {
+
+			if err := r.SetQueryParam("vlan", qVlan); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.VlanID != nil {
+
+		// query param vlan_id
+		var qrVlanID string
+
+		if o.VlanID != nil {
+			qrVlanID = *o.VlanID
+		}
+		qVlanID := qrVlanID
+		if qVlanID != "" {
+
+			if err := r.SetQueryParam("vlan_id", qVlanID); err != nil {
 				return err
 			}
 		}

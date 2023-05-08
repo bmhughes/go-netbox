@@ -74,7 +74,7 @@ type ExportTemplate struct {
 
 	// MIME type
 	//
-	// Defaults to <code>text/plain</code>
+	// Defaults to <code>text/plain; charset=utf-8</code>
 	// Max Length: 50
 	MimeType string `json:"mime_type,omitempty"`
 
