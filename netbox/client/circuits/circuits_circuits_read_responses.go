@@ -51,7 +51,14 @@ func (o *CircuitsCircuitsReadReader) ReadResponse(response runtime.ClientRespons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewCircuitsCircuitsReadDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *CircuitsCircuitsReadBadRequest) GetPayload() interface{} {
 }
 
 func (o *CircuitsCircuitsReadBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCircuitsCircuitsReadDefault creates a CircuitsCircuitsReadDefault with default headers values
+func NewCircuitsCircuitsReadDefault(code int) *CircuitsCircuitsReadDefault {
+	return &CircuitsCircuitsReadDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+CircuitsCircuitsReadDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type CircuitsCircuitsReadDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the circuits circuits read default response
+func (o *CircuitsCircuitsReadDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this circuits circuits read default response has a 2xx status code
+func (o *CircuitsCircuitsReadDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this circuits circuits read default response has a 3xx status code
+func (o *CircuitsCircuitsReadDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this circuits circuits read default response has a 4xx status code
+func (o *CircuitsCircuitsReadDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this circuits circuits read default response has a 5xx status code
+func (o *CircuitsCircuitsReadDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this circuits circuits read default response a status code equal to that given
+func (o *CircuitsCircuitsReadDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *CircuitsCircuitsReadDefault) Error() string {
+	return fmt.Sprintf("[GET /circuits/circuits/{id}/][%d] circuits_circuits_read default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *CircuitsCircuitsReadDefault) String() string {
+	return fmt.Sprintf("[GET /circuits/circuits/{id}/][%d] circuits_circuits_read default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *CircuitsCircuitsReadDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *CircuitsCircuitsReadDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

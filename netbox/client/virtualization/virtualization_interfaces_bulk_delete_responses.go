@@ -49,7 +49,14 @@ func (o *VirtualizationInterfacesBulkDeleteReader) ReadResponse(response runtime
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewVirtualizationInterfacesBulkDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *VirtualizationInterfacesBulkDeleteBadRequest) GetPayload() interface{} 
 }
 
 func (o *VirtualizationInterfacesBulkDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewVirtualizationInterfacesBulkDeleteDefault creates a VirtualizationInterfacesBulkDeleteDefault with default headers values
+func NewVirtualizationInterfacesBulkDeleteDefault(code int) *VirtualizationInterfacesBulkDeleteDefault {
+	return &VirtualizationInterfacesBulkDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+VirtualizationInterfacesBulkDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type VirtualizationInterfacesBulkDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the virtualization interfaces bulk delete default response
+func (o *VirtualizationInterfacesBulkDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this virtualization interfaces bulk delete default response has a 2xx status code
+func (o *VirtualizationInterfacesBulkDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this virtualization interfaces bulk delete default response has a 3xx status code
+func (o *VirtualizationInterfacesBulkDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this virtualization interfaces bulk delete default response has a 4xx status code
+func (o *VirtualizationInterfacesBulkDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this virtualization interfaces bulk delete default response has a 5xx status code
+func (o *VirtualizationInterfacesBulkDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this virtualization interfaces bulk delete default response a status code equal to that given
+func (o *VirtualizationInterfacesBulkDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *VirtualizationInterfacesBulkDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /virtualization/interfaces/][%d] virtualization_interfaces_bulk_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *VirtualizationInterfacesBulkDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /virtualization/interfaces/][%d] virtualization_interfaces_bulk_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *VirtualizationInterfacesBulkDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *VirtualizationInterfacesBulkDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

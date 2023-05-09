@@ -49,7 +49,14 @@ func (o *DcimRackReservationsDeleteReader) ReadResponse(response runtime.ClientR
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimRackReservationsDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *DcimRackReservationsDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimRackReservationsDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimRackReservationsDeleteDefault creates a DcimRackReservationsDeleteDefault with default headers values
+func NewDcimRackReservationsDeleteDefault(code int) *DcimRackReservationsDeleteDefault {
+	return &DcimRackReservationsDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimRackReservationsDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimRackReservationsDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim rack reservations delete default response
+func (o *DcimRackReservationsDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim rack reservations delete default response has a 2xx status code
+func (o *DcimRackReservationsDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim rack reservations delete default response has a 3xx status code
+func (o *DcimRackReservationsDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim rack reservations delete default response has a 4xx status code
+func (o *DcimRackReservationsDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim rack reservations delete default response has a 5xx status code
+func (o *DcimRackReservationsDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim rack reservations delete default response a status code equal to that given
+func (o *DcimRackReservationsDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimRackReservationsDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /dcim/rack-reservations/{id}/][%d] dcim_rack-reservations_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimRackReservationsDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /dcim/rack-reservations/{id}/][%d] dcim_rack-reservations_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimRackReservationsDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimRackReservationsDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

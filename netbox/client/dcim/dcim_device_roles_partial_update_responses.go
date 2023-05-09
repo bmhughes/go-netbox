@@ -51,7 +51,14 @@ func (o *DcimDeviceRolesPartialUpdateReader) ReadResponse(response runtime.Clien
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimDeviceRolesPartialUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimDeviceRolesPartialUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimDeviceRolesPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimDeviceRolesPartialUpdateDefault creates a DcimDeviceRolesPartialUpdateDefault with default headers values
+func NewDcimDeviceRolesPartialUpdateDefault(code int) *DcimDeviceRolesPartialUpdateDefault {
+	return &DcimDeviceRolesPartialUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimDeviceRolesPartialUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimDeviceRolesPartialUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim device roles partial update default response
+func (o *DcimDeviceRolesPartialUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim device roles partial update default response has a 2xx status code
+func (o *DcimDeviceRolesPartialUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim device roles partial update default response has a 3xx status code
+func (o *DcimDeviceRolesPartialUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim device roles partial update default response has a 4xx status code
+func (o *DcimDeviceRolesPartialUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim device roles partial update default response has a 5xx status code
+func (o *DcimDeviceRolesPartialUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim device roles partial update default response a status code equal to that given
+func (o *DcimDeviceRolesPartialUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimDeviceRolesPartialUpdateDefault) Error() string {
+	return fmt.Sprintf("[PATCH /dcim/device-roles/{id}/][%d] dcim_device-roles_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimDeviceRolesPartialUpdateDefault) String() string {
+	return fmt.Sprintf("[PATCH /dcim/device-roles/{id}/][%d] dcim_device-roles_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimDeviceRolesPartialUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimDeviceRolesPartialUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

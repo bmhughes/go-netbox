@@ -49,7 +49,14 @@ func (o *VirtualizationVirtualMachinesDeleteReader) ReadResponse(response runtim
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewVirtualizationVirtualMachinesDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *VirtualizationVirtualMachinesDeleteBadRequest) GetPayload() interface{}
 }
 
 func (o *VirtualizationVirtualMachinesDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewVirtualizationVirtualMachinesDeleteDefault creates a VirtualizationVirtualMachinesDeleteDefault with default headers values
+func NewVirtualizationVirtualMachinesDeleteDefault(code int) *VirtualizationVirtualMachinesDeleteDefault {
+	return &VirtualizationVirtualMachinesDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+VirtualizationVirtualMachinesDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type VirtualizationVirtualMachinesDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the virtualization virtual machines delete default response
+func (o *VirtualizationVirtualMachinesDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this virtualization virtual machines delete default response has a 2xx status code
+func (o *VirtualizationVirtualMachinesDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this virtualization virtual machines delete default response has a 3xx status code
+func (o *VirtualizationVirtualMachinesDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this virtualization virtual machines delete default response has a 4xx status code
+func (o *VirtualizationVirtualMachinesDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this virtualization virtual machines delete default response has a 5xx status code
+func (o *VirtualizationVirtualMachinesDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this virtualization virtual machines delete default response a status code equal to that given
+func (o *VirtualizationVirtualMachinesDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *VirtualizationVirtualMachinesDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /virtualization/virtual-machines/{id}/][%d] virtualization_virtual-machines_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *VirtualizationVirtualMachinesDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /virtualization/virtual-machines/{id}/][%d] virtualization_virtual-machines_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *VirtualizationVirtualMachinesDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *VirtualizationVirtualMachinesDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

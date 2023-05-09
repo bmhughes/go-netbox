@@ -51,7 +51,14 @@ func (o *IpamIPRangesAvailableIpsListReader) ReadResponse(response runtime.Clien
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamIPRangesAvailableIpsListDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -168,6 +175,76 @@ func (o *IpamIPRangesAvailableIpsListBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamIPRangesAvailableIpsListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamIPRangesAvailableIpsListDefault creates a IpamIPRangesAvailableIpsListDefault with default headers values
+func NewIpamIPRangesAvailableIpsListDefault(code int) *IpamIPRangesAvailableIpsListDefault {
+	return &IpamIPRangesAvailableIpsListDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamIPRangesAvailableIpsListDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamIPRangesAvailableIpsListDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam ip ranges available ips list default response
+func (o *IpamIPRangesAvailableIpsListDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam ip ranges available ips list default response has a 2xx status code
+func (o *IpamIPRangesAvailableIpsListDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam ip ranges available ips list default response has a 3xx status code
+func (o *IpamIPRangesAvailableIpsListDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam ip ranges available ips list default response has a 4xx status code
+func (o *IpamIPRangesAvailableIpsListDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam ip ranges available ips list default response has a 5xx status code
+func (o *IpamIPRangesAvailableIpsListDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam ip ranges available ips list default response a status code equal to that given
+func (o *IpamIPRangesAvailableIpsListDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamIPRangesAvailableIpsListDefault) Error() string {
+	return fmt.Sprintf("[GET /ipam/ip-ranges/{id}/available-ips/][%d] ipam_ip-ranges_available-ips_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamIPRangesAvailableIpsListDefault) String() string {
+	return fmt.Sprintf("[GET /ipam/ip-ranges/{id}/available-ips/][%d] ipam_ip-ranges_available-ips_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamIPRangesAvailableIpsListDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamIPRangesAvailableIpsListDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

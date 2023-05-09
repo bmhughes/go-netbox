@@ -49,7 +49,14 @@ func (o *UsersGroupsBulkDeleteReader) ReadResponse(response runtime.ClientRespon
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewUsersGroupsBulkDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *UsersGroupsBulkDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *UsersGroupsBulkDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUsersGroupsBulkDeleteDefault creates a UsersGroupsBulkDeleteDefault with default headers values
+func NewUsersGroupsBulkDeleteDefault(code int) *UsersGroupsBulkDeleteDefault {
+	return &UsersGroupsBulkDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+UsersGroupsBulkDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type UsersGroupsBulkDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the users groups bulk delete default response
+func (o *UsersGroupsBulkDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this users groups bulk delete default response has a 2xx status code
+func (o *UsersGroupsBulkDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this users groups bulk delete default response has a 3xx status code
+func (o *UsersGroupsBulkDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this users groups bulk delete default response has a 4xx status code
+func (o *UsersGroupsBulkDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this users groups bulk delete default response has a 5xx status code
+func (o *UsersGroupsBulkDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this users groups bulk delete default response a status code equal to that given
+func (o *UsersGroupsBulkDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *UsersGroupsBulkDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /users/groups/][%d] users_groups_bulk_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UsersGroupsBulkDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /users/groups/][%d] users_groups_bulk_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UsersGroupsBulkDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *UsersGroupsBulkDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

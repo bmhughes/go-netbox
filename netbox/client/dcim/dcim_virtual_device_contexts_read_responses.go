@@ -51,7 +51,14 @@ func (o *DcimVirtualDeviceContextsReadReader) ReadResponse(response runtime.Clie
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimVirtualDeviceContextsReadDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimVirtualDeviceContextsReadBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimVirtualDeviceContextsReadBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimVirtualDeviceContextsReadDefault creates a DcimVirtualDeviceContextsReadDefault with default headers values
+func NewDcimVirtualDeviceContextsReadDefault(code int) *DcimVirtualDeviceContextsReadDefault {
+	return &DcimVirtualDeviceContextsReadDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimVirtualDeviceContextsReadDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimVirtualDeviceContextsReadDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim virtual device contexts read default response
+func (o *DcimVirtualDeviceContextsReadDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim virtual device contexts read default response has a 2xx status code
+func (o *DcimVirtualDeviceContextsReadDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim virtual device contexts read default response has a 3xx status code
+func (o *DcimVirtualDeviceContextsReadDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim virtual device contexts read default response has a 4xx status code
+func (o *DcimVirtualDeviceContextsReadDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim virtual device contexts read default response has a 5xx status code
+func (o *DcimVirtualDeviceContextsReadDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim virtual device contexts read default response a status code equal to that given
+func (o *DcimVirtualDeviceContextsReadDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimVirtualDeviceContextsReadDefault) Error() string {
+	return fmt.Sprintf("[GET /dcim/virtual-device-contexts/{id}/][%d] dcim_virtual-device-contexts_read default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimVirtualDeviceContextsReadDefault) String() string {
+	return fmt.Sprintf("[GET /dcim/virtual-device-contexts/{id}/][%d] dcim_virtual-device-contexts_read default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimVirtualDeviceContextsReadDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimVirtualDeviceContextsReadDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

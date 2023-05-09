@@ -49,7 +49,14 @@ func (o *IpamL2vpnsDeleteReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamL2vpnsDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *IpamL2vpnsDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamL2vpnsDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamL2vpnsDeleteDefault creates a IpamL2vpnsDeleteDefault with default headers values
+func NewIpamL2vpnsDeleteDefault(code int) *IpamL2vpnsDeleteDefault {
+	return &IpamL2vpnsDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamL2vpnsDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamL2vpnsDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam l2vpns delete default response
+func (o *IpamL2vpnsDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam l2vpns delete default response has a 2xx status code
+func (o *IpamL2vpnsDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam l2vpns delete default response has a 3xx status code
+func (o *IpamL2vpnsDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam l2vpns delete default response has a 4xx status code
+func (o *IpamL2vpnsDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam l2vpns delete default response has a 5xx status code
+func (o *IpamL2vpnsDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam l2vpns delete default response a status code equal to that given
+func (o *IpamL2vpnsDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamL2vpnsDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /ipam/l2vpns/{id}/][%d] ipam_l2vpns_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamL2vpnsDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /ipam/l2vpns/{id}/][%d] ipam_l2vpns_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamL2vpnsDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamL2vpnsDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

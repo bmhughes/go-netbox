@@ -51,7 +51,14 @@ func (o *ExtrasSavedFiltersCreateReader) ReadResponse(response runtime.ClientRes
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewExtrasSavedFiltersCreateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *ExtrasSavedFiltersCreateBadRequest) GetPayload() interface{} {
 }
 
 func (o *ExtrasSavedFiltersCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasSavedFiltersCreateDefault creates a ExtrasSavedFiltersCreateDefault with default headers values
+func NewExtrasSavedFiltersCreateDefault(code int) *ExtrasSavedFiltersCreateDefault {
+	return &ExtrasSavedFiltersCreateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ExtrasSavedFiltersCreateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type ExtrasSavedFiltersCreateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the extras saved filters create default response
+func (o *ExtrasSavedFiltersCreateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this extras saved filters create default response has a 2xx status code
+func (o *ExtrasSavedFiltersCreateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this extras saved filters create default response has a 3xx status code
+func (o *ExtrasSavedFiltersCreateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this extras saved filters create default response has a 4xx status code
+func (o *ExtrasSavedFiltersCreateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this extras saved filters create default response has a 5xx status code
+func (o *ExtrasSavedFiltersCreateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this extras saved filters create default response a status code equal to that given
+func (o *ExtrasSavedFiltersCreateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ExtrasSavedFiltersCreateDefault) Error() string {
+	return fmt.Sprintf("[POST /extras/saved-filters/][%d] extras_saved-filters_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasSavedFiltersCreateDefault) String() string {
+	return fmt.Sprintf("[POST /extras/saved-filters/][%d] extras_saved-filters_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasSavedFiltersCreateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasSavedFiltersCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

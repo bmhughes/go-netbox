@@ -51,7 +51,14 @@ func (o *VirtualizationInterfacesPartialUpdateReader) ReadResponse(response runt
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewVirtualizationInterfacesPartialUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *VirtualizationInterfacesPartialUpdateBadRequest) GetPayload() interface
 }
 
 func (o *VirtualizationInterfacesPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewVirtualizationInterfacesPartialUpdateDefault creates a VirtualizationInterfacesPartialUpdateDefault with default headers values
+func NewVirtualizationInterfacesPartialUpdateDefault(code int) *VirtualizationInterfacesPartialUpdateDefault {
+	return &VirtualizationInterfacesPartialUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+VirtualizationInterfacesPartialUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type VirtualizationInterfacesPartialUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the virtualization interfaces partial update default response
+func (o *VirtualizationInterfacesPartialUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this virtualization interfaces partial update default response has a 2xx status code
+func (o *VirtualizationInterfacesPartialUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this virtualization interfaces partial update default response has a 3xx status code
+func (o *VirtualizationInterfacesPartialUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this virtualization interfaces partial update default response has a 4xx status code
+func (o *VirtualizationInterfacesPartialUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this virtualization interfaces partial update default response has a 5xx status code
+func (o *VirtualizationInterfacesPartialUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this virtualization interfaces partial update default response a status code equal to that given
+func (o *VirtualizationInterfacesPartialUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *VirtualizationInterfacesPartialUpdateDefault) Error() string {
+	return fmt.Sprintf("[PATCH /virtualization/interfaces/{id}/][%d] virtualization_interfaces_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *VirtualizationInterfacesPartialUpdateDefault) String() string {
+	return fmt.Sprintf("[PATCH /virtualization/interfaces/{id}/][%d] virtualization_interfaces_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *VirtualizationInterfacesPartialUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *VirtualizationInterfacesPartialUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

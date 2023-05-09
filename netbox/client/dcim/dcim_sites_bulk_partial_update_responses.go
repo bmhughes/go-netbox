@@ -51,7 +51,14 @@ func (o *DcimSitesBulkPartialUpdateReader) ReadResponse(response runtime.ClientR
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimSitesBulkPartialUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimSitesBulkPartialUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimSitesBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimSitesBulkPartialUpdateDefault creates a DcimSitesBulkPartialUpdateDefault with default headers values
+func NewDcimSitesBulkPartialUpdateDefault(code int) *DcimSitesBulkPartialUpdateDefault {
+	return &DcimSitesBulkPartialUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimSitesBulkPartialUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimSitesBulkPartialUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim sites bulk partial update default response
+func (o *DcimSitesBulkPartialUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim sites bulk partial update default response has a 2xx status code
+func (o *DcimSitesBulkPartialUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim sites bulk partial update default response has a 3xx status code
+func (o *DcimSitesBulkPartialUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim sites bulk partial update default response has a 4xx status code
+func (o *DcimSitesBulkPartialUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim sites bulk partial update default response has a 5xx status code
+func (o *DcimSitesBulkPartialUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim sites bulk partial update default response a status code equal to that given
+func (o *DcimSitesBulkPartialUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimSitesBulkPartialUpdateDefault) Error() string {
+	return fmt.Sprintf("[PATCH /dcim/sites/][%d] dcim_sites_bulk_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimSitesBulkPartialUpdateDefault) String() string {
+	return fmt.Sprintf("[PATCH /dcim/sites/][%d] dcim_sites_bulk_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimSitesBulkPartialUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimSitesBulkPartialUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

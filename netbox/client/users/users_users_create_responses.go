@@ -51,7 +51,14 @@ func (o *UsersUsersCreateReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewUsersUsersCreateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *UsersUsersCreateBadRequest) GetPayload() interface{} {
 }
 
 func (o *UsersUsersCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUsersUsersCreateDefault creates a UsersUsersCreateDefault with default headers values
+func NewUsersUsersCreateDefault(code int) *UsersUsersCreateDefault {
+	return &UsersUsersCreateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+UsersUsersCreateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type UsersUsersCreateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the users users create default response
+func (o *UsersUsersCreateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this users users create default response has a 2xx status code
+func (o *UsersUsersCreateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this users users create default response has a 3xx status code
+func (o *UsersUsersCreateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this users users create default response has a 4xx status code
+func (o *UsersUsersCreateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this users users create default response has a 5xx status code
+func (o *UsersUsersCreateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this users users create default response a status code equal to that given
+func (o *UsersUsersCreateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *UsersUsersCreateDefault) Error() string {
+	return fmt.Sprintf("[POST /users/users/][%d] users_users_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UsersUsersCreateDefault) String() string {
+	return fmt.Sprintf("[POST /users/users/][%d] users_users_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UsersUsersCreateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *UsersUsersCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

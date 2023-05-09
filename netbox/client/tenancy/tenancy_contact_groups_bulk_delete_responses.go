@@ -49,7 +49,14 @@ func (o *TenancyContactGroupsBulkDeleteReader) ReadResponse(response runtime.Cli
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewTenancyContactGroupsBulkDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *TenancyContactGroupsBulkDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *TenancyContactGroupsBulkDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewTenancyContactGroupsBulkDeleteDefault creates a TenancyContactGroupsBulkDeleteDefault with default headers values
+func NewTenancyContactGroupsBulkDeleteDefault(code int) *TenancyContactGroupsBulkDeleteDefault {
+	return &TenancyContactGroupsBulkDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+TenancyContactGroupsBulkDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type TenancyContactGroupsBulkDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the tenancy contact groups bulk delete default response
+func (o *TenancyContactGroupsBulkDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this tenancy contact groups bulk delete default response has a 2xx status code
+func (o *TenancyContactGroupsBulkDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this tenancy contact groups bulk delete default response has a 3xx status code
+func (o *TenancyContactGroupsBulkDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this tenancy contact groups bulk delete default response has a 4xx status code
+func (o *TenancyContactGroupsBulkDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this tenancy contact groups bulk delete default response has a 5xx status code
+func (o *TenancyContactGroupsBulkDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this tenancy contact groups bulk delete default response a status code equal to that given
+func (o *TenancyContactGroupsBulkDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *TenancyContactGroupsBulkDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /tenancy/contact-groups/][%d] tenancy_contact-groups_bulk_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *TenancyContactGroupsBulkDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /tenancy/contact-groups/][%d] tenancy_contact-groups_bulk_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *TenancyContactGroupsBulkDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *TenancyContactGroupsBulkDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

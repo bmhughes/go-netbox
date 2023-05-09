@@ -51,7 +51,14 @@ func (o *VirtualizationVirtualMachinesBulkUpdateReader) ReadResponse(response ru
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewVirtualizationVirtualMachinesBulkUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *VirtualizationVirtualMachinesBulkUpdateBadRequest) GetPayload() interfa
 }
 
 func (o *VirtualizationVirtualMachinesBulkUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewVirtualizationVirtualMachinesBulkUpdateDefault creates a VirtualizationVirtualMachinesBulkUpdateDefault with default headers values
+func NewVirtualizationVirtualMachinesBulkUpdateDefault(code int) *VirtualizationVirtualMachinesBulkUpdateDefault {
+	return &VirtualizationVirtualMachinesBulkUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+VirtualizationVirtualMachinesBulkUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type VirtualizationVirtualMachinesBulkUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the virtualization virtual machines bulk update default response
+func (o *VirtualizationVirtualMachinesBulkUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this virtualization virtual machines bulk update default response has a 2xx status code
+func (o *VirtualizationVirtualMachinesBulkUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this virtualization virtual machines bulk update default response has a 3xx status code
+func (o *VirtualizationVirtualMachinesBulkUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this virtualization virtual machines bulk update default response has a 4xx status code
+func (o *VirtualizationVirtualMachinesBulkUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this virtualization virtual machines bulk update default response has a 5xx status code
+func (o *VirtualizationVirtualMachinesBulkUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this virtualization virtual machines bulk update default response a status code equal to that given
+func (o *VirtualizationVirtualMachinesBulkUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *VirtualizationVirtualMachinesBulkUpdateDefault) Error() string {
+	return fmt.Sprintf("[PUT /virtualization/virtual-machines/][%d] virtualization_virtual-machines_bulk_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *VirtualizationVirtualMachinesBulkUpdateDefault) String() string {
+	return fmt.Sprintf("[PUT /virtualization/virtual-machines/][%d] virtualization_virtual-machines_bulk_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *VirtualizationVirtualMachinesBulkUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *VirtualizationVirtualMachinesBulkUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

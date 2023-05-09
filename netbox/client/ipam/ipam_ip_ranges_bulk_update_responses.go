@@ -51,7 +51,14 @@ func (o *IpamIPRangesBulkUpdateReader) ReadResponse(response runtime.ClientRespo
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamIPRangesBulkUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *IpamIPRangesBulkUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamIPRangesBulkUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamIPRangesBulkUpdateDefault creates a IpamIPRangesBulkUpdateDefault with default headers values
+func NewIpamIPRangesBulkUpdateDefault(code int) *IpamIPRangesBulkUpdateDefault {
+	return &IpamIPRangesBulkUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamIPRangesBulkUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamIPRangesBulkUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam ip ranges bulk update default response
+func (o *IpamIPRangesBulkUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam ip ranges bulk update default response has a 2xx status code
+func (o *IpamIPRangesBulkUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam ip ranges bulk update default response has a 3xx status code
+func (o *IpamIPRangesBulkUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam ip ranges bulk update default response has a 4xx status code
+func (o *IpamIPRangesBulkUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam ip ranges bulk update default response has a 5xx status code
+func (o *IpamIPRangesBulkUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam ip ranges bulk update default response a status code equal to that given
+func (o *IpamIPRangesBulkUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamIPRangesBulkUpdateDefault) Error() string {
+	return fmt.Sprintf("[PUT /ipam/ip-ranges/][%d] ipam_ip-ranges_bulk_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamIPRangesBulkUpdateDefault) String() string {
+	return fmt.Sprintf("[PUT /ipam/ip-ranges/][%d] ipam_ip-ranges_bulk_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamIPRangesBulkUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamIPRangesBulkUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

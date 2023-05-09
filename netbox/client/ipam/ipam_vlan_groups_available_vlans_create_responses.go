@@ -51,7 +51,14 @@ func (o *IpamVlanGroupsAvailableVlansCreateReader) ReadResponse(response runtime
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamVlanGroupsAvailableVlansCreateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -168,6 +175,76 @@ func (o *IpamVlanGroupsAvailableVlansCreateBadRequest) GetPayload() interface{} 
 }
 
 func (o *IpamVlanGroupsAvailableVlansCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamVlanGroupsAvailableVlansCreateDefault creates a IpamVlanGroupsAvailableVlansCreateDefault with default headers values
+func NewIpamVlanGroupsAvailableVlansCreateDefault(code int) *IpamVlanGroupsAvailableVlansCreateDefault {
+	return &IpamVlanGroupsAvailableVlansCreateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamVlanGroupsAvailableVlansCreateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamVlanGroupsAvailableVlansCreateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam vlan groups available vlans create default response
+func (o *IpamVlanGroupsAvailableVlansCreateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam vlan groups available vlans create default response has a 2xx status code
+func (o *IpamVlanGroupsAvailableVlansCreateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam vlan groups available vlans create default response has a 3xx status code
+func (o *IpamVlanGroupsAvailableVlansCreateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam vlan groups available vlans create default response has a 4xx status code
+func (o *IpamVlanGroupsAvailableVlansCreateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam vlan groups available vlans create default response has a 5xx status code
+func (o *IpamVlanGroupsAvailableVlansCreateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam vlan groups available vlans create default response a status code equal to that given
+func (o *IpamVlanGroupsAvailableVlansCreateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamVlanGroupsAvailableVlansCreateDefault) Error() string {
+	return fmt.Sprintf("[POST /ipam/vlan-groups/{id}/available-vlans/][%d] ipam_vlan-groups_available-vlans_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamVlanGroupsAvailableVlansCreateDefault) String() string {
+	return fmt.Sprintf("[POST /ipam/vlan-groups/{id}/available-vlans/][%d] ipam_vlan-groups_available-vlans_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamVlanGroupsAvailableVlansCreateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamVlanGroupsAvailableVlansCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

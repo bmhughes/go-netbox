@@ -56,7 +56,14 @@ func (o *WirelessWirelessLinksListReader) ReadResponse(response runtime.ClientRe
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewWirelessWirelessLinksListDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -175,6 +182,76 @@ func (o *WirelessWirelessLinksListBadRequest) GetPayload() interface{} {
 }
 
 func (o *WirelessWirelessLinksListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewWirelessWirelessLinksListDefault creates a WirelessWirelessLinksListDefault with default headers values
+func NewWirelessWirelessLinksListDefault(code int) *WirelessWirelessLinksListDefault {
+	return &WirelessWirelessLinksListDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+WirelessWirelessLinksListDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type WirelessWirelessLinksListDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the wireless wireless links list default response
+func (o *WirelessWirelessLinksListDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this wireless wireless links list default response has a 2xx status code
+func (o *WirelessWirelessLinksListDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this wireless wireless links list default response has a 3xx status code
+func (o *WirelessWirelessLinksListDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this wireless wireless links list default response has a 4xx status code
+func (o *WirelessWirelessLinksListDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this wireless wireless links list default response has a 5xx status code
+func (o *WirelessWirelessLinksListDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this wireless wireless links list default response a status code equal to that given
+func (o *WirelessWirelessLinksListDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *WirelessWirelessLinksListDefault) Error() string {
+	return fmt.Sprintf("[GET /wireless/wireless-links/][%d] wireless_wireless-links_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *WirelessWirelessLinksListDefault) String() string {
+	return fmt.Sprintf("[GET /wireless/wireless-links/][%d] wireless_wireless-links_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *WirelessWirelessLinksListDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *WirelessWirelessLinksListDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

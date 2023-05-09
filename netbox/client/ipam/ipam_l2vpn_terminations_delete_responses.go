@@ -49,7 +49,14 @@ func (o *IpamL2vpnTerminationsDeleteReader) ReadResponse(response runtime.Client
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamL2vpnTerminationsDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *IpamL2vpnTerminationsDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamL2vpnTerminationsDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamL2vpnTerminationsDeleteDefault creates a IpamL2vpnTerminationsDeleteDefault with default headers values
+func NewIpamL2vpnTerminationsDeleteDefault(code int) *IpamL2vpnTerminationsDeleteDefault {
+	return &IpamL2vpnTerminationsDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamL2vpnTerminationsDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamL2vpnTerminationsDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam l2vpn terminations delete default response
+func (o *IpamL2vpnTerminationsDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam l2vpn terminations delete default response has a 2xx status code
+func (o *IpamL2vpnTerminationsDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam l2vpn terminations delete default response has a 3xx status code
+func (o *IpamL2vpnTerminationsDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam l2vpn terminations delete default response has a 4xx status code
+func (o *IpamL2vpnTerminationsDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam l2vpn terminations delete default response has a 5xx status code
+func (o *IpamL2vpnTerminationsDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam l2vpn terminations delete default response a status code equal to that given
+func (o *IpamL2vpnTerminationsDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamL2vpnTerminationsDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /ipam/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamL2vpnTerminationsDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /ipam/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamL2vpnTerminationsDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamL2vpnTerminationsDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

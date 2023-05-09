@@ -51,7 +51,14 @@ func (o *IpamRirsBulkUpdateReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamRirsBulkUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *IpamRirsBulkUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamRirsBulkUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamRirsBulkUpdateDefault creates a IpamRirsBulkUpdateDefault with default headers values
+func NewIpamRirsBulkUpdateDefault(code int) *IpamRirsBulkUpdateDefault {
+	return &IpamRirsBulkUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamRirsBulkUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamRirsBulkUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam rirs bulk update default response
+func (o *IpamRirsBulkUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam rirs bulk update default response has a 2xx status code
+func (o *IpamRirsBulkUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam rirs bulk update default response has a 3xx status code
+func (o *IpamRirsBulkUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam rirs bulk update default response has a 4xx status code
+func (o *IpamRirsBulkUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam rirs bulk update default response has a 5xx status code
+func (o *IpamRirsBulkUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam rirs bulk update default response a status code equal to that given
+func (o *IpamRirsBulkUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamRirsBulkUpdateDefault) Error() string {
+	return fmt.Sprintf("[PUT /ipam/rirs/][%d] ipam_rirs_bulk_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamRirsBulkUpdateDefault) String() string {
+	return fmt.Sprintf("[PUT /ipam/rirs/][%d] ipam_rirs_bulk_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamRirsBulkUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamRirsBulkUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

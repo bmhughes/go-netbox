@@ -51,7 +51,14 @@ func (o *DcimConnectedDeviceListReader) ReadResponse(response runtime.ClientResp
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimConnectedDeviceListDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimConnectedDeviceListBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimConnectedDeviceListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimConnectedDeviceListDefault creates a DcimConnectedDeviceListDefault with default headers values
+func NewDcimConnectedDeviceListDefault(code int) *DcimConnectedDeviceListDefault {
+	return &DcimConnectedDeviceListDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimConnectedDeviceListDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimConnectedDeviceListDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim connected device list default response
+func (o *DcimConnectedDeviceListDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim connected device list default response has a 2xx status code
+func (o *DcimConnectedDeviceListDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim connected device list default response has a 3xx status code
+func (o *DcimConnectedDeviceListDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim connected device list default response has a 4xx status code
+func (o *DcimConnectedDeviceListDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim connected device list default response has a 5xx status code
+func (o *DcimConnectedDeviceListDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim connected device list default response a status code equal to that given
+func (o *DcimConnectedDeviceListDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimConnectedDeviceListDefault) Error() string {
+	return fmt.Sprintf("[GET /dcim/connected-device/][%d] dcim_connected-device_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimConnectedDeviceListDefault) String() string {
+	return fmt.Sprintf("[GET /dcim/connected-device/][%d] dcim_connected-device_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimConnectedDeviceListDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimConnectedDeviceListDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

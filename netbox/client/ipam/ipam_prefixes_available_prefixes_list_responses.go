@@ -51,7 +51,14 @@ func (o *IpamPrefixesAvailablePrefixesListReader) ReadResponse(response runtime.
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamPrefixesAvailablePrefixesListDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -168,6 +175,76 @@ func (o *IpamPrefixesAvailablePrefixesListBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamPrefixesAvailablePrefixesListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamPrefixesAvailablePrefixesListDefault creates a IpamPrefixesAvailablePrefixesListDefault with default headers values
+func NewIpamPrefixesAvailablePrefixesListDefault(code int) *IpamPrefixesAvailablePrefixesListDefault {
+	return &IpamPrefixesAvailablePrefixesListDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamPrefixesAvailablePrefixesListDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamPrefixesAvailablePrefixesListDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam prefixes available prefixes list default response
+func (o *IpamPrefixesAvailablePrefixesListDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam prefixes available prefixes list default response has a 2xx status code
+func (o *IpamPrefixesAvailablePrefixesListDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam prefixes available prefixes list default response has a 3xx status code
+func (o *IpamPrefixesAvailablePrefixesListDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam prefixes available prefixes list default response has a 4xx status code
+func (o *IpamPrefixesAvailablePrefixesListDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam prefixes available prefixes list default response has a 5xx status code
+func (o *IpamPrefixesAvailablePrefixesListDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam prefixes available prefixes list default response a status code equal to that given
+func (o *IpamPrefixesAvailablePrefixesListDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamPrefixesAvailablePrefixesListDefault) Error() string {
+	return fmt.Sprintf("[GET /ipam/prefixes/{id}/available-prefixes/][%d] ipam_prefixes_available-prefixes_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamPrefixesAvailablePrefixesListDefault) String() string {
+	return fmt.Sprintf("[GET /ipam/prefixes/{id}/available-prefixes/][%d] ipam_prefixes_available-prefixes_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamPrefixesAvailablePrefixesListDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamPrefixesAvailablePrefixesListDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

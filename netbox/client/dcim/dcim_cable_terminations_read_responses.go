@@ -51,7 +51,14 @@ func (o *DcimCableTerminationsReadReader) ReadResponse(response runtime.ClientRe
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimCableTerminationsReadDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimCableTerminationsReadBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimCableTerminationsReadBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimCableTerminationsReadDefault creates a DcimCableTerminationsReadDefault with default headers values
+func NewDcimCableTerminationsReadDefault(code int) *DcimCableTerminationsReadDefault {
+	return &DcimCableTerminationsReadDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimCableTerminationsReadDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimCableTerminationsReadDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim cable terminations read default response
+func (o *DcimCableTerminationsReadDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim cable terminations read default response has a 2xx status code
+func (o *DcimCableTerminationsReadDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim cable terminations read default response has a 3xx status code
+func (o *DcimCableTerminationsReadDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim cable terminations read default response has a 4xx status code
+func (o *DcimCableTerminationsReadDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim cable terminations read default response has a 5xx status code
+func (o *DcimCableTerminationsReadDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim cable terminations read default response a status code equal to that given
+func (o *DcimCableTerminationsReadDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimCableTerminationsReadDefault) Error() string {
+	return fmt.Sprintf("[GET /dcim/cable-terminations/{id}/][%d] dcim_cable-terminations_read default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimCableTerminationsReadDefault) String() string {
+	return fmt.Sprintf("[GET /dcim/cable-terminations/{id}/][%d] dcim_cable-terminations_read default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimCableTerminationsReadDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimCableTerminationsReadDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

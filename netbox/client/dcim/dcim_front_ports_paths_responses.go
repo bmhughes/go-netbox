@@ -51,7 +51,14 @@ func (o *DcimFrontPortsPathsReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimFrontPortsPathsDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimFrontPortsPathsBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimFrontPortsPathsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimFrontPortsPathsDefault creates a DcimFrontPortsPathsDefault with default headers values
+func NewDcimFrontPortsPathsDefault(code int) *DcimFrontPortsPathsDefault {
+	return &DcimFrontPortsPathsDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimFrontPortsPathsDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimFrontPortsPathsDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim front ports paths default response
+func (o *DcimFrontPortsPathsDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim front ports paths default response has a 2xx status code
+func (o *DcimFrontPortsPathsDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim front ports paths default response has a 3xx status code
+func (o *DcimFrontPortsPathsDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim front ports paths default response has a 4xx status code
+func (o *DcimFrontPortsPathsDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim front ports paths default response has a 5xx status code
+func (o *DcimFrontPortsPathsDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim front ports paths default response a status code equal to that given
+func (o *DcimFrontPortsPathsDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimFrontPortsPathsDefault) Error() string {
+	return fmt.Sprintf("[GET /dcim/front-ports/{id}/paths/][%d] dcim_front-ports_paths default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimFrontPortsPathsDefault) String() string {
+	return fmt.Sprintf("[GET /dcim/front-ports/{id}/paths/][%d] dcim_front-ports_paths default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimFrontPortsPathsDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimFrontPortsPathsDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

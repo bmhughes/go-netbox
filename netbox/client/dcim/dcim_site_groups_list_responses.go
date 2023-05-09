@@ -56,7 +56,14 @@ func (o *DcimSiteGroupsListReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimSiteGroupsListDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -175,6 +182,76 @@ func (o *DcimSiteGroupsListBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimSiteGroupsListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimSiteGroupsListDefault creates a DcimSiteGroupsListDefault with default headers values
+func NewDcimSiteGroupsListDefault(code int) *DcimSiteGroupsListDefault {
+	return &DcimSiteGroupsListDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimSiteGroupsListDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimSiteGroupsListDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim site groups list default response
+func (o *DcimSiteGroupsListDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim site groups list default response has a 2xx status code
+func (o *DcimSiteGroupsListDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim site groups list default response has a 3xx status code
+func (o *DcimSiteGroupsListDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim site groups list default response has a 4xx status code
+func (o *DcimSiteGroupsListDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim site groups list default response has a 5xx status code
+func (o *DcimSiteGroupsListDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim site groups list default response a status code equal to that given
+func (o *DcimSiteGroupsListDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimSiteGroupsListDefault) Error() string {
+	return fmt.Sprintf("[GET /dcim/site-groups/][%d] dcim_site-groups_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimSiteGroupsListDefault) String() string {
+	return fmt.Sprintf("[GET /dcim/site-groups/][%d] dcim_site-groups_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimSiteGroupsListDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimSiteGroupsListDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

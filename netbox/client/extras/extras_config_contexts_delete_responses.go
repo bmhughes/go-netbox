@@ -49,7 +49,14 @@ func (o *ExtrasConfigContextsDeleteReader) ReadResponse(response runtime.ClientR
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewExtrasConfigContextsDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *ExtrasConfigContextsDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *ExtrasConfigContextsDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasConfigContextsDeleteDefault creates a ExtrasConfigContextsDeleteDefault with default headers values
+func NewExtrasConfigContextsDeleteDefault(code int) *ExtrasConfigContextsDeleteDefault {
+	return &ExtrasConfigContextsDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ExtrasConfigContextsDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type ExtrasConfigContextsDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the extras config contexts delete default response
+func (o *ExtrasConfigContextsDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this extras config contexts delete default response has a 2xx status code
+func (o *ExtrasConfigContextsDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this extras config contexts delete default response has a 3xx status code
+func (o *ExtrasConfigContextsDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this extras config contexts delete default response has a 4xx status code
+func (o *ExtrasConfigContextsDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this extras config contexts delete default response has a 5xx status code
+func (o *ExtrasConfigContextsDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this extras config contexts delete default response a status code equal to that given
+func (o *ExtrasConfigContextsDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ExtrasConfigContextsDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /extras/config-contexts/{id}/][%d] extras_config-contexts_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasConfigContextsDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /extras/config-contexts/{id}/][%d] extras_config-contexts_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasConfigContextsDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasConfigContextsDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

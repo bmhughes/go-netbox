@@ -49,7 +49,14 @@ func (o *ExtrasWebhooksDeleteReader) ReadResponse(response runtime.ClientRespons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewExtrasWebhooksDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *ExtrasWebhooksDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *ExtrasWebhooksDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasWebhooksDeleteDefault creates a ExtrasWebhooksDeleteDefault with default headers values
+func NewExtrasWebhooksDeleteDefault(code int) *ExtrasWebhooksDeleteDefault {
+	return &ExtrasWebhooksDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ExtrasWebhooksDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type ExtrasWebhooksDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the extras webhooks delete default response
+func (o *ExtrasWebhooksDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this extras webhooks delete default response has a 2xx status code
+func (o *ExtrasWebhooksDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this extras webhooks delete default response has a 3xx status code
+func (o *ExtrasWebhooksDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this extras webhooks delete default response has a 4xx status code
+func (o *ExtrasWebhooksDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this extras webhooks delete default response has a 5xx status code
+func (o *ExtrasWebhooksDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this extras webhooks delete default response a status code equal to that given
+func (o *ExtrasWebhooksDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ExtrasWebhooksDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /extras/webhooks/{id}/][%d] extras_webhooks_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasWebhooksDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /extras/webhooks/{id}/][%d] extras_webhooks_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasWebhooksDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasWebhooksDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

@@ -49,7 +49,14 @@ func (o *IpamServiceTemplatesBulkDeleteReader) ReadResponse(response runtime.Cli
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamServiceTemplatesBulkDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *IpamServiceTemplatesBulkDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamServiceTemplatesBulkDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamServiceTemplatesBulkDeleteDefault creates a IpamServiceTemplatesBulkDeleteDefault with default headers values
+func NewIpamServiceTemplatesBulkDeleteDefault(code int) *IpamServiceTemplatesBulkDeleteDefault {
+	return &IpamServiceTemplatesBulkDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamServiceTemplatesBulkDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamServiceTemplatesBulkDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam service templates bulk delete default response
+func (o *IpamServiceTemplatesBulkDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam service templates bulk delete default response has a 2xx status code
+func (o *IpamServiceTemplatesBulkDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam service templates bulk delete default response has a 3xx status code
+func (o *IpamServiceTemplatesBulkDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam service templates bulk delete default response has a 4xx status code
+func (o *IpamServiceTemplatesBulkDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam service templates bulk delete default response has a 5xx status code
+func (o *IpamServiceTemplatesBulkDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam service templates bulk delete default response a status code equal to that given
+func (o *IpamServiceTemplatesBulkDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamServiceTemplatesBulkDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /ipam/service-templates/][%d] ipam_service-templates_bulk_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamServiceTemplatesBulkDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /ipam/service-templates/][%d] ipam_service-templates_bulk_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamServiceTemplatesBulkDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamServiceTemplatesBulkDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

@@ -49,7 +49,14 @@ func (o *ExtrasSavedFiltersDeleteReader) ReadResponse(response runtime.ClientRes
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewExtrasSavedFiltersDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *ExtrasSavedFiltersDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *ExtrasSavedFiltersDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasSavedFiltersDeleteDefault creates a ExtrasSavedFiltersDeleteDefault with default headers values
+func NewExtrasSavedFiltersDeleteDefault(code int) *ExtrasSavedFiltersDeleteDefault {
+	return &ExtrasSavedFiltersDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ExtrasSavedFiltersDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type ExtrasSavedFiltersDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the extras saved filters delete default response
+func (o *ExtrasSavedFiltersDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this extras saved filters delete default response has a 2xx status code
+func (o *ExtrasSavedFiltersDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this extras saved filters delete default response has a 3xx status code
+func (o *ExtrasSavedFiltersDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this extras saved filters delete default response has a 4xx status code
+func (o *ExtrasSavedFiltersDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this extras saved filters delete default response has a 5xx status code
+func (o *ExtrasSavedFiltersDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this extras saved filters delete default response a status code equal to that given
+func (o *ExtrasSavedFiltersDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ExtrasSavedFiltersDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /extras/saved-filters/{id}/][%d] extras_saved-filters_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasSavedFiltersDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /extras/saved-filters/{id}/][%d] extras_saved-filters_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasSavedFiltersDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasSavedFiltersDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

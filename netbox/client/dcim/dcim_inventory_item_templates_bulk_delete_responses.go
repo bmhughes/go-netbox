@@ -49,7 +49,14 @@ func (o *DcimInventoryItemTemplatesBulkDeleteReader) ReadResponse(response runti
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimInventoryItemTemplatesBulkDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *DcimInventoryItemTemplatesBulkDeleteBadRequest) GetPayload() interface{
 }
 
 func (o *DcimInventoryItemTemplatesBulkDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimInventoryItemTemplatesBulkDeleteDefault creates a DcimInventoryItemTemplatesBulkDeleteDefault with default headers values
+func NewDcimInventoryItemTemplatesBulkDeleteDefault(code int) *DcimInventoryItemTemplatesBulkDeleteDefault {
+	return &DcimInventoryItemTemplatesBulkDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimInventoryItemTemplatesBulkDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimInventoryItemTemplatesBulkDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim inventory item templates bulk delete default response
+func (o *DcimInventoryItemTemplatesBulkDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim inventory item templates bulk delete default response has a 2xx status code
+func (o *DcimInventoryItemTemplatesBulkDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim inventory item templates bulk delete default response has a 3xx status code
+func (o *DcimInventoryItemTemplatesBulkDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim inventory item templates bulk delete default response has a 4xx status code
+func (o *DcimInventoryItemTemplatesBulkDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim inventory item templates bulk delete default response has a 5xx status code
+func (o *DcimInventoryItemTemplatesBulkDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim inventory item templates bulk delete default response a status code equal to that given
+func (o *DcimInventoryItemTemplatesBulkDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimInventoryItemTemplatesBulkDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /dcim/inventory-item-templates/][%d] dcim_inventory-item-templates_bulk_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimInventoryItemTemplatesBulkDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /dcim/inventory-item-templates/][%d] dcim_inventory-item-templates_bulk_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimInventoryItemTemplatesBulkDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimInventoryItemTemplatesBulkDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

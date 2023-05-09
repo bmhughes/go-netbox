@@ -51,7 +51,14 @@ func (o *DcimInventoryItemRolesBulkPartialUpdateReader) ReadResponse(response ru
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimInventoryItemRolesBulkPartialUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimInventoryItemRolesBulkPartialUpdateBadRequest) GetPayload() interfa
 }
 
 func (o *DcimInventoryItemRolesBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimInventoryItemRolesBulkPartialUpdateDefault creates a DcimInventoryItemRolesBulkPartialUpdateDefault with default headers values
+func NewDcimInventoryItemRolesBulkPartialUpdateDefault(code int) *DcimInventoryItemRolesBulkPartialUpdateDefault {
+	return &DcimInventoryItemRolesBulkPartialUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimInventoryItemRolesBulkPartialUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimInventoryItemRolesBulkPartialUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim inventory item roles bulk partial update default response
+func (o *DcimInventoryItemRolesBulkPartialUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim inventory item roles bulk partial update default response has a 2xx status code
+func (o *DcimInventoryItemRolesBulkPartialUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim inventory item roles bulk partial update default response has a 3xx status code
+func (o *DcimInventoryItemRolesBulkPartialUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim inventory item roles bulk partial update default response has a 4xx status code
+func (o *DcimInventoryItemRolesBulkPartialUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim inventory item roles bulk partial update default response has a 5xx status code
+func (o *DcimInventoryItemRolesBulkPartialUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim inventory item roles bulk partial update default response a status code equal to that given
+func (o *DcimInventoryItemRolesBulkPartialUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimInventoryItemRolesBulkPartialUpdateDefault) Error() string {
+	return fmt.Sprintf("[PATCH /dcim/inventory-item-roles/][%d] dcim_inventory-item-roles_bulk_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimInventoryItemRolesBulkPartialUpdateDefault) String() string {
+	return fmt.Sprintf("[PATCH /dcim/inventory-item-roles/][%d] dcim_inventory-item-roles_bulk_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimInventoryItemRolesBulkPartialUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimInventoryItemRolesBulkPartialUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

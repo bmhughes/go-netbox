@@ -49,7 +49,14 @@ func (o *DcimDeviceBayTemplatesDeleteReader) ReadResponse(response runtime.Clien
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimDeviceBayTemplatesDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *DcimDeviceBayTemplatesDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimDeviceBayTemplatesDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimDeviceBayTemplatesDeleteDefault creates a DcimDeviceBayTemplatesDeleteDefault with default headers values
+func NewDcimDeviceBayTemplatesDeleteDefault(code int) *DcimDeviceBayTemplatesDeleteDefault {
+	return &DcimDeviceBayTemplatesDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimDeviceBayTemplatesDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimDeviceBayTemplatesDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim device bay templates delete default response
+func (o *DcimDeviceBayTemplatesDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim device bay templates delete default response has a 2xx status code
+func (o *DcimDeviceBayTemplatesDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim device bay templates delete default response has a 3xx status code
+func (o *DcimDeviceBayTemplatesDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim device bay templates delete default response has a 4xx status code
+func (o *DcimDeviceBayTemplatesDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim device bay templates delete default response has a 5xx status code
+func (o *DcimDeviceBayTemplatesDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim device bay templates delete default response a status code equal to that given
+func (o *DcimDeviceBayTemplatesDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimDeviceBayTemplatesDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /dcim/device-bay-templates/{id}/][%d] dcim_device-bay-templates_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimDeviceBayTemplatesDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /dcim/device-bay-templates/{id}/][%d] dcim_device-bay-templates_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimDeviceBayTemplatesDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimDeviceBayTemplatesDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

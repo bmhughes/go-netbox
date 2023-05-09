@@ -56,7 +56,14 @@ func (o *ExtrasJournalEntriesListReader) ReadResponse(response runtime.ClientRes
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewExtrasJournalEntriesListDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -175,6 +182,76 @@ func (o *ExtrasJournalEntriesListBadRequest) GetPayload() interface{} {
 }
 
 func (o *ExtrasJournalEntriesListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasJournalEntriesListDefault creates a ExtrasJournalEntriesListDefault with default headers values
+func NewExtrasJournalEntriesListDefault(code int) *ExtrasJournalEntriesListDefault {
+	return &ExtrasJournalEntriesListDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ExtrasJournalEntriesListDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type ExtrasJournalEntriesListDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the extras journal entries list default response
+func (o *ExtrasJournalEntriesListDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this extras journal entries list default response has a 2xx status code
+func (o *ExtrasJournalEntriesListDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this extras journal entries list default response has a 3xx status code
+func (o *ExtrasJournalEntriesListDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this extras journal entries list default response has a 4xx status code
+func (o *ExtrasJournalEntriesListDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this extras journal entries list default response has a 5xx status code
+func (o *ExtrasJournalEntriesListDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this extras journal entries list default response a status code equal to that given
+func (o *ExtrasJournalEntriesListDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ExtrasJournalEntriesListDefault) Error() string {
+	return fmt.Sprintf("[GET /extras/journal-entries/][%d] extras_journal-entries_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasJournalEntriesListDefault) String() string {
+	return fmt.Sprintf("[GET /extras/journal-entries/][%d] extras_journal-entries_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasJournalEntriesListDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasJournalEntriesListDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

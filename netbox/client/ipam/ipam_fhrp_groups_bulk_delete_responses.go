@@ -49,7 +49,14 @@ func (o *IpamFhrpGroupsBulkDeleteReader) ReadResponse(response runtime.ClientRes
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamFhrpGroupsBulkDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *IpamFhrpGroupsBulkDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamFhrpGroupsBulkDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamFhrpGroupsBulkDeleteDefault creates a IpamFhrpGroupsBulkDeleteDefault with default headers values
+func NewIpamFhrpGroupsBulkDeleteDefault(code int) *IpamFhrpGroupsBulkDeleteDefault {
+	return &IpamFhrpGroupsBulkDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamFhrpGroupsBulkDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamFhrpGroupsBulkDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam fhrp groups bulk delete default response
+func (o *IpamFhrpGroupsBulkDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam fhrp groups bulk delete default response has a 2xx status code
+func (o *IpamFhrpGroupsBulkDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam fhrp groups bulk delete default response has a 3xx status code
+func (o *IpamFhrpGroupsBulkDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam fhrp groups bulk delete default response has a 4xx status code
+func (o *IpamFhrpGroupsBulkDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam fhrp groups bulk delete default response has a 5xx status code
+func (o *IpamFhrpGroupsBulkDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam fhrp groups bulk delete default response a status code equal to that given
+func (o *IpamFhrpGroupsBulkDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamFhrpGroupsBulkDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /ipam/fhrp-groups/][%d] ipam_fhrp-groups_bulk_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamFhrpGroupsBulkDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /ipam/fhrp-groups/][%d] ipam_fhrp-groups_bulk_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamFhrpGroupsBulkDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamFhrpGroupsBulkDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

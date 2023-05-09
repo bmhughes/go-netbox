@@ -49,7 +49,14 @@ func (o *DcimInventoryItemRolesDeleteReader) ReadResponse(response runtime.Clien
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimInventoryItemRolesDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *DcimInventoryItemRolesDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimInventoryItemRolesDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimInventoryItemRolesDeleteDefault creates a DcimInventoryItemRolesDeleteDefault with default headers values
+func NewDcimInventoryItemRolesDeleteDefault(code int) *DcimInventoryItemRolesDeleteDefault {
+	return &DcimInventoryItemRolesDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimInventoryItemRolesDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimInventoryItemRolesDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim inventory item roles delete default response
+func (o *DcimInventoryItemRolesDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim inventory item roles delete default response has a 2xx status code
+func (o *DcimInventoryItemRolesDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim inventory item roles delete default response has a 3xx status code
+func (o *DcimInventoryItemRolesDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim inventory item roles delete default response has a 4xx status code
+func (o *DcimInventoryItemRolesDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim inventory item roles delete default response has a 5xx status code
+func (o *DcimInventoryItemRolesDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim inventory item roles delete default response a status code equal to that given
+func (o *DcimInventoryItemRolesDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimInventoryItemRolesDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /dcim/inventory-item-roles/{id}/][%d] dcim_inventory-item-roles_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimInventoryItemRolesDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /dcim/inventory-item-roles/{id}/][%d] dcim_inventory-item-roles_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimInventoryItemRolesDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimInventoryItemRolesDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

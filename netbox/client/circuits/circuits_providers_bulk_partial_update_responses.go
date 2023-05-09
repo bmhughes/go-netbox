@@ -51,7 +51,14 @@ func (o *CircuitsProvidersBulkPartialUpdateReader) ReadResponse(response runtime
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewCircuitsProvidersBulkPartialUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *CircuitsProvidersBulkPartialUpdateBadRequest) GetPayload() interface{} 
 }
 
 func (o *CircuitsProvidersBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCircuitsProvidersBulkPartialUpdateDefault creates a CircuitsProvidersBulkPartialUpdateDefault with default headers values
+func NewCircuitsProvidersBulkPartialUpdateDefault(code int) *CircuitsProvidersBulkPartialUpdateDefault {
+	return &CircuitsProvidersBulkPartialUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+CircuitsProvidersBulkPartialUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type CircuitsProvidersBulkPartialUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the circuits providers bulk partial update default response
+func (o *CircuitsProvidersBulkPartialUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this circuits providers bulk partial update default response has a 2xx status code
+func (o *CircuitsProvidersBulkPartialUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this circuits providers bulk partial update default response has a 3xx status code
+func (o *CircuitsProvidersBulkPartialUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this circuits providers bulk partial update default response has a 4xx status code
+func (o *CircuitsProvidersBulkPartialUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this circuits providers bulk partial update default response has a 5xx status code
+func (o *CircuitsProvidersBulkPartialUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this circuits providers bulk partial update default response a status code equal to that given
+func (o *CircuitsProvidersBulkPartialUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *CircuitsProvidersBulkPartialUpdateDefault) Error() string {
+	return fmt.Sprintf("[PATCH /circuits/providers/][%d] circuits_providers_bulk_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *CircuitsProvidersBulkPartialUpdateDefault) String() string {
+	return fmt.Sprintf("[PATCH /circuits/providers/][%d] circuits_providers_bulk_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *CircuitsProvidersBulkPartialUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *CircuitsProvidersBulkPartialUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

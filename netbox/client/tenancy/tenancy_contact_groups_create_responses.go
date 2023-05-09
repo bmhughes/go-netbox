@@ -51,7 +51,14 @@ func (o *TenancyContactGroupsCreateReader) ReadResponse(response runtime.ClientR
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewTenancyContactGroupsCreateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *TenancyContactGroupsCreateBadRequest) GetPayload() interface{} {
 }
 
 func (o *TenancyContactGroupsCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewTenancyContactGroupsCreateDefault creates a TenancyContactGroupsCreateDefault with default headers values
+func NewTenancyContactGroupsCreateDefault(code int) *TenancyContactGroupsCreateDefault {
+	return &TenancyContactGroupsCreateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+TenancyContactGroupsCreateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type TenancyContactGroupsCreateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the tenancy contact groups create default response
+func (o *TenancyContactGroupsCreateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this tenancy contact groups create default response has a 2xx status code
+func (o *TenancyContactGroupsCreateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this tenancy contact groups create default response has a 3xx status code
+func (o *TenancyContactGroupsCreateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this tenancy contact groups create default response has a 4xx status code
+func (o *TenancyContactGroupsCreateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this tenancy contact groups create default response has a 5xx status code
+func (o *TenancyContactGroupsCreateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this tenancy contact groups create default response a status code equal to that given
+func (o *TenancyContactGroupsCreateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *TenancyContactGroupsCreateDefault) Error() string {
+	return fmt.Sprintf("[POST /tenancy/contact-groups/][%d] tenancy_contact-groups_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *TenancyContactGroupsCreateDefault) String() string {
+	return fmt.Sprintf("[POST /tenancy/contact-groups/][%d] tenancy_contact-groups_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *TenancyContactGroupsCreateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *TenancyContactGroupsCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

@@ -51,7 +51,14 @@ func (o *DcimDeviceRolesBulkUpdateReader) ReadResponse(response runtime.ClientRe
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimDeviceRolesBulkUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimDeviceRolesBulkUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimDeviceRolesBulkUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimDeviceRolesBulkUpdateDefault creates a DcimDeviceRolesBulkUpdateDefault with default headers values
+func NewDcimDeviceRolesBulkUpdateDefault(code int) *DcimDeviceRolesBulkUpdateDefault {
+	return &DcimDeviceRolesBulkUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimDeviceRolesBulkUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimDeviceRolesBulkUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim device roles bulk update default response
+func (o *DcimDeviceRolesBulkUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim device roles bulk update default response has a 2xx status code
+func (o *DcimDeviceRolesBulkUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim device roles bulk update default response has a 3xx status code
+func (o *DcimDeviceRolesBulkUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim device roles bulk update default response has a 4xx status code
+func (o *DcimDeviceRolesBulkUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim device roles bulk update default response has a 5xx status code
+func (o *DcimDeviceRolesBulkUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim device roles bulk update default response a status code equal to that given
+func (o *DcimDeviceRolesBulkUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimDeviceRolesBulkUpdateDefault) Error() string {
+	return fmt.Sprintf("[PUT /dcim/device-roles/][%d] dcim_device-roles_bulk_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimDeviceRolesBulkUpdateDefault) String() string {
+	return fmt.Sprintf("[PUT /dcim/device-roles/][%d] dcim_device-roles_bulk_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimDeviceRolesBulkUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimDeviceRolesBulkUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

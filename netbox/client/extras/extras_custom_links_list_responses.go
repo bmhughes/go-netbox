@@ -56,7 +56,14 @@ func (o *ExtrasCustomLinksListReader) ReadResponse(response runtime.ClientRespon
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewExtrasCustomLinksListDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -175,6 +182,76 @@ func (o *ExtrasCustomLinksListBadRequest) GetPayload() interface{} {
 }
 
 func (o *ExtrasCustomLinksListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasCustomLinksListDefault creates a ExtrasCustomLinksListDefault with default headers values
+func NewExtrasCustomLinksListDefault(code int) *ExtrasCustomLinksListDefault {
+	return &ExtrasCustomLinksListDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ExtrasCustomLinksListDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type ExtrasCustomLinksListDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the extras custom links list default response
+func (o *ExtrasCustomLinksListDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this extras custom links list default response has a 2xx status code
+func (o *ExtrasCustomLinksListDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this extras custom links list default response has a 3xx status code
+func (o *ExtrasCustomLinksListDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this extras custom links list default response has a 4xx status code
+func (o *ExtrasCustomLinksListDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this extras custom links list default response has a 5xx status code
+func (o *ExtrasCustomLinksListDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this extras custom links list default response a status code equal to that given
+func (o *ExtrasCustomLinksListDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ExtrasCustomLinksListDefault) Error() string {
+	return fmt.Sprintf("[GET /extras/custom-links/][%d] extras_custom-links_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasCustomLinksListDefault) String() string {
+	return fmt.Sprintf("[GET /extras/custom-links/][%d] extras_custom-links_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasCustomLinksListDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasCustomLinksListDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

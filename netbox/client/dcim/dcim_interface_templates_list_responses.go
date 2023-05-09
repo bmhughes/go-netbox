@@ -56,7 +56,14 @@ func (o *DcimInterfaceTemplatesListReader) ReadResponse(response runtime.ClientR
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimInterfaceTemplatesListDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -175,6 +182,76 @@ func (o *DcimInterfaceTemplatesListBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimInterfaceTemplatesListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimInterfaceTemplatesListDefault creates a DcimInterfaceTemplatesListDefault with default headers values
+func NewDcimInterfaceTemplatesListDefault(code int) *DcimInterfaceTemplatesListDefault {
+	return &DcimInterfaceTemplatesListDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimInterfaceTemplatesListDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimInterfaceTemplatesListDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim interface templates list default response
+func (o *DcimInterfaceTemplatesListDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim interface templates list default response has a 2xx status code
+func (o *DcimInterfaceTemplatesListDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim interface templates list default response has a 3xx status code
+func (o *DcimInterfaceTemplatesListDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim interface templates list default response has a 4xx status code
+func (o *DcimInterfaceTemplatesListDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim interface templates list default response has a 5xx status code
+func (o *DcimInterfaceTemplatesListDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim interface templates list default response a status code equal to that given
+func (o *DcimInterfaceTemplatesListDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimInterfaceTemplatesListDefault) Error() string {
+	return fmt.Sprintf("[GET /dcim/interface-templates/][%d] dcim_interface-templates_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimInterfaceTemplatesListDefault) String() string {
+	return fmt.Sprintf("[GET /dcim/interface-templates/][%d] dcim_interface-templates_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimInterfaceTemplatesListDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimInterfaceTemplatesListDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

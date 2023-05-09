@@ -28,9 +28,16 @@ end
 spec_file = JSON.load_file!(options.fetch(:file))
 
 VERBS = %w(get delete patch post put).freeze
-BAD_REQUEST = {
+ADDITIONAL_RESPONSES = {
   '400' => {
     'description' => 'Bad Request',
+    'schema' => {
+      'type' => 'object',
+      'additionalProperties' => true,
+    },
+  },
+  'default' => {
+    'description' => 'Unexpected Response',
     'schema' => {
       'type' => 'object',
       'additionalProperties' => true,
@@ -44,10 +51,10 @@ spec_file.fetch('paths').each do |path, spec|
   @logger.debug("Path: #{path}")
   VERBS.each do |verb|
     responses = spec.dig(verb, 'responses')
-    next if responses.nil? || responses.key?('400')
+    next if responses.nil? || ADDITIONAL_RESPONSES.keys.all? { |r| responses.key?(r) }
 
     @logger.info("Patching: #{path} | Verb: #{verb}")
-    responses.merge!(BAD_REQUEST) unless responses.key?('400')
+    responses.merge!(ADDITIONAL_RESPONSES)
     patch_count += 1
   end
 end

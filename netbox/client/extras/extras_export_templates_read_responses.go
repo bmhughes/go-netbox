@@ -51,7 +51,14 @@ func (o *ExtrasExportTemplatesReadReader) ReadResponse(response runtime.ClientRe
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewExtrasExportTemplatesReadDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *ExtrasExportTemplatesReadBadRequest) GetPayload() interface{} {
 }
 
 func (o *ExtrasExportTemplatesReadBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasExportTemplatesReadDefault creates a ExtrasExportTemplatesReadDefault with default headers values
+func NewExtrasExportTemplatesReadDefault(code int) *ExtrasExportTemplatesReadDefault {
+	return &ExtrasExportTemplatesReadDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ExtrasExportTemplatesReadDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type ExtrasExportTemplatesReadDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the extras export templates read default response
+func (o *ExtrasExportTemplatesReadDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this extras export templates read default response has a 2xx status code
+func (o *ExtrasExportTemplatesReadDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this extras export templates read default response has a 3xx status code
+func (o *ExtrasExportTemplatesReadDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this extras export templates read default response has a 4xx status code
+func (o *ExtrasExportTemplatesReadDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this extras export templates read default response has a 5xx status code
+func (o *ExtrasExportTemplatesReadDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this extras export templates read default response a status code equal to that given
+func (o *ExtrasExportTemplatesReadDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ExtrasExportTemplatesReadDefault) Error() string {
+	return fmt.Sprintf("[GET /extras/export-templates/{id}/][%d] extras_export-templates_read default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasExportTemplatesReadDefault) String() string {
+	return fmt.Sprintf("[GET /extras/export-templates/{id}/][%d] extras_export-templates_read default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasExportTemplatesReadDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasExportTemplatesReadDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

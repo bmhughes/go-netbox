@@ -51,7 +51,14 @@ func (o *DcimInterfacesCreateReader) ReadResponse(response runtime.ClientRespons
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimInterfacesCreateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimInterfacesCreateBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimInterfacesCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimInterfacesCreateDefault creates a DcimInterfacesCreateDefault with default headers values
+func NewDcimInterfacesCreateDefault(code int) *DcimInterfacesCreateDefault {
+	return &DcimInterfacesCreateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimInterfacesCreateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimInterfacesCreateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim interfaces create default response
+func (o *DcimInterfacesCreateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim interfaces create default response has a 2xx status code
+func (o *DcimInterfacesCreateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim interfaces create default response has a 3xx status code
+func (o *DcimInterfacesCreateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim interfaces create default response has a 4xx status code
+func (o *DcimInterfacesCreateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim interfaces create default response has a 5xx status code
+func (o *DcimInterfacesCreateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim interfaces create default response a status code equal to that given
+func (o *DcimInterfacesCreateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimInterfacesCreateDefault) Error() string {
+	return fmt.Sprintf("[POST /dcim/interfaces/][%d] dcim_interfaces_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimInterfacesCreateDefault) String() string {
+	return fmt.Sprintf("[POST /dcim/interfaces/][%d] dcim_interfaces_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimInterfacesCreateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimInterfacesCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

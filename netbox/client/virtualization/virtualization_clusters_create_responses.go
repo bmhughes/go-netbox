@@ -51,7 +51,14 @@ func (o *VirtualizationClustersCreateReader) ReadResponse(response runtime.Clien
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewVirtualizationClustersCreateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *VirtualizationClustersCreateBadRequest) GetPayload() interface{} {
 }
 
 func (o *VirtualizationClustersCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewVirtualizationClustersCreateDefault creates a VirtualizationClustersCreateDefault with default headers values
+func NewVirtualizationClustersCreateDefault(code int) *VirtualizationClustersCreateDefault {
+	return &VirtualizationClustersCreateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+VirtualizationClustersCreateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type VirtualizationClustersCreateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the virtualization clusters create default response
+func (o *VirtualizationClustersCreateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this virtualization clusters create default response has a 2xx status code
+func (o *VirtualizationClustersCreateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this virtualization clusters create default response has a 3xx status code
+func (o *VirtualizationClustersCreateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this virtualization clusters create default response has a 4xx status code
+func (o *VirtualizationClustersCreateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this virtualization clusters create default response has a 5xx status code
+func (o *VirtualizationClustersCreateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this virtualization clusters create default response a status code equal to that given
+func (o *VirtualizationClustersCreateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *VirtualizationClustersCreateDefault) Error() string {
+	return fmt.Sprintf("[POST /virtualization/clusters/][%d] virtualization_clusters_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *VirtualizationClustersCreateDefault) String() string {
+	return fmt.Sprintf("[POST /virtualization/clusters/][%d] virtualization_clusters_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *VirtualizationClustersCreateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *VirtualizationClustersCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

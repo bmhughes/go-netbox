@@ -56,7 +56,14 @@ func (o *CircuitsCircuitTypesListReader) ReadResponse(response runtime.ClientRes
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewCircuitsCircuitTypesListDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -175,6 +182,76 @@ func (o *CircuitsCircuitTypesListBadRequest) GetPayload() interface{} {
 }
 
 func (o *CircuitsCircuitTypesListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCircuitsCircuitTypesListDefault creates a CircuitsCircuitTypesListDefault with default headers values
+func NewCircuitsCircuitTypesListDefault(code int) *CircuitsCircuitTypesListDefault {
+	return &CircuitsCircuitTypesListDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+CircuitsCircuitTypesListDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type CircuitsCircuitTypesListDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the circuits circuit types list default response
+func (o *CircuitsCircuitTypesListDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this circuits circuit types list default response has a 2xx status code
+func (o *CircuitsCircuitTypesListDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this circuits circuit types list default response has a 3xx status code
+func (o *CircuitsCircuitTypesListDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this circuits circuit types list default response has a 4xx status code
+func (o *CircuitsCircuitTypesListDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this circuits circuit types list default response has a 5xx status code
+func (o *CircuitsCircuitTypesListDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this circuits circuit types list default response a status code equal to that given
+func (o *CircuitsCircuitTypesListDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *CircuitsCircuitTypesListDefault) Error() string {
+	return fmt.Sprintf("[GET /circuits/circuit-types/][%d] circuits_circuit-types_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *CircuitsCircuitTypesListDefault) String() string {
+	return fmt.Sprintf("[GET /circuits/circuit-types/][%d] circuits_circuit-types_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *CircuitsCircuitTypesListDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *CircuitsCircuitTypesListDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

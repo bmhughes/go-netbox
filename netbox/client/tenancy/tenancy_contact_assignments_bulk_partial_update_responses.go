@@ -51,7 +51,14 @@ func (o *TenancyContactAssignmentsBulkPartialUpdateReader) ReadResponse(response
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewTenancyContactAssignmentsBulkPartialUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *TenancyContactAssignmentsBulkPartialUpdateBadRequest) GetPayload() inte
 }
 
 func (o *TenancyContactAssignmentsBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewTenancyContactAssignmentsBulkPartialUpdateDefault creates a TenancyContactAssignmentsBulkPartialUpdateDefault with default headers values
+func NewTenancyContactAssignmentsBulkPartialUpdateDefault(code int) *TenancyContactAssignmentsBulkPartialUpdateDefault {
+	return &TenancyContactAssignmentsBulkPartialUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+TenancyContactAssignmentsBulkPartialUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type TenancyContactAssignmentsBulkPartialUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the tenancy contact assignments bulk partial update default response
+func (o *TenancyContactAssignmentsBulkPartialUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this tenancy contact assignments bulk partial update default response has a 2xx status code
+func (o *TenancyContactAssignmentsBulkPartialUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this tenancy contact assignments bulk partial update default response has a 3xx status code
+func (o *TenancyContactAssignmentsBulkPartialUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this tenancy contact assignments bulk partial update default response has a 4xx status code
+func (o *TenancyContactAssignmentsBulkPartialUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this tenancy contact assignments bulk partial update default response has a 5xx status code
+func (o *TenancyContactAssignmentsBulkPartialUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this tenancy contact assignments bulk partial update default response a status code equal to that given
+func (o *TenancyContactAssignmentsBulkPartialUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *TenancyContactAssignmentsBulkPartialUpdateDefault) Error() string {
+	return fmt.Sprintf("[PATCH /tenancy/contact-assignments/][%d] tenancy_contact-assignments_bulk_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *TenancyContactAssignmentsBulkPartialUpdateDefault) String() string {
+	return fmt.Sprintf("[PATCH /tenancy/contact-assignments/][%d] tenancy_contact-assignments_bulk_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *TenancyContactAssignmentsBulkPartialUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *TenancyContactAssignmentsBulkPartialUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

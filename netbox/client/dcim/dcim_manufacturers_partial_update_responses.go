@@ -51,7 +51,14 @@ func (o *DcimManufacturersPartialUpdateReader) ReadResponse(response runtime.Cli
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimManufacturersPartialUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimManufacturersPartialUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimManufacturersPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimManufacturersPartialUpdateDefault creates a DcimManufacturersPartialUpdateDefault with default headers values
+func NewDcimManufacturersPartialUpdateDefault(code int) *DcimManufacturersPartialUpdateDefault {
+	return &DcimManufacturersPartialUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimManufacturersPartialUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimManufacturersPartialUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim manufacturers partial update default response
+func (o *DcimManufacturersPartialUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim manufacturers partial update default response has a 2xx status code
+func (o *DcimManufacturersPartialUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim manufacturers partial update default response has a 3xx status code
+func (o *DcimManufacturersPartialUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim manufacturers partial update default response has a 4xx status code
+func (o *DcimManufacturersPartialUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim manufacturers partial update default response has a 5xx status code
+func (o *DcimManufacturersPartialUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim manufacturers partial update default response a status code equal to that given
+func (o *DcimManufacturersPartialUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimManufacturersPartialUpdateDefault) Error() string {
+	return fmt.Sprintf("[PATCH /dcim/manufacturers/{id}/][%d] dcim_manufacturers_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimManufacturersPartialUpdateDefault) String() string {
+	return fmt.Sprintf("[PATCH /dcim/manufacturers/{id}/][%d] dcim_manufacturers_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimManufacturersPartialUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimManufacturersPartialUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

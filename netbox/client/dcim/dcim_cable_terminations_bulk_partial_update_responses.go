@@ -51,7 +51,14 @@ func (o *DcimCableTerminationsBulkPartialUpdateReader) ReadResponse(response run
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimCableTerminationsBulkPartialUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimCableTerminationsBulkPartialUpdateBadRequest) GetPayload() interfac
 }
 
 func (o *DcimCableTerminationsBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimCableTerminationsBulkPartialUpdateDefault creates a DcimCableTerminationsBulkPartialUpdateDefault with default headers values
+func NewDcimCableTerminationsBulkPartialUpdateDefault(code int) *DcimCableTerminationsBulkPartialUpdateDefault {
+	return &DcimCableTerminationsBulkPartialUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimCableTerminationsBulkPartialUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimCableTerminationsBulkPartialUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim cable terminations bulk partial update default response
+func (o *DcimCableTerminationsBulkPartialUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim cable terminations bulk partial update default response has a 2xx status code
+func (o *DcimCableTerminationsBulkPartialUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim cable terminations bulk partial update default response has a 3xx status code
+func (o *DcimCableTerminationsBulkPartialUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim cable terminations bulk partial update default response has a 4xx status code
+func (o *DcimCableTerminationsBulkPartialUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim cable terminations bulk partial update default response has a 5xx status code
+func (o *DcimCableTerminationsBulkPartialUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim cable terminations bulk partial update default response a status code equal to that given
+func (o *DcimCableTerminationsBulkPartialUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimCableTerminationsBulkPartialUpdateDefault) Error() string {
+	return fmt.Sprintf("[PATCH /dcim/cable-terminations/][%d] dcim_cable-terminations_bulk_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimCableTerminationsBulkPartialUpdateDefault) String() string {
+	return fmt.Sprintf("[PATCH /dcim/cable-terminations/][%d] dcim_cable-terminations_bulk_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimCableTerminationsBulkPartialUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimCableTerminationsBulkPartialUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

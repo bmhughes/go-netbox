@@ -49,7 +49,14 @@ func (o *DcimDeviceTypesDeleteReader) ReadResponse(response runtime.ClientRespon
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimDeviceTypesDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *DcimDeviceTypesDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimDeviceTypesDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimDeviceTypesDeleteDefault creates a DcimDeviceTypesDeleteDefault with default headers values
+func NewDcimDeviceTypesDeleteDefault(code int) *DcimDeviceTypesDeleteDefault {
+	return &DcimDeviceTypesDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimDeviceTypesDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimDeviceTypesDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim device types delete default response
+func (o *DcimDeviceTypesDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim device types delete default response has a 2xx status code
+func (o *DcimDeviceTypesDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim device types delete default response has a 3xx status code
+func (o *DcimDeviceTypesDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim device types delete default response has a 4xx status code
+func (o *DcimDeviceTypesDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim device types delete default response has a 5xx status code
+func (o *DcimDeviceTypesDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim device types delete default response a status code equal to that given
+func (o *DcimDeviceTypesDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimDeviceTypesDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /dcim/device-types/{id}/][%d] dcim_device-types_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimDeviceTypesDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /dcim/device-types/{id}/][%d] dcim_device-types_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimDeviceTypesDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimDeviceTypesDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

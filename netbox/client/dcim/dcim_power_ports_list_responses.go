@@ -56,7 +56,14 @@ func (o *DcimPowerPortsListReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimPowerPortsListDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -175,6 +182,76 @@ func (o *DcimPowerPortsListBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimPowerPortsListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimPowerPortsListDefault creates a DcimPowerPortsListDefault with default headers values
+func NewDcimPowerPortsListDefault(code int) *DcimPowerPortsListDefault {
+	return &DcimPowerPortsListDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimPowerPortsListDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimPowerPortsListDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim power ports list default response
+func (o *DcimPowerPortsListDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim power ports list default response has a 2xx status code
+func (o *DcimPowerPortsListDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim power ports list default response has a 3xx status code
+func (o *DcimPowerPortsListDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim power ports list default response has a 4xx status code
+func (o *DcimPowerPortsListDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim power ports list default response has a 5xx status code
+func (o *DcimPowerPortsListDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim power ports list default response a status code equal to that given
+func (o *DcimPowerPortsListDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimPowerPortsListDefault) Error() string {
+	return fmt.Sprintf("[GET /dcim/power-ports/][%d] dcim_power-ports_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimPowerPortsListDefault) String() string {
+	return fmt.Sprintf("[GET /dcim/power-ports/][%d] dcim_power-ports_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimPowerPortsListDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimPowerPortsListDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

@@ -49,7 +49,14 @@ func (o *CircuitsCircuitTerminationsDeleteReader) ReadResponse(response runtime.
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewCircuitsCircuitTerminationsDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *CircuitsCircuitTerminationsDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *CircuitsCircuitTerminationsDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCircuitsCircuitTerminationsDeleteDefault creates a CircuitsCircuitTerminationsDeleteDefault with default headers values
+func NewCircuitsCircuitTerminationsDeleteDefault(code int) *CircuitsCircuitTerminationsDeleteDefault {
+	return &CircuitsCircuitTerminationsDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+CircuitsCircuitTerminationsDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type CircuitsCircuitTerminationsDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the circuits circuit terminations delete default response
+func (o *CircuitsCircuitTerminationsDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this circuits circuit terminations delete default response has a 2xx status code
+func (o *CircuitsCircuitTerminationsDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this circuits circuit terminations delete default response has a 3xx status code
+func (o *CircuitsCircuitTerminationsDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this circuits circuit terminations delete default response has a 4xx status code
+func (o *CircuitsCircuitTerminationsDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this circuits circuit terminations delete default response has a 5xx status code
+func (o *CircuitsCircuitTerminationsDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this circuits circuit terminations delete default response a status code equal to that given
+func (o *CircuitsCircuitTerminationsDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *CircuitsCircuitTerminationsDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /circuits/circuit-terminations/{id}/][%d] circuits_circuit-terminations_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *CircuitsCircuitTerminationsDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /circuits/circuit-terminations/{id}/][%d] circuits_circuit-terminations_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *CircuitsCircuitTerminationsDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *CircuitsCircuitTerminationsDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

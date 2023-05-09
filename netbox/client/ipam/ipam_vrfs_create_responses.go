@@ -51,7 +51,14 @@ func (o *IpamVrfsCreateReader) ReadResponse(response runtime.ClientResponse, con
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamVrfsCreateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *IpamVrfsCreateBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamVrfsCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamVrfsCreateDefault creates a IpamVrfsCreateDefault with default headers values
+func NewIpamVrfsCreateDefault(code int) *IpamVrfsCreateDefault {
+	return &IpamVrfsCreateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamVrfsCreateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamVrfsCreateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam vrfs create default response
+func (o *IpamVrfsCreateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam vrfs create default response has a 2xx status code
+func (o *IpamVrfsCreateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam vrfs create default response has a 3xx status code
+func (o *IpamVrfsCreateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam vrfs create default response has a 4xx status code
+func (o *IpamVrfsCreateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam vrfs create default response has a 5xx status code
+func (o *IpamVrfsCreateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam vrfs create default response a status code equal to that given
+func (o *IpamVrfsCreateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamVrfsCreateDefault) Error() string {
+	return fmt.Sprintf("[POST /ipam/vrfs/][%d] ipam_vrfs_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamVrfsCreateDefault) String() string {
+	return fmt.Sprintf("[POST /ipam/vrfs/][%d] ipam_vrfs_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamVrfsCreateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamVrfsCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

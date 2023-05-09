@@ -56,7 +56,14 @@ func (o *IpamRirsListReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamRirsListDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -175,6 +182,76 @@ func (o *IpamRirsListBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamRirsListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamRirsListDefault creates a IpamRirsListDefault with default headers values
+func NewIpamRirsListDefault(code int) *IpamRirsListDefault {
+	return &IpamRirsListDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamRirsListDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamRirsListDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam rirs list default response
+func (o *IpamRirsListDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam rirs list default response has a 2xx status code
+func (o *IpamRirsListDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam rirs list default response has a 3xx status code
+func (o *IpamRirsListDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam rirs list default response has a 4xx status code
+func (o *IpamRirsListDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam rirs list default response has a 5xx status code
+func (o *IpamRirsListDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam rirs list default response a status code equal to that given
+func (o *IpamRirsListDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamRirsListDefault) Error() string {
+	return fmt.Sprintf("[GET /ipam/rirs/][%d] ipam_rirs_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamRirsListDefault) String() string {
+	return fmt.Sprintf("[GET /ipam/rirs/][%d] ipam_rirs_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamRirsListDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamRirsListDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

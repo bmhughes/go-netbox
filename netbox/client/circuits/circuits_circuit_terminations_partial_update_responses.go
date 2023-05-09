@@ -51,7 +51,14 @@ func (o *CircuitsCircuitTerminationsPartialUpdateReader) ReadResponse(response r
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewCircuitsCircuitTerminationsPartialUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *CircuitsCircuitTerminationsPartialUpdateBadRequest) GetPayload() interf
 }
 
 func (o *CircuitsCircuitTerminationsPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCircuitsCircuitTerminationsPartialUpdateDefault creates a CircuitsCircuitTerminationsPartialUpdateDefault with default headers values
+func NewCircuitsCircuitTerminationsPartialUpdateDefault(code int) *CircuitsCircuitTerminationsPartialUpdateDefault {
+	return &CircuitsCircuitTerminationsPartialUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+CircuitsCircuitTerminationsPartialUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type CircuitsCircuitTerminationsPartialUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the circuits circuit terminations partial update default response
+func (o *CircuitsCircuitTerminationsPartialUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this circuits circuit terminations partial update default response has a 2xx status code
+func (o *CircuitsCircuitTerminationsPartialUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this circuits circuit terminations partial update default response has a 3xx status code
+func (o *CircuitsCircuitTerminationsPartialUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this circuits circuit terminations partial update default response has a 4xx status code
+func (o *CircuitsCircuitTerminationsPartialUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this circuits circuit terminations partial update default response has a 5xx status code
+func (o *CircuitsCircuitTerminationsPartialUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this circuits circuit terminations partial update default response a status code equal to that given
+func (o *CircuitsCircuitTerminationsPartialUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *CircuitsCircuitTerminationsPartialUpdateDefault) Error() string {
+	return fmt.Sprintf("[PATCH /circuits/circuit-terminations/{id}/][%d] circuits_circuit-terminations_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *CircuitsCircuitTerminationsPartialUpdateDefault) String() string {
+	return fmt.Sprintf("[PATCH /circuits/circuit-terminations/{id}/][%d] circuits_circuit-terminations_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *CircuitsCircuitTerminationsPartialUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *CircuitsCircuitTerminationsPartialUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

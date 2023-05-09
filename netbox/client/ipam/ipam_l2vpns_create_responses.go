@@ -51,7 +51,14 @@ func (o *IpamL2vpnsCreateReader) ReadResponse(response runtime.ClientResponse, c
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamL2vpnsCreateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *IpamL2vpnsCreateBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamL2vpnsCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamL2vpnsCreateDefault creates a IpamL2vpnsCreateDefault with default headers values
+func NewIpamL2vpnsCreateDefault(code int) *IpamL2vpnsCreateDefault {
+	return &IpamL2vpnsCreateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamL2vpnsCreateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamL2vpnsCreateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam l2vpns create default response
+func (o *IpamL2vpnsCreateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam l2vpns create default response has a 2xx status code
+func (o *IpamL2vpnsCreateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam l2vpns create default response has a 3xx status code
+func (o *IpamL2vpnsCreateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam l2vpns create default response has a 4xx status code
+func (o *IpamL2vpnsCreateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam l2vpns create default response has a 5xx status code
+func (o *IpamL2vpnsCreateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam l2vpns create default response a status code equal to that given
+func (o *IpamL2vpnsCreateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamL2vpnsCreateDefault) Error() string {
+	return fmt.Sprintf("[POST /ipam/l2vpns/][%d] ipam_l2vpns_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamL2vpnsCreateDefault) String() string {
+	return fmt.Sprintf("[POST /ipam/l2vpns/][%d] ipam_l2vpns_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamL2vpnsCreateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamL2vpnsCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

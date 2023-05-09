@@ -51,7 +51,14 @@ func (o *DcimInventoryItemTemplatesBulkUpdateReader) ReadResponse(response runti
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimInventoryItemTemplatesBulkUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimInventoryItemTemplatesBulkUpdateBadRequest) GetPayload() interface{
 }
 
 func (o *DcimInventoryItemTemplatesBulkUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimInventoryItemTemplatesBulkUpdateDefault creates a DcimInventoryItemTemplatesBulkUpdateDefault with default headers values
+func NewDcimInventoryItemTemplatesBulkUpdateDefault(code int) *DcimInventoryItemTemplatesBulkUpdateDefault {
+	return &DcimInventoryItemTemplatesBulkUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimInventoryItemTemplatesBulkUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimInventoryItemTemplatesBulkUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim inventory item templates bulk update default response
+func (o *DcimInventoryItemTemplatesBulkUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim inventory item templates bulk update default response has a 2xx status code
+func (o *DcimInventoryItemTemplatesBulkUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim inventory item templates bulk update default response has a 3xx status code
+func (o *DcimInventoryItemTemplatesBulkUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim inventory item templates bulk update default response has a 4xx status code
+func (o *DcimInventoryItemTemplatesBulkUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim inventory item templates bulk update default response has a 5xx status code
+func (o *DcimInventoryItemTemplatesBulkUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim inventory item templates bulk update default response a status code equal to that given
+func (o *DcimInventoryItemTemplatesBulkUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimInventoryItemTemplatesBulkUpdateDefault) Error() string {
+	return fmt.Sprintf("[PUT /dcim/inventory-item-templates/][%d] dcim_inventory-item-templates_bulk_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimInventoryItemTemplatesBulkUpdateDefault) String() string {
+	return fmt.Sprintf("[PUT /dcim/inventory-item-templates/][%d] dcim_inventory-item-templates_bulk_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimInventoryItemTemplatesBulkUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimInventoryItemTemplatesBulkUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

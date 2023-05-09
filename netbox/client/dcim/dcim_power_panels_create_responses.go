@@ -51,7 +51,14 @@ func (o *DcimPowerPanelsCreateReader) ReadResponse(response runtime.ClientRespon
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimPowerPanelsCreateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimPowerPanelsCreateBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimPowerPanelsCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimPowerPanelsCreateDefault creates a DcimPowerPanelsCreateDefault with default headers values
+func NewDcimPowerPanelsCreateDefault(code int) *DcimPowerPanelsCreateDefault {
+	return &DcimPowerPanelsCreateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimPowerPanelsCreateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimPowerPanelsCreateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim power panels create default response
+func (o *DcimPowerPanelsCreateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim power panels create default response has a 2xx status code
+func (o *DcimPowerPanelsCreateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim power panels create default response has a 3xx status code
+func (o *DcimPowerPanelsCreateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim power panels create default response has a 4xx status code
+func (o *DcimPowerPanelsCreateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim power panels create default response has a 5xx status code
+func (o *DcimPowerPanelsCreateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim power panels create default response a status code equal to that given
+func (o *DcimPowerPanelsCreateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimPowerPanelsCreateDefault) Error() string {
+	return fmt.Sprintf("[POST /dcim/power-panels/][%d] dcim_power-panels_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimPowerPanelsCreateDefault) String() string {
+	return fmt.Sprintf("[POST /dcim/power-panels/][%d] dcim_power-panels_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimPowerPanelsCreateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimPowerPanelsCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

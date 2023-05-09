@@ -51,7 +51,14 @@ func (o *IpamL2vpnsPartialUpdateReader) ReadResponse(response runtime.ClientResp
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamL2vpnsPartialUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *IpamL2vpnsPartialUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamL2vpnsPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamL2vpnsPartialUpdateDefault creates a IpamL2vpnsPartialUpdateDefault with default headers values
+func NewIpamL2vpnsPartialUpdateDefault(code int) *IpamL2vpnsPartialUpdateDefault {
+	return &IpamL2vpnsPartialUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamL2vpnsPartialUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamL2vpnsPartialUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam l2vpns partial update default response
+func (o *IpamL2vpnsPartialUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam l2vpns partial update default response has a 2xx status code
+func (o *IpamL2vpnsPartialUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam l2vpns partial update default response has a 3xx status code
+func (o *IpamL2vpnsPartialUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam l2vpns partial update default response has a 4xx status code
+func (o *IpamL2vpnsPartialUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam l2vpns partial update default response has a 5xx status code
+func (o *IpamL2vpnsPartialUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam l2vpns partial update default response a status code equal to that given
+func (o *IpamL2vpnsPartialUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamL2vpnsPartialUpdateDefault) Error() string {
+	return fmt.Sprintf("[PATCH /ipam/l2vpns/{id}/][%d] ipam_l2vpns_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamL2vpnsPartialUpdateDefault) String() string {
+	return fmt.Sprintf("[PATCH /ipam/l2vpns/{id}/][%d] ipam_l2vpns_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamL2vpnsPartialUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamL2vpnsPartialUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

@@ -51,7 +51,14 @@ func (o *IpamVlanGroupsBulkPartialUpdateReader) ReadResponse(response runtime.Cl
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamVlanGroupsBulkPartialUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *IpamVlanGroupsBulkPartialUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamVlanGroupsBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamVlanGroupsBulkPartialUpdateDefault creates a IpamVlanGroupsBulkPartialUpdateDefault with default headers values
+func NewIpamVlanGroupsBulkPartialUpdateDefault(code int) *IpamVlanGroupsBulkPartialUpdateDefault {
+	return &IpamVlanGroupsBulkPartialUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamVlanGroupsBulkPartialUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamVlanGroupsBulkPartialUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam vlan groups bulk partial update default response
+func (o *IpamVlanGroupsBulkPartialUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam vlan groups bulk partial update default response has a 2xx status code
+func (o *IpamVlanGroupsBulkPartialUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam vlan groups bulk partial update default response has a 3xx status code
+func (o *IpamVlanGroupsBulkPartialUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam vlan groups bulk partial update default response has a 4xx status code
+func (o *IpamVlanGroupsBulkPartialUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam vlan groups bulk partial update default response has a 5xx status code
+func (o *IpamVlanGroupsBulkPartialUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam vlan groups bulk partial update default response a status code equal to that given
+func (o *IpamVlanGroupsBulkPartialUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamVlanGroupsBulkPartialUpdateDefault) Error() string {
+	return fmt.Sprintf("[PATCH /ipam/vlan-groups/][%d] ipam_vlan-groups_bulk_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamVlanGroupsBulkPartialUpdateDefault) String() string {
+	return fmt.Sprintf("[PATCH /ipam/vlan-groups/][%d] ipam_vlan-groups_bulk_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamVlanGroupsBulkPartialUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamVlanGroupsBulkPartialUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

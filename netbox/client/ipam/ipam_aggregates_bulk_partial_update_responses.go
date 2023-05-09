@@ -51,7 +51,14 @@ func (o *IpamAggregatesBulkPartialUpdateReader) ReadResponse(response runtime.Cl
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamAggregatesBulkPartialUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *IpamAggregatesBulkPartialUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamAggregatesBulkPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamAggregatesBulkPartialUpdateDefault creates a IpamAggregatesBulkPartialUpdateDefault with default headers values
+func NewIpamAggregatesBulkPartialUpdateDefault(code int) *IpamAggregatesBulkPartialUpdateDefault {
+	return &IpamAggregatesBulkPartialUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamAggregatesBulkPartialUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamAggregatesBulkPartialUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam aggregates bulk partial update default response
+func (o *IpamAggregatesBulkPartialUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam aggregates bulk partial update default response has a 2xx status code
+func (o *IpamAggregatesBulkPartialUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam aggregates bulk partial update default response has a 3xx status code
+func (o *IpamAggregatesBulkPartialUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam aggregates bulk partial update default response has a 4xx status code
+func (o *IpamAggregatesBulkPartialUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam aggregates bulk partial update default response has a 5xx status code
+func (o *IpamAggregatesBulkPartialUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam aggregates bulk partial update default response a status code equal to that given
+func (o *IpamAggregatesBulkPartialUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamAggregatesBulkPartialUpdateDefault) Error() string {
+	return fmt.Sprintf("[PATCH /ipam/aggregates/][%d] ipam_aggregates_bulk_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamAggregatesBulkPartialUpdateDefault) String() string {
+	return fmt.Sprintf("[PATCH /ipam/aggregates/][%d] ipam_aggregates_bulk_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamAggregatesBulkPartialUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamAggregatesBulkPartialUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

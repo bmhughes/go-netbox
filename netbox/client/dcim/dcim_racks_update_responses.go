@@ -51,7 +51,14 @@ func (o *DcimRacksUpdateReader) ReadResponse(response runtime.ClientResponse, co
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimRacksUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimRacksUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimRacksUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimRacksUpdateDefault creates a DcimRacksUpdateDefault with default headers values
+func NewDcimRacksUpdateDefault(code int) *DcimRacksUpdateDefault {
+	return &DcimRacksUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimRacksUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimRacksUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim racks update default response
+func (o *DcimRacksUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim racks update default response has a 2xx status code
+func (o *DcimRacksUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim racks update default response has a 3xx status code
+func (o *DcimRacksUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim racks update default response has a 4xx status code
+func (o *DcimRacksUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim racks update default response has a 5xx status code
+func (o *DcimRacksUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim racks update default response a status code equal to that given
+func (o *DcimRacksUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimRacksUpdateDefault) Error() string {
+	return fmt.Sprintf("[PUT /dcim/racks/{id}/][%d] dcim_racks_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimRacksUpdateDefault) String() string {
+	return fmt.Sprintf("[PUT /dcim/racks/{id}/][%d] dcim_racks_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimRacksUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimRacksUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

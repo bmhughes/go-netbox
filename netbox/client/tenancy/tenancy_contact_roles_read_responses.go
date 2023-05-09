@@ -51,7 +51,14 @@ func (o *TenancyContactRolesReadReader) ReadResponse(response runtime.ClientResp
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewTenancyContactRolesReadDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *TenancyContactRolesReadBadRequest) GetPayload() interface{} {
 }
 
 func (o *TenancyContactRolesReadBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewTenancyContactRolesReadDefault creates a TenancyContactRolesReadDefault with default headers values
+func NewTenancyContactRolesReadDefault(code int) *TenancyContactRolesReadDefault {
+	return &TenancyContactRolesReadDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+TenancyContactRolesReadDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type TenancyContactRolesReadDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the tenancy contact roles read default response
+func (o *TenancyContactRolesReadDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this tenancy contact roles read default response has a 2xx status code
+func (o *TenancyContactRolesReadDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this tenancy contact roles read default response has a 3xx status code
+func (o *TenancyContactRolesReadDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this tenancy contact roles read default response has a 4xx status code
+func (o *TenancyContactRolesReadDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this tenancy contact roles read default response has a 5xx status code
+func (o *TenancyContactRolesReadDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this tenancy contact roles read default response a status code equal to that given
+func (o *TenancyContactRolesReadDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *TenancyContactRolesReadDefault) Error() string {
+	return fmt.Sprintf("[GET /tenancy/contact-roles/{id}/][%d] tenancy_contact-roles_read default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *TenancyContactRolesReadDefault) String() string {
+	return fmt.Sprintf("[GET /tenancy/contact-roles/{id}/][%d] tenancy_contact-roles_read default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *TenancyContactRolesReadDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *TenancyContactRolesReadDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

@@ -56,7 +56,14 @@ func (o *DcimModuleBaysListReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimModuleBaysListDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -175,6 +182,76 @@ func (o *DcimModuleBaysListBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimModuleBaysListBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimModuleBaysListDefault creates a DcimModuleBaysListDefault with default headers values
+func NewDcimModuleBaysListDefault(code int) *DcimModuleBaysListDefault {
+	return &DcimModuleBaysListDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimModuleBaysListDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimModuleBaysListDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim module bays list default response
+func (o *DcimModuleBaysListDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim module bays list default response has a 2xx status code
+func (o *DcimModuleBaysListDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim module bays list default response has a 3xx status code
+func (o *DcimModuleBaysListDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim module bays list default response has a 4xx status code
+func (o *DcimModuleBaysListDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim module bays list default response has a 5xx status code
+func (o *DcimModuleBaysListDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim module bays list default response a status code equal to that given
+func (o *DcimModuleBaysListDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimModuleBaysListDefault) Error() string {
+	return fmt.Sprintf("[GET /dcim/module-bays/][%d] dcim_module-bays_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimModuleBaysListDefault) String() string {
+	return fmt.Sprintf("[GET /dcim/module-bays/][%d] dcim_module-bays_list default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimModuleBaysListDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimModuleBaysListDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

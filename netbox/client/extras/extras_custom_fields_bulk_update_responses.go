@@ -51,7 +51,14 @@ func (o *ExtrasCustomFieldsBulkUpdateReader) ReadResponse(response runtime.Clien
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewExtrasCustomFieldsBulkUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *ExtrasCustomFieldsBulkUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *ExtrasCustomFieldsBulkUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasCustomFieldsBulkUpdateDefault creates a ExtrasCustomFieldsBulkUpdateDefault with default headers values
+func NewExtrasCustomFieldsBulkUpdateDefault(code int) *ExtrasCustomFieldsBulkUpdateDefault {
+	return &ExtrasCustomFieldsBulkUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ExtrasCustomFieldsBulkUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type ExtrasCustomFieldsBulkUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the extras custom fields bulk update default response
+func (o *ExtrasCustomFieldsBulkUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this extras custom fields bulk update default response has a 2xx status code
+func (o *ExtrasCustomFieldsBulkUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this extras custom fields bulk update default response has a 3xx status code
+func (o *ExtrasCustomFieldsBulkUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this extras custom fields bulk update default response has a 4xx status code
+func (o *ExtrasCustomFieldsBulkUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this extras custom fields bulk update default response has a 5xx status code
+func (o *ExtrasCustomFieldsBulkUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this extras custom fields bulk update default response a status code equal to that given
+func (o *ExtrasCustomFieldsBulkUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ExtrasCustomFieldsBulkUpdateDefault) Error() string {
+	return fmt.Sprintf("[PUT /extras/custom-fields/][%d] extras_custom-fields_bulk_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasCustomFieldsBulkUpdateDefault) String() string {
+	return fmt.Sprintf("[PUT /extras/custom-fields/][%d] extras_custom-fields_bulk_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasCustomFieldsBulkUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasCustomFieldsBulkUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

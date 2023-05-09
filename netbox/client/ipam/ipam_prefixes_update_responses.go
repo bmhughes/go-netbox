@@ -51,7 +51,14 @@ func (o *IpamPrefixesUpdateReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamPrefixesUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *IpamPrefixesUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamPrefixesUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamPrefixesUpdateDefault creates a IpamPrefixesUpdateDefault with default headers values
+func NewIpamPrefixesUpdateDefault(code int) *IpamPrefixesUpdateDefault {
+	return &IpamPrefixesUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamPrefixesUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamPrefixesUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam prefixes update default response
+func (o *IpamPrefixesUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam prefixes update default response has a 2xx status code
+func (o *IpamPrefixesUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam prefixes update default response has a 3xx status code
+func (o *IpamPrefixesUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam prefixes update default response has a 4xx status code
+func (o *IpamPrefixesUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam prefixes update default response has a 5xx status code
+func (o *IpamPrefixesUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam prefixes update default response a status code equal to that given
+func (o *IpamPrefixesUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamPrefixesUpdateDefault) Error() string {
+	return fmt.Sprintf("[PUT /ipam/prefixes/{id}/][%d] ipam_prefixes_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamPrefixesUpdateDefault) String() string {
+	return fmt.Sprintf("[PUT /ipam/prefixes/{id}/][%d] ipam_prefixes_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamPrefixesUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamPrefixesUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

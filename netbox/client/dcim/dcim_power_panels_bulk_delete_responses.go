@@ -49,7 +49,14 @@ func (o *DcimPowerPanelsBulkDeleteReader) ReadResponse(response runtime.ClientRe
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimPowerPanelsBulkDeleteDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *DcimPowerPanelsBulkDeleteBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimPowerPanelsBulkDeleteBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimPowerPanelsBulkDeleteDefault creates a DcimPowerPanelsBulkDeleteDefault with default headers values
+func NewDcimPowerPanelsBulkDeleteDefault(code int) *DcimPowerPanelsBulkDeleteDefault {
+	return &DcimPowerPanelsBulkDeleteDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimPowerPanelsBulkDeleteDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimPowerPanelsBulkDeleteDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim power panels bulk delete default response
+func (o *DcimPowerPanelsBulkDeleteDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim power panels bulk delete default response has a 2xx status code
+func (o *DcimPowerPanelsBulkDeleteDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim power panels bulk delete default response has a 3xx status code
+func (o *DcimPowerPanelsBulkDeleteDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim power panels bulk delete default response has a 4xx status code
+func (o *DcimPowerPanelsBulkDeleteDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim power panels bulk delete default response has a 5xx status code
+func (o *DcimPowerPanelsBulkDeleteDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim power panels bulk delete default response a status code equal to that given
+func (o *DcimPowerPanelsBulkDeleteDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimPowerPanelsBulkDeleteDefault) Error() string {
+	return fmt.Sprintf("[DELETE /dcim/power-panels/][%d] dcim_power-panels_bulk_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimPowerPanelsBulkDeleteDefault) String() string {
+	return fmt.Sprintf("[DELETE /dcim/power-panels/][%d] dcim_power-panels_bulk_delete default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimPowerPanelsBulkDeleteDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimPowerPanelsBulkDeleteDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

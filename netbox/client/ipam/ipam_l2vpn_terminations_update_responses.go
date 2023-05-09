@@ -51,7 +51,14 @@ func (o *IpamL2vpnTerminationsUpdateReader) ReadResponse(response runtime.Client
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewIpamL2vpnTerminationsUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *IpamL2vpnTerminationsUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *IpamL2vpnTerminationsUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewIpamL2vpnTerminationsUpdateDefault creates a IpamL2vpnTerminationsUpdateDefault with default headers values
+func NewIpamL2vpnTerminationsUpdateDefault(code int) *IpamL2vpnTerminationsUpdateDefault {
+	return &IpamL2vpnTerminationsUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+IpamL2vpnTerminationsUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type IpamL2vpnTerminationsUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the ipam l2vpn terminations update default response
+func (o *IpamL2vpnTerminationsUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this ipam l2vpn terminations update default response has a 2xx status code
+func (o *IpamL2vpnTerminationsUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this ipam l2vpn terminations update default response has a 3xx status code
+func (o *IpamL2vpnTerminationsUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this ipam l2vpn terminations update default response has a 4xx status code
+func (o *IpamL2vpnTerminationsUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this ipam l2vpn terminations update default response has a 5xx status code
+func (o *IpamL2vpnTerminationsUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this ipam l2vpn terminations update default response a status code equal to that given
+func (o *IpamL2vpnTerminationsUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *IpamL2vpnTerminationsUpdateDefault) Error() string {
+	return fmt.Sprintf("[PUT /ipam/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamL2vpnTerminationsUpdateDefault) String() string {
+	return fmt.Sprintf("[PUT /ipam/l2vpn-terminations/{id}/][%d] ipam_l2vpn-terminations_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *IpamL2vpnTerminationsUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *IpamL2vpnTerminationsUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

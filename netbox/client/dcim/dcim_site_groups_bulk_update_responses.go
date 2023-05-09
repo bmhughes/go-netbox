@@ -51,7 +51,14 @@ func (o *DcimSiteGroupsBulkUpdateReader) ReadResponse(response runtime.ClientRes
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewDcimSiteGroupsBulkUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *DcimSiteGroupsBulkUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *DcimSiteGroupsBulkUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDcimSiteGroupsBulkUpdateDefault creates a DcimSiteGroupsBulkUpdateDefault with default headers values
+func NewDcimSiteGroupsBulkUpdateDefault(code int) *DcimSiteGroupsBulkUpdateDefault {
+	return &DcimSiteGroupsBulkUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+DcimSiteGroupsBulkUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type DcimSiteGroupsBulkUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the dcim site groups bulk update default response
+func (o *DcimSiteGroupsBulkUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this dcim site groups bulk update default response has a 2xx status code
+func (o *DcimSiteGroupsBulkUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this dcim site groups bulk update default response has a 3xx status code
+func (o *DcimSiteGroupsBulkUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this dcim site groups bulk update default response has a 4xx status code
+func (o *DcimSiteGroupsBulkUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this dcim site groups bulk update default response has a 5xx status code
+func (o *DcimSiteGroupsBulkUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this dcim site groups bulk update default response a status code equal to that given
+func (o *DcimSiteGroupsBulkUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *DcimSiteGroupsBulkUpdateDefault) Error() string {
+	return fmt.Sprintf("[PUT /dcim/site-groups/][%d] dcim_site-groups_bulk_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimSiteGroupsBulkUpdateDefault) String() string {
+	return fmt.Sprintf("[PUT /dcim/site-groups/][%d] dcim_site-groups_bulk_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *DcimSiteGroupsBulkUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *DcimSiteGroupsBulkUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

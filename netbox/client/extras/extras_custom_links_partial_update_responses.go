@@ -51,7 +51,14 @@ func (o *ExtrasCustomLinksPartialUpdateReader) ReadResponse(response runtime.Cli
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewExtrasCustomLinksPartialUpdateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -170,6 +177,76 @@ func (o *ExtrasCustomLinksPartialUpdateBadRequest) GetPayload() interface{} {
 }
 
 func (o *ExtrasCustomLinksPartialUpdateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewExtrasCustomLinksPartialUpdateDefault creates a ExtrasCustomLinksPartialUpdateDefault with default headers values
+func NewExtrasCustomLinksPartialUpdateDefault(code int) *ExtrasCustomLinksPartialUpdateDefault {
+	return &ExtrasCustomLinksPartialUpdateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+ExtrasCustomLinksPartialUpdateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type ExtrasCustomLinksPartialUpdateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the extras custom links partial update default response
+func (o *ExtrasCustomLinksPartialUpdateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this extras custom links partial update default response has a 2xx status code
+func (o *ExtrasCustomLinksPartialUpdateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this extras custom links partial update default response has a 3xx status code
+func (o *ExtrasCustomLinksPartialUpdateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this extras custom links partial update default response has a 4xx status code
+func (o *ExtrasCustomLinksPartialUpdateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this extras custom links partial update default response has a 5xx status code
+func (o *ExtrasCustomLinksPartialUpdateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this extras custom links partial update default response a status code equal to that given
+func (o *ExtrasCustomLinksPartialUpdateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *ExtrasCustomLinksPartialUpdateDefault) Error() string {
+	return fmt.Sprintf("[PATCH /extras/custom-links/{id}/][%d] extras_custom-links_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasCustomLinksPartialUpdateDefault) String() string {
+	return fmt.Sprintf("[PATCH /extras/custom-links/{id}/][%d] extras_custom-links_partial_update default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *ExtrasCustomLinksPartialUpdateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *ExtrasCustomLinksPartialUpdateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

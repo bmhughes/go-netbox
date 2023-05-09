@@ -49,7 +49,14 @@ func (o *UsersTokensProvisionCreateReader) ReadResponse(response runtime.ClientR
 		}
 		return nil, result
 	default:
-		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
+		result := NewUsersTokensProvisionCreateDefault(response.Code())
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		if response.Code()/100 == 2 {
+			return result, nil
+		}
+		return nil, result
 	}
 }
 
@@ -156,6 +163,76 @@ func (o *UsersTokensProvisionCreateBadRequest) GetPayload() interface{} {
 }
 
 func (o *UsersTokensProvisionCreateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUsersTokensProvisionCreateDefault creates a UsersTokensProvisionCreateDefault with default headers values
+func NewUsersTokensProvisionCreateDefault(code int) *UsersTokensProvisionCreateDefault {
+	return &UsersTokensProvisionCreateDefault{
+		_statusCode: code,
+	}
+}
+
+/*
+UsersTokensProvisionCreateDefault describes a response with status code -1, with default header values.
+
+Unexpected Response
+*/
+type UsersTokensProvisionCreateDefault struct {
+	_statusCode int
+
+	Payload interface{}
+}
+
+// Code gets the status code for the users tokens provision create default response
+func (o *UsersTokensProvisionCreateDefault) Code() int {
+	return o._statusCode
+}
+
+// IsSuccess returns true when this users tokens provision create default response has a 2xx status code
+func (o *UsersTokensProvisionCreateDefault) IsSuccess() bool {
+	return o._statusCode/100 == 2
+}
+
+// IsRedirect returns true when this users tokens provision create default response has a 3xx status code
+func (o *UsersTokensProvisionCreateDefault) IsRedirect() bool {
+	return o._statusCode/100 == 3
+}
+
+// IsClientError returns true when this users tokens provision create default response has a 4xx status code
+func (o *UsersTokensProvisionCreateDefault) IsClientError() bool {
+	return o._statusCode/100 == 4
+}
+
+// IsServerError returns true when this users tokens provision create default response has a 5xx status code
+func (o *UsersTokensProvisionCreateDefault) IsServerError() bool {
+	return o._statusCode/100 == 5
+}
+
+// IsCode returns true when this users tokens provision create default response a status code equal to that given
+func (o *UsersTokensProvisionCreateDefault) IsCode(code int) bool {
+	return o._statusCode == code
+}
+
+func (o *UsersTokensProvisionCreateDefault) Error() string {
+	return fmt.Sprintf("[POST /users/tokens/provision/][%d] users_tokens_provision_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UsersTokensProvisionCreateDefault) String() string {
+	return fmt.Sprintf("[POST /users/tokens/provision/][%d] users_tokens_provision_create default  %+v", o._statusCode, o.Payload)
+}
+
+func (o *UsersTokensProvisionCreateDefault) GetPayload() interface{} {
+	return o.Payload
+}
+
+func (o *UsersTokensProvisionCreateDefault) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
